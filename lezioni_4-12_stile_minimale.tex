@@ -1,0 +1,1930 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\IfFileExists{italian.ldf}{%
+  \usepackage[italian]{babel}%
+}{%
+  \usepackage[english]{babel}%
+  \addto\captionsenglish{%
+    \renewcommand{\contentsname}{Indice}%
+  }%
+}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usepackage[hidelinks]{hyperref}
+\geometry{margin=2.5cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+% ---------- Macro ----------
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Prim}{\mathbb{P}}
+\newcommand{\Pot}{\mathcal{P}}
+\newcommand{\Fr}{\mathcal{F}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\fn}{\mathrel{\sim_f}}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\sur}{\twoheadrightarrow}
+\newcommand{\bij}{\mathrel{\hookrightarrow\!\!\!\!\!\!\twoheadrightarrow}}
+\newcommand{\Ifrac}[2]{\tfrac{#1}{#2}}
+
+% ---------- Teoremi ----------
+\theoremstyle{definition}
+\newtheorem{definizione}{Definizione}[section]
+\newtheorem{esempio}[definizione]{Esempio}
+\newtheorem{esercizio}[definizione]{Esercizio}
+\theoremstyle{plain}
+\newtheorem{proposizione}[definizione]{Proposizione}
+\newtheorem{corollario}[definizione]{Corollario}
+\newtheorem{lemma}[definizione]{Lemma}
+\newtheorem{teorema}[definizione]{Teorema}
+\theoremstyle{remark}
+\newtheorem*{nb}{N.B.}
+\newtheorem*{osservazione}{Osservazione}
+
+% Presentazione minimale: nessun riquadro decorativo.
+
+
+\title{Appunti di lezione\\[2pt]\large Lezioni 4--11 (7--22 ottobre 2026)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\textit{Convenzioni:} $\N=\{0,1,2,\dots\}$, $\Prim$ denota i primi positivi. Le dimostrazioni e le osservazioni integrative sono inserite direttamente nel testo.
+
+\tableofcontents
+
+%=====================================================================
+\section{Quarta lezione --- mercoled\`i 7 ottobre 2026}
+%=====================================================================
+
+\subsection{Esempio di classi di equivalenza: l'insieme $\Q$ dei numeri razionali}
+
+Ogni $q\in\Q$ pu\`o essere rappresentato da una frazione
+\[
+q=\frac{a}{b}\qquad\text{con } a,b\in\Z,\ b\neq 0,
+\]
+in modo \emph{non unico}: ad esempio
+\[
+-\frac{2}{3}=\frac{2}{-3},\qquad \frac{7}{5}=\frac{14}{10},\qquad \frac{1}{5}=\frac{2}{10},\ \dots
+\]
+ed \`e
+\[
+\frac{a}{b}=\frac{a'}{b'}\iff ab'=a'b .
+\]
+Se $X$ \`e l'insieme delle frazioni
+\[
+\Fr=\Bigl\{\frac{a}{b}\ \Big|\ a,b\in\Z,\ b\neq 0\Bigr\},
+\]
+allora \`e corretto scrivere
+\[
+\Q=\Fr/{\sim}
+\]
+dove $\sim$ \`e la relazione di equivalenza in $\Fr$ definita ponendo
+\[
+\frac{a}{b}\sim\frac{a'}{b'}\iff ab'=a'b .
+\]
+Allora, se $q=\bigl[\frac{a}{b}\bigr]_\sim$ e $q'=\bigl[\frac{a'}{b'}\bigr]_\sim$, abbiamo che
+\[
+q=q'\iff \frac{a}{b}\sim\frac{a'}{b'}\iff ab'=a'b .
+\]
+
+\begin{nb}
+$\Fr\equiv\Z\times\Z^*=\{(a,b)\mid a\in\Z,\ b\in\Z,\ b\neq0\}$, dove $\Z^*=\Z\setminus\{0\}$.
+\end{nb}
+
+\begin{osservazione}
+\textbf{Integrazione: $\sim$ \`e davvero una relazione di equivalenza}. 
+Su $\Z\times\Z^*$ la relazione $(a,b)\sim(a',b')\iff ab'=a'b$ \`e:
+\begin{itemize}[nosep]
+\item \emph{riflessiva}: $ab=ab$;
+\item \emph{simmetrica}: $ab'=a'b\Rightarrow a'b=ab'$;
+\item \emph{transitiva}: se $ab'=a'b$ e $a'b''=a''b'$, moltiplicando la prima per $b''$ e la seconda per $b$ si ottiene $ab'b''=a'bb''=a''b'b$, e poich\'e $b'\neq0$ (e $\Z$ non ha divisori dello zero) $ab''=a''b$.
+\end{itemize}
+\end{osservazione}
+
+\subsection{Distinguere una classe dal suo rappresentante}
+
+\`E bene saper distinguere una classe di equivalenza da un suo rappresentante, per non commettere errori gravi, e a volte ``nascosti''.
+Per esempio si potrebbe pensare di introdurre una nuova operazione binaria in $\Q$
+\[
+\Q\times\Q\xrightarrow{\ \star\ }\Q,\qquad (q,q')\longmapsto q\star q'
+\]
+tramite la posizione
+\[
+\frac{a}{b}\star\frac{a'}{b'}:=\frac{a+a'}{bb'} .
+\]
+Ma
+\[
+\frac{2}{3}\star\frac{1}{2}=\frac{3}{6}=\frac{1}{2},
+\qquad
+\frac{4}{6}\star\frac{3}{6}=\frac{7}{36},
+\]
+e $\frac{2}{3}=\frac{4}{6}$, $\frac{1}{2}=\frac{3}{6}$, mentre $\frac12\neq\frac{7}{36}$: il risultato dipende dai rappresentanti scelti.
+
+In altre parole $\star$ \`e un'operazione binaria ben definita $\Fr\times\Fr\to\Fr$, ma il tentativo di ereditare tale operazione in $\Q$:
+\[
+\Q\times\Q\to\Q,\qquad \Bigl[\frac{a}{b}\Bigr]\star\Bigl[\frac{a'}{b'}\Bigr]:=\Bigl[\frac{a}{b}\star\frac{a'}{b'}\Bigr]
+\]
+\emph{fallisce miseramente}, perch\'e non \`e ben posta.
+
+Per fortuna le operazioni usuali $+,\cdot$ in $\Q$, definite operando tra le frazioni che li rappresentano, sono ben poste. Infatti se
+\[
+\frac{a}{b}=\frac{a'}{b'}\quad\text{e}\quad\frac{c}{d}=\frac{c'}{d'}
+\]
+allora anche
+\[
+\frac{a}{b}+\frac{c}{d}=\frac{a'}{b'}+\frac{c'}{d'},\qquad
+\frac{a}{b}\cdot\frac{c}{d}=\frac{a'}{b'}\cdot\frac{c'}{d'} .
+\]
+
+\textbf{HW:} verificare questo.
+
+\begin{osservazione}
+\textbf{Svolgimento dell'HW}. 
+\emph{Ipotesi:} $ab'=a'b$ e $cd'=c'd$.
+
+\emph{Somma.} Tesi: $\dfrac{ad+cb}{bd}=\dfrac{a'd'+c'b'}{b'd'}$, cio\`e
+\[
+(ad+cb)\,b'd'=(a'd'+c'b')\,bd .
+\]
+Il membro di sinistra \`e $(ab')\,dd'+(cd')\,bb'$; usando le ipotesi diventa $(a'b)\,dd'+(c'd)\,bb'=(a'd')\,bd+(c'b')\,bd$, che \`e il membro di destra.
+
+\emph{Prodotto.} Tesi: $\dfrac{ac}{bd}=\dfrac{a'c'}{b'd'}$, cio\`e $ac\,b'd'=a'c'\,bd$. Ma $ac\,b'd'=(ab')(cd')=(a'b)(c'd)=a'c'\,bd$.
+
+Notiamo anche che $bd\neq0$ e $b'd'\neq0$ perch\'e $b,d,b',d'\neq0$ e $\Z$ \`e un dominio, quindi le frazioni scritte hanno senso.
+\end{osservazione}
+
+In altre parole, una operazione $\circledast$ binaria su $X/{\sim}$ definita mediante rappresentanti come operazione binaria $*$ su $X$
+\[
+[x]_\sim\circledast[y]_\sim:=[x*y]_\sim
+\]
+deve necessariamente essere \emph{compatibile} con $\sim$, cio\`e $\forall\, x,x',y,y'\in X$ deve accadere che
+\[
+(x\sim x'\ \wedge\ y\sim y')\ \Longrightarrow\ (x*y\sim x'*y') .
+\]
+
+\bigskip\hrule\bigskip
+
+\subsection{Funzioni $=$ applicazioni}
+
+Una \textbf{funzione} $f\colon X\to Y$ (``$f$ di $X$ in $Y$'') \`e una terna $(f,X,Y)$ dove $X$ e $Y$ sono \emph{insiemi non vuoti}, detti rispettivamente il \textbf{dominio} e il \textbf{codominio} della funzione, e $f$ \`e una \emph{legge} che associa ad ogni elemento $x\in X$ un \emph{unico} elemento $y=f(x)\in Y$.
+
+Per denotare che $y=f(x)$ si scrive $x\mapsto y$.
+
+L'insieme \textbf{immagine} della funzione \`e
+\[
+\im(f)=\{\,y\in Y\mid \exists\, x\in X\ \text{con}\ y=f(x)\,\}\subseteq Y .
+\]
+Il \textbf{grafico} di una funzione \`e
+\[
+\Gr(f)=\{\,(x,y)\in X\times Y\mid f(x)=y\,\}\subseteq X\times Y .
+\]
+
+\begin{esempio}\label{es:funzioni}
+\begin{enumerate}[label=\arabic*), itemsep=3pt]
+\item $f\colon\R\to\R$, $x\mapsto x^2$.
+\item $g\colon\R^{\le 0}\to\R^{\ge 0}$, $x\mapsto x^2$.
+\item $h\colon\mathcal{T}\to\R$, dove $\mathcal{T}$ \`e l'insieme dei triangoli del piano, $t\mapsto h(t)=\text{area di }t$.
+\item $i\colon\N\times\N\to\Z$, $(a,b)\mapsto a-b$.
+\item $j\colon\N\to\Pot(\Prim)$, dove $\Prim=\{2,3,5,7,\dots\}$ \`e l'insieme dei numeri primi,
+$n\mapsto j(n)=\{p\in\Prim\mid p\mid n\}$ (l'insieme dei primi che dividono $n$).
+\item $\varphi\colon\Q\times\Q\to\Q$, $\bigl(\frac{a}{b},\frac{c}{d}\bigr)\mapsto\dfrac{a+c}{bd}$ \quad
+\textbf{non \`e una funzione!} (vedi sopra: non \`e ben posta).
+\end{enumerate}
+\end{esempio}
+
+\begin{nb}
+$\Gr(f)\subseteq X\times Y$ \`e quindi una \textbf{relazione} tra $X$ e $Y$ di tipo speciale, perch\'e soddisfa la
+\[
+(\circledast)\qquad \forall\, x\in X\ \ \exists!\, y\in Y\ \text{tale che}\ (x,y)\in\Gr(f),
+\]
+e si scrive $f(x)=y\ \stackrel{\text{DEF}}{:\iff}\ (x,y)\in\Gr(f)$.
+
+Geometricamente, per una funzione $\R\to\R$: una curva nel piano \`e il grafico di una funzione se e solo se ogni retta verticale la incontra in \emph{esattamente} un punto (la curva con due ``rami'' sulla stessa verticale \`e ``NO'').
+\end{nb}
+
+Vi sono due aspetti asimmetrici nella nozione di funzione:
+\begin{itemize}
+\item Non necessariamente tutti gli elementi di $Y$ sono in relazione con qualche elemento di $X$, cio\`e sono delle forme $y=f(x)$. Al contrario ogni $x\in X$ \`e in relazione con un elemento $y=f(x)\in Y$.
+\item Pu\`o accadere che elementi distinti $x_1\neq x_2$ di $X$ siano in relazione con un medesimo $y\in Y$, cio\`e $f(x_1)=y=f(x_2)$. Al contrario, se $y_1=f(x)=y_2$ allora $y_1=y_2$.
+\end{itemize}
+
+\begin{definizione}
+Sia $f\colon X\to Y$ una funzione. Diremo che:
+\begin{itemize}
+\item $f$ \`e \textbf{iniettiva} se $\forall\, x_1,x_2\in X$, \ $f(x_1)=f(x_2)\Rightarrow x_1=x_2$;
+\item $f$ \`e \textbf{suriettiva} se $\forall\, y\in Y\ \exists\, x\in X$ tale che $f(x)=y$, cio\`e se $\im(f)=Y$;
+\item $f$ \`e \textbf{biiettiva} (o una biiezione) se $f$ \`e iniettiva e anche suriettiva.
+\end{itemize}
+\end{definizione}
+
+\textbf{HW:} determinare l'immagine e discutere l'eventuale iniettivit\`a/suriettivit\`a degli esempi 1)--5).
+
+\begin{osservazione}
+\textbf{Svolgimento dell'HW sugli Esempi 1)--5)}. 
+\begin{enumerate}[label=\arabic*), itemsep=4pt]
+\item $\im(f)=[0,+\infty)=\R^{\ge0}$. Non iniettiva ($f(1)=f(-1)$), non suriettiva (ad esempio $-1\notin\im f$).
+\item $\im(g)=\R^{\ge0}$. Se $x_1,x_2\le 0$ e $x_1^2=x_2^2$ allora $|x_1|=|x_2|$, quindi $x_1=x_2$: iniettiva. Per ogni $y\ge0$ si ha $g(-\sqrt{y})=y$: suriettiva. Dunque $g$ \`e \emph{biiettiva}.
+\item $\im(h)=(0,+\infty)$: ogni triangolo (non degenere) ha area $>0$, e per ogni $A>0$ esiste un triangolo di area $A$ (ad esempio quello rettangolo con cateti $1$ e $2A$). Non \`e iniettiva (triangoli non congruenti possono avere la stessa area), non \`e suriettiva su $\R$ (codominio), ma lo diventerebbe come funzione $\mathcal{T}\to(0,+\infty)$.
+\item $\im(i)=\Z$: dato $n\ge0$, $i(n,0)=n$; dato $n<0$, $i(0,-n)=n$. Quindi \`e suriettiva. Non \`e iniettiva: $i(1,0)=i(2,1)=1$.
+\item Se $n\ge2$, $j(n)$ \`e un insieme finito e non vuoto; inoltre $j(1)=\emptyset$ e $j(0)=\Prim$ (perch\'e $p\mid 0$ per ogni $p$, essendo $0=p\cdot0$). Quindi
+\[
+\im(j)=\{\text{sottoinsiemi finiti di }\Prim\}\cup\{\Prim\}.
+\]
+Non \`e iniettiva ($j(2)=j(4)=\{2\}$), non \`e suriettiva (ad esempio l'insieme infinito $\Prim\setminus\{2\}$ non \`e immagine di alcun $n$: se $n\neq0$ i divisori primi sono in numero finito, e $j(0)=\Prim$).
+\end{enumerate}
+\end{osservazione}
+
+%=====================================================================
+\section{Quinta lezione --- gioved\`i 8 ottobre 2026}
+%=====================================================================
+
+\subsection{Iniettiva, suriettiva, biiettiva e funzione inversa}
+
+Per una funzione $f\colon X\to Y$ (nei disegni delle lezioni: frecce che partono da ogni punto di $X$):
+\begin{itemize}
+\item \textbf{suriettiva}: le frecce ricoprono tutto $Y$;
+\item \textbf{iniettiva}: frecce distinte arrivano in punti distinti di $Y$;
+\item \textbf{iniettiva} $\wedge$ \textbf{suriettiva} $=$ \textbf{biiettiva}, cio\`e una \emph{corrispondenza biunivoca}.
+\end{itemize}
+
+\begin{nb}
+Se $f\colon X\to Y$ \`e biiettiva, allora per ogni $y\in Y$ esiste un \emph{unico} $x\in X$ tale che $f(x)=y$. Resta cos\`i definita una \textbf{funzione inversa}
+\[
+f\inv\colon Y\longrightarrow X,\qquad y\longmapsto x,\quad\text{con}\ \exists!\, x\ \text{t.c.}\ f(x)=y .
+\]
+In questo modo \`e subito visto che
+\[
+(y,x)\in\Gr(f\inv)\iff {\,f\inv(y)=x\iff f(x)=y\,}\iff(x,y)\in\Gr(f).
+\]
+(il riquadro \`e la \textbf{definizione di $f\inv$}).
+\end{nb}
+
+\begin{esercizio}\label{es:R2}
+Sia $f\colon\R^2\to\R^2$ la funzione definita ponendo, $\forall\,(x,y)\in\R^2$,
+\[
+f(x,y):=f\bigl((x,y)\bigr):=\bigl(y^3,\ x(y^2+1)\bigr).
+\]
+Discutiamo l'iniettivit\`a e la suriettivit\`a di $f$.
+\end{esercizio}
+
+\textbf{Iniettivit\`a.} Dobbiamo vedere se $f(x_1,y_1)=f(x_2,y_2)\overset{?}{\Rightarrow}(x_1,y_1)=(x_2,y_2)$, cio\`e se
+\[
+\bigl(y_1^3,\ x_1(y_1^2+1)\bigr)=\bigl(y_2^3,\ x_2(y_2^2+1)\bigr)\overset{?}{\Longrightarrow}(x_1,y_1)=(x_2,y_2),
+\]
+cio\`e se
+\[
+\begin{cases} y_1^3=y_2^3\\ x_1(y_1^2+1)=x_2(y_2^2+1)\end{cases}\overset{?}{\Longrightarrow}\begin{cases}x_1=x_2\\ y_1=y_2.\end{cases}
+\]
+Dalla prima equazione si ottiene $y_1=y_2$ (la funzione $t\mapsto t^3$ \`e iniettiva su $\R$). Sostituendo nella seconda, il fattore $y_1^2+1=y_2^2+1$ \`e $\neq0$, quindi si pu\`o semplificare e si ottiene $x_1=x_2$.
+Si vede cos\`i che
+\[
+\begin{cases}y_1=y_2\\ x_1=x_2\end{cases}\ \Longrightarrow\ f\ \text{\`e iniettiva}.
+\]
+
+\textbf{Suriettivit\`a.} $f$ \`e suriettiva se $\forall\,(a,b)\in\R^2$ (il codominio) $\exists\,(x,y)\in\R^2$ (il dominio) per cui $f(x,y)=(a,b)$, cio\`e
+\[
+\bigl(y^3,\ x(y^2+1)\bigr)=(a,b)
+\iff
+\begin{cases} y^3=a\\ x(y^2+1)=b\end{cases}
+\iff
+\begin{cases} y=\sqrt[3]{a}\\ x\,\bigl[(\sqrt[3]{a})^2+1\bigr]=b\end{cases}
+\]
+e poich\'e il fattore tra parentesi \`e $\neq0$,
+\[
+\iff
+\begin{cases} y=\sqrt[3]{a}\\[2pt] x=\dfrac{b}{(\sqrt[3]{a})^2+1}.\end{cases}
+\]
+Sì, esistono, quindi $f$ \`e \textbf{suriettiva}. In definitiva $f$ \`e biiettiva e la sua inversa \`e
+\[
+f\inv(a,b)=\Bigl(\frac{b}{\sqrt[3]{a}^{\,2}+1},\ \sqrt[3]{a}\Bigr).
+\]
+
+\textbf{HW:} Si consideri la funzione $f\colon\Z\to\Z$ cos\`i definita:
+\[
+\forall\, x\in\Z,\quad y=f(x)=\begin{cases}2x-3&\text{se } x \text{ \`e pari}\\ x+1&\text{se } x\text{ \`e dispari.}\end{cases}
+\]
+Discutere iniettivit\`a e suriettivit\`a di $f$. \quad (Svolto nella Settima lezione, Esercizio~\ref{es:HWZ}.)
+
+\subsection{La relazione di equivalenza associata a una funzione: le fibre}
+
+Sia $f\colon X\to Y$ una funzione. Ad essa resta associata in modo naturale una relazione in $X$:
+\[
+x_1\sim_f x_2\ \stackrel{\text{DEF}}{\iff}\ f(x_1)=f(x_2).
+\]
+\`E una relazione di equivalenza perch\'e:
+\begin{itemize}
+\item $f(x)=f(x)$ \ $\forall\,x\in X$ \quad (riflessiva);
+\item $f(x_1)=f(x_2)\Rightarrow f(x_2)=f(x_1)$ \ $\forall\,x_1,x_2\in X$ \quad (simmetrica);
+\item $f(x_1)=f(x_2)\wedge f(x_2)=f(x_3)\Rightarrow f(x_1)=f(x_3)$ \ $\forall\,x_1,x_2,x_3\in X$ \quad (transitiva).
+\end{itemize}
+La partizione associata a $\sim_f$ \`e quella che trova in una classe $[x]$ tutti e soli gli elementi $x'\in X$ tali che $f(x')=f(x)$.
+
+\begin{nb}
+$f$ \`e iniettiva $\iff$ $\sim_f$ \`e l'identit\`a (ogni classe ha un solo elemento).
+\end{nb}
+
+\begin{definizione}
+$[x]_{\sim_f}$ \`e detta \textbf{fibra} di $f(x)$.
+\end{definizione}
+
+\begin{esempio}[Esempio~\ref{es:funzioni}, punto 5)]
+$j\colon\N\to\Pot(\Prim)$, $j(n)=\{\text{divisori primi di }n\}$. Allora
+\[
+[4]_{\sim_j}=\{2^i\mid i\in\N\setminus\{0\}\},\qquad
+[12]_{\sim_j}=\{2^\alpha3^\beta\mid\alpha,\beta\in\N\setminus\{0\}\},
+\]
+\[
+[0]_{\sim_j}=\{0\},\qquad [1]_{\sim_j}=\{1\}\qquad(\text{ricordando che } 0=p\cdot0\ \ \forall\,p\in\Prim).
+\]
+\textbf{HW:} $[168]_{\sim_j}=\ ?$
+\end{esempio}
+
+\begin{osservazione}
+\textbf{Svolgimento: la fibra di $168$}. 
+Poich\'e $168=2^3\cdot3\cdot7$, i divisori primi di $168$ sono $\{2,3,7\}$. Due numeri hanno la stessa immagine tramite $j$ se e solo se hanno gli stessi divisori primi, quindi
+\[
+[168]_{\sim_j}=\{\,2^\alpha\,3^\beta\,7^\gamma\mid\alpha,\beta,\gamma\in\N\setminus\{0\}\,\}.
+\]
+\end{osservazione}
+
+\subsection{La proiezione canonica sul quoziente}
+
+Viceversa, ogni relazione di equivalenza $\sim$ in $X$ \`e del tipo $\sim_f$ per qualche funzione $f\colon X\to\,?$. Infatti la funzione
+\[
+X\xrightarrow{\ \pi\ }X/{\sim},\qquad x\longmapsto[x]_\sim
+\]
+detta \textbf{proiezione canonica sul quoziente}, \`e ben definita e suriettiva e
+\[
+x_1\sim_\pi x_2\iff\pi(x_1)=\pi(x_2)\iff[x_1]_\sim=[x_2]_\sim\iff x_1\sim x_2\qquad\forall\,x_1,x_2\in X .
+\]
+Ci\`o prova che $\sim_\pi\;=\;\sim$.
+
+\bigskip\hrule\bigskip
+
+\subsection{Immagine e controimmagine di sottoinsiemi}
+
+Sia $f\colon X\to Y$ una funzione. Restano definite le funzioni
+\[
+f_*\colon\Pot(X)\to\Pot(Y)\quad\text{cos\`i definita }\forall\,A\in\Pot(X):\qquad f_*(A)=\{f(a)\mid a\in A\}\subseteq Y,
+\]
+\[
+f^*\colon\Pot(Y)\to\Pot(X)\quad\text{cos\`i definita }\forall\,B\in\Pot(Y):\qquad f^*(B)=\{x\in X\mid f(x)\in B\}.
+\]
+$f_*(A)$ \`e detta \textbf{l'immagine di $A$ secondo $f$}; $f^*(B)$ \`e detta \textbf{la controimmagine} (o \textbf{la retroimmagine}) \textbf{di $B$ secondo $f$}.
+
+\begin{esempio}
+Sia $f\colon\R\to\R$, $f(x)=x^2$. Scegliamo, ad esempio:
+\begin{align*}
+A&=[-1,2]&&\leadsto&f_*(A)&=[0,4]\\
+A'&=[-2,1]&&\leadsto&f_*(A')&=[0,4]\\
+B&=[0,4]&&\leadsto&f^*(B)&=[-2,2]\\
+B'&=[-2,4]&&\leadsto&f^*(B')&=[-2,2]\\
+B''&=[-3,-1]&&\leadsto&f^*(B'')&=\emptyset
+\end{align*}
+\end{esempio}
+
+\textbf{HW:} Verificare che $\forall\,f\colon X\to Y$ vale sempre che
+\[
+f^*\bigl(f_*(A)\bigr)\supseteq A\quad\forall\,A\in\Pot(X),\qquad
+f_*\bigl(f^*(B)\bigr)\subseteq B\quad\forall\,B\in\Pot(Y).
+\]
+Per i pi\`u arditi:
+\begin{align*}
+f\ \text{iniettiva}&\Longrightarrow f^*\bigl(f_*(A)\bigr)=A\quad\forall\,A\in\Pot(X),\\
+f\ \text{suriettiva}&\Longrightarrow f_*\bigl(f^*(B)\bigr)=B\quad\forall\,B\in\Pot(Y).
+\end{align*}
+
+\begin{osservazione}
+\textbf{Svolgimento dell'HW}. 
+\begin{itemize}
+\item $f^*(f_*(A))\supseteq A$: sia $a\in A$. Allora $f(a)\in f_*(A)$, cio\`e $a\in\{x\in X\mid f(x)\in f_*(A)\}=f^*(f_*(A))$.
+\item $f_*(f^*(B))\subseteq B$: sia $y\in f_*(f^*(B))$. Allora $y=f(x)$ per un certo $x\in f^*(B)$, cio\`e con $f(x)\in B$; dunque $y\in B$.
+\item \emph{$f$ iniettiva $\Rightarrow f^*(f_*(A))=A$.} Resta da vedere ``$\subseteq$''. Sia $x\in f^*(f_*(A))$: allora $f(x)\in f_*(A)$, cio\`e $f(x)=f(a)$ per un certo $a\in A$. Per l'iniettivit\`a $x=a\in A$.
+\item \emph{$f$ suriettiva $\Rightarrow f_*(f^*(B))=B$.} Resta da vedere ``$\supseteq$''. Sia $y\in B$. Per la suriettivit\`a esiste $x\in X$ con $f(x)=y\in B$, cio\`e $x\in f^*(B)$, e quindi $y=f(x)\in f_*(f^*(B))$.
+\end{itemize}
+Nell'esempio $f(x)=x^2$ si vede che le inclusioni possono essere strette: $f^*(f_*([-1,2]))=f^*([0,4])=[-2,2]\supsetneq[-1,2]$ (la $f$ non \`e iniettiva) e $f_*(f^*([-2,4]))=f_*([-2,2])=[0,4]\subsetneq[-2,4]$ (la $f$ non \`e suriettiva).
+\end{osservazione}
+
+%=====================================================================
+\section{Sesta lezione --- venerd\`i 9 ottobre 2026}
+%=====================================================================
+
+\subsection{Funzioni composte}
+
+Siano $X\xrightarrow{\ f\ }Y\xrightarrow{\ g\ }Z$ applicazioni. La \textbf{composizione} $g\circ f\colon X\to Z$ \`e definita ponendo
+\[
+\forall\,x\in X,\qquad g\circ f(x)\ \stackrel{\text{DEF}}{:=}\ g\bigl(f(x)\bigr).
+\]
+Se poi siamo nella situazione seguente
+\[
+X\xrightarrow{\ f\ }Y\xrightarrow{\ g\ }Z\xrightarrow{\ h\ }T
+\]
+(con $g\circ f\colon X\to Z$ e $h\circ g\colon Y\to T$), vale la \textbf{propriet\`a associativa}, cio\`e
+\[
+(h\circ g)\circ f=h\circ(g\circ f).
+\]
+Infatti $\forall\,x\in X$ si ha che
+\[
+(h\circ g)\circ f(x)=(h\circ g)\bigl(f(x)\bigr)=h\bigl(g(f(x))\bigr)
+\quad\text{e}\quad
+h\circ(g\circ f)(x)=h\bigl(g\circ f(x)\bigr)=h\bigl(g(f(x))\bigr).
+\]
+
+\bigskip\hrule\bigskip
+
+\subsubsection*{Composizione e le funzioni $f_*$, $f^*$}
+
+Date $X\xrightarrow{f}Y\xrightarrow{g}Z$:
+\[
+\Pot(X)\xrightarrow{\ f_*\ }\Pot(Y)\xrightarrow{\ g_*\ }\Pot(Z)\qquad\Longrightarrow\qquad
+{\,g_*\circ f_*=(g\circ f)_*\,}\quad\text{\textbf{VERA} (HW!)}
+\]
+\[
+\Pot(X)\xleftarrow{\ f^*\ }\Pot(Y)\xleftarrow{\ g^*\ }\Pot(Z)\qquad\Longrightarrow\qquad
+{\,f^*\circ g^*=(g\circ f)^*\,}\quad\textbf{VERA}
+\]
+Dimostrazione della seconda: $\forall\,C\in\Pot(Z)$
+\begin{align*}
+f^*\circ g^*(C)&=f^*\bigl(g^*(C)\bigr)=f^*\bigl(\{y\in Y\mid g(y)\in C\}\bigr)\\
+&=\{x\in X\mid f(x)\in g^*(C)\}=\{x\in X\mid g(f(x))\in C\}\\
+&=\{x\in X\mid g\circ f(x)\in C\}=(g\circ f)^*(C).
+\end{align*}
+
+\begin{osservazione}
+\textbf{Svolgimento dell'HW: $g_*\circ f_*=(g\circ f)_*$}. 
+Per ogni $A\in\Pot(X)$:
+\[
+g_*\bigl(f_*(A)\bigr)=\{g(y)\mid y\in f_*(A)\}=\{g(f(a))\mid a\in A\}=\{(g\circ f)(a)\mid a\in A\}=(g\circ f)_*(A).
+\]
+(Il passaggio centrale usa che gli elementi $y$ di $f_*(A)$ sono esattamente quelli della forma $f(a)$ con $a\in A$.)
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+\subsection{Composizione $\longleftrightarrow$ iniettivit\`a/suriettivit\`a}
+
+\begin{proposizione}\label{prop:comp}
+Siano $X\xrightarrow{f}Y\xrightarrow{g}Z$ applicazioni. Allora:
+\begin{align*}
+&\text{(a)}\quad f\wedge g\ \text{iniettive}\ \overset{\text{\textcircled{1}}}{\Longrightarrow}\ g\circ f\ \text{iniettiva}\ \overset{\text{\textcircled{5}}}{\Longrightarrow}\ f\ \text{iniettiva},\\
+&\text{(b)}\quad f\wedge g\ \text{suriettive}\ \overset{\text{\textcircled{6}}}{\Longrightarrow}\ g\circ f\ \text{suriettiva}\ \overset{\text{\textcircled{2}}}{\Longrightarrow}\ g\ \text{suriettiva},
+\end{align*}
+e in generale le implicazioni inverse \emph{non} valgono: \textcircled{3} $f$ iniettiva $\not\Rightarrow$ $g\circ f$ iniettiva; \textcircled{4} $g\circ f$ suriettiva $\not\Rightarrow$ $f\wedge g$ suriettive; e analogamente \textcircled{7} $g\circ f$ iniettiva $\not\Rightarrow$ $g$ iniettiva, \textcircled{8} $g$ suriettiva $\not\Rightarrow$ $g\circ f$ suriettiva.
+\end{proposizione}
+
+\begin{osservazione}
+\textbf{Numerazione}. 
+Negli appunti sono numerati \textcircled{1}--\textcircled{4}: le prime due sono dimostrate a lezione, le altre due sono i controesempi \textcircled{3}, \textcircled{4}; le ``altre quattro cose'' lasciate per HW sono quelle che ho numerato \textcircled{5}--\textcircled{8} (dimostrate pi\`u sotto).
+\end{osservazione}
+
+\textbf{\textcircled{1}} \emph{Tesi:} $\forall\,x_1,x_2\in X$, \ $g\circ f(x_1)=g\circ f(x_2)\Rightarrow x_1=x_2$.
+
+Da $g(f(x_1))=g(f(x_2))$ e $g$ iniettiva segue che $f(x_1)=f(x_2)$. E dalla iniettivit\`a di $f$ segue che $x_1=x_2$.
+
+\textbf{\textcircled{2}} \emph{Tesi:} $\forall\,z\in Z\ \exists\,y\in Y$ t.c.\ $g(y)=z$.
+
+Per ipotesi $\exists\,x\in X$ t.c.\ $g\circ f(x)=g\bigl(f(x)\bigr)=z$. Ora $y=f(x)\in Y$ e $g(y)=z$.
+
+\textbf{\textcircled{3}} Cerco un esempio di $f$ e $g$ con $f$ iniettiva e $g\circ f$ \emph{non} iniettiva. Ad esempio, tra insiemi finiti: $f$ manda tre punti in tre punti distinti dell'insieme intermedio, e $g$ ne identifica alcuni. Oppure
+\[
+\R\xrightarrow{\ f\ }\R\xrightarrow{\ g\ }\R,\qquad
+\begin{array}{ll}
+x\mapsto x^3&\text{iniettiva}\\
+y\mapsto y^2&\text{NON iniettiva}\\
+x\mapsto x^6&\text{($g\circ f$) NON iniettiva.}
+\end{array}
+\]
+
+\textbf{\textcircled{4}} Cerchiamo un esempio con $f$ e $g$ tali che $g\circ f$ \emph{sia suriettiva} (quindi anche $g$ lo sar\`a) e $f$ \emph{non} suriettiva:
+\[
+\R\xrightarrow{\ f\ }\R\xrightarrow{\ g\ }\R^{\ge0},\qquad
+f(x)=x^2\ (\text{NON SUR}),\quad g(y)=|y|\ (\text{SUR}),\quad g\circ f(x)=|x^2|=x^2\ (\text{SURIETT.})
+\]
+Qui $g\circ f\colon\R\to\R^{\ge0}$, $x\mapsto x^2$, \`e suriettiva.
+
+\textbf{HW:} dimostrare le altre quattro cose.
+
+\begin{osservazione}
+\textbf{Svolgimento: le altre quattro}. 
+\textbf{\textcircled{5}} \emph{$g\circ f$ iniettiva $\Rightarrow f$ iniettiva.} Se $f(x_1)=f(x_2)$, applicando $g$ si ottiene $g\circ f(x_1)=g\circ f(x_2)$, quindi $x_1=x_2$ per l'iniettivit\`a di $g\circ f$.
+
+\textbf{\textcircled{6}} \emph{$f,g$ suriettive $\Rightarrow g\circ f$ suriettiva.} Sia $z\in Z$. Per la suriettivit\`a di $g$ esiste $y\in Y$ con $g(y)=z$; per quella di $f$ esiste $x\in X$ con $f(x)=y$. Allora $g\circ f(x)=g(y)=z$.
+
+\textbf{\textcircled{7}} \emph{$g\circ f$ iniettiva $\not\Rightarrow g$ iniettiva.} Siano $f\colon\R^{\ge0}\to\R$ l'inclusione ($f(x)=x$) e $g\colon\R\to\R$, $g(y)=y^2$. Allora $g\circ f(x)=x^2$ \`e iniettiva su $\R^{\ge0}$, ma $g(1)=g(-1)$, quindi $g$ non \`e iniettiva. (\`E coerente con \textcircled{5}: l'iniettivit\`a di $g\circ f$ d\`a solo l'iniettivit\`a di $g$ \emph{ristretta} a $\im f$.)
+
+\textbf{\textcircled{8}} \emph{$g$ suriettiva $\not\Rightarrow g\circ f$ suriettiva.} Siano $f\colon\R\to\R$, $f(x)=x^2$ e $g=\id_\R$ (suriettiva). Allora $g\circ f=f$ non \`e suriettiva.
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+\subsection{La funzione identit\`a e le inverse sinistre/destre}
+
+\begin{definizione}
+Se $X\neq\emptyset$ \`e un insieme, la funzione $\id_X\colon X\to X$, $x\mapsto x$ \`e detta \textbf{l'identit\`a di $X$} (o \textbf{funzione identica}): $\id_X(x)=x$ $\forall\,x\in X$.
+\end{definizione}
+
+\begin{definizione}
+Siano $X\underset{g}{\overset{f}{\rightleftarrows}}Y$ funzioni. Consideriamo $g\circ f\colon X\to X$ e $f\circ g\colon Y\to Y$.
+Diremo che $f$ \`e \textbf{inversa sinistra} di $g$ (o che $g$ \`e \textbf{inversa destra} di $f$) se accade che $f\circ g=\id_Y$.
+Similmente diremo che $f$ \`e \textbf{inversa destra} di $g$ (o che $g$ \`e inversa sinistra di $f$) se accade che $g\circ f=\id_X$.
+\end{definizione}
+
+\begin{esempio}
+$\R\underset{g}{\overset{f}{\rightleftarrows}}\R^{\ge0}$, \quad $f(x)=x^2$, \quad $g(x)=\sqrt{x}$.
+\[
+f\circ g(y)=f(g(y))=f(\sqrt{y})=(\sqrt{y})^2=y\quad\text{cio\`e}\quad{f\circ g=\id_{\R^{\ge0}}}
+\]
+\[
+g\circ f(x)=g(f(x))=g(x^2)=\sqrt{x^2}=|x|\quad\text{cio\`e}\quad g\circ f\neq\id_\R.
+\]
+Qui $f$ \`e inversa sinistra di $g$ ma non destra, e $g$ \`e inversa destra di $f$ ma non sinistra.
+\end{esempio}
+
+\textbf{Domanda:} Abbiamo visto che qui $f$ ammette inversa destra e $g$ \`e un'inversa destra. Questa \`e l'unica inversa destra? No: ad esempio anche $g=-\sqrt{x}$ va bene.
+
+\textbf{HW:} Considerare $f\colon\R\to[-1,1]$, $x\mapsto\sin(x)$. Verificare che $f$ ammette inverse destre: una di queste \`e l'arcsin.
+
+\begin{osservazione}
+\textbf{Svolgimento dell'HW}. 
+Sia $g=\arcsin\colon[-1,1]\to\R$ (a valori in $[-\frac\pi2,\frac\pi2]\subseteq\R$). Per definizione di arcoseno, $\sin(\arcsin y)=y$ per ogni $y\in[-1,1]$, cio\`e $f\circ g=\id_{[-1,1]}$: $g$ \`e un'inversa destra di $f$. Non \`e l'unica: anche $y\mapsto\pi-\arcsin y$ e, pi\`u in generale, $y\mapsto\arcsin y+2k\pi$ ($k\in\Z$) sono inverse destre. Invece $f$ non ammette inverse sinistre perch\'e non \`e iniettiva ($\sin0=\sin\pi$), come prevede il fatto (i) qui sotto.
+\end{osservazione}
+
+Vale il fatto seguente:
+\begin{enumerate}[label=(\roman*)]
+\item $f$ \`e \textsc{iniettiva} $\iff$ $f$ ammette una inversa sinistra;
+\item $f$ \`e \textsc{suriettiva} $\iff$ $f$ ammette una inversa destra.
+\end{enumerate}
+(dimostrazione: la prossima settimana --- vedi la Proposizione~\ref{prop:inv} nella Settima lezione).
+
+Nel caso in cui $f$ sia invertibile a sinistra o a destra ma \emph{non} biiettiva, si dice che \`e (o che ammette) un'\textbf{inversa unilatera}.
+
+%=====================================================================
+\section{Settima lezione --- mercoled\`i 14 ottobre 2026}
+%=====================================================================
+
+\subsection{HW della V lezione}
+
+\begin{esercizio}\label{es:HWZ}
+$f\colon\Z\to\Z$, \quad $x\mapsto f(x)=\begin{cases}2x-3&\text{se }x\text{ \`e pari}\\ x+1&\text{se }x\text{ \`e dispari.}\end{cases}$
+Vediamo se $f$ \`e iniettiva e/o suriettiva.
+\end{esercizio}
+
+Osserviamo che \textbf{$f$ manda dispari in pari e pari in dispari}.
+
+\textbf{Iniettivit\`a.} Siano $a,b\in\Z$ tali che $f(a)=f(b)$. Casi possibili:
+\begin{itemize}
+\item $a$ e $b$ dispari: $f(a)=f(b)\iff a+1=b+1\Rightarrow a=b$ \ \checkmark
+\item $a$ e $b$ pari: $f(a)=f(b)\iff 2a-3=2b-3\Rightarrow a=b$ \ \checkmark
+\item $a$ dispari e $b$ pari: $f(a)=f(b)$ non accade mai per quanto sopra osservato (una \`e pari, l'altra dispari).
+\item $a$ pari e $b$ dispari: come sopra.
+\end{itemize}
+Quindi $f$ \`e \textbf{iniettiva}.
+
+\textbf{Suriettivit\`a.} Sia $y\in\Z$ e ci chiediamo se $\exists\,x\in\Z$ tale che $f(x)=y$. Per l'osservazione preliminare ci conviene distinguere i 2 casi possibili:
+\begin{itemize}
+\item \emph{se $y$ \`e pari}: ci chiediamo se $\exists\,x$ dispari tale che $f(x)=x+1=y\iff x=y-1$ \`e dispari! S\`i (ci\`o dimostra che $2\Z\subseteq\im f$).
+\item \emph{se $y$ \`e dispari}: ci chiediamo se $\exists\,x$ pari tale che $f(x)=2x-3=y\Rightarrow x=\dfrac{y+3}{2}\in\Z$. Vediamo se $x$, oltre a essere in $\Z$, \`e anche pari. Ora
+\[
+x\text{ \`e pari}\iff 2\mid x=\frac{y+3}{2}\iff 4\mid y+3\iff y=4\alpha-3\quad\text{per qualche }\alpha\in\Z.
+\]
+Vediamo che ad esempio $y=3\notin\im f$ perch\'e $4\nmid 3+3=6$.
+\end{itemize}
+\emph{No}: $f$ non \`e suriettiva, alcuni dispari $\notin\im f$.
+
+\begin{osservazione}
+\textbf{Immagine esatta}. 
+Dall'analisi precedente
+\[
+\im f=2\Z\ \cup\ \{4\alpha-3\mid\alpha\in\Z\}=2\Z\cup(1+4\Z),
+\]
+cio\`e $f$ non raggiunge i dispari della forma $4\alpha+3$ (come $3$, $-1$, $7$,\dots).
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+\subsection{Iniettivit\`a/suriettivit\`a e inverse sinistre/destre}
+
+\begin{proposizione}\label{prop:inv}
+Sia $f\colon X\to Y$ una funzione. Allora:
+\begin{enumerate}[label=(\roman*)]
+\item $f$ \`e \textsc{iniettiva} $\iff$ $f$ ha una inversa sinistra $g$ (cio\`e $g\circ f=\id_X$, cio\`e $f$ \`e inversa destra);
+\item $f$ \`e \textsc{suriettiva} $\iff$ $f$ ha una inversa destra $g$ (cio\`e $f\circ g=\id_Y$, cio\`e $f$ \`e inversa sinistra).
+\end{enumerate}
+\end{proposizione}
+
+\begin{proof}
+\textbf{(i) ``$\Rightarrow$''.} Sia $f$ iniettiva. Definiamo $g\colon Y\to X$ in questo modo: dato $y\in Y$, se $y\in\im(f)$ allora $\exists\,x\in X$ tale che $f(x)=y$ e tale $x\in X$ \`e unico, per ipotesi. Poniamo $g(y)=x$. Se invece $y\in Y\setminus\im f$, allora poniamo $g(y)=x'\in X$ scelto a piacere. Ci\`o definisce correttamente $g\colon Y\to X$ e per ogni $x\in X$ si ha che $g\circ f(x)=g\bigl(f(x)\bigr)=x$ per costruzione (essendo $f(x)\in\im f$). Ci\`o prova che $g\circ f=\id_X$.
+
+\textbf{(i) ``$\Leftarrow$''.} Per ipotesi $\exists\,g\colon Y\to X$ con $g\circ f=\id_X$. Ora $\id_X$ \`e biiettiva, in particolare iniettiva, ed allora anche $f$ \`e iniettiva (\textcircled{5}). \textsc{NB}: essendo $\id_X$ suriettiva, ne deriviamo anche che $g$ \`e suriettiva (\textcircled{2}).
+
+\textbf{(ii) ``$\Rightarrow$''.} Sia $f$ suriettiva. Definiamo $g\colon Y\to X$ nel modo seguente: dato $y\in Y$ $\exists\,x\in X$ t.c.\ $f(x)=y$ per ipotesi. Scelgo per questo $y$ un elemento $x'\in[x]_{\sim_f}\neq\emptyset$ e pongo $g(y)=x'$. Ci\`o definisce correttamente $g\colon Y\to X$ e per costruzione otteniamo che
+\[
+\forall\,y\in Y\qquad f\circ g(y)=f\bigl(g(y)\bigr)=f(x')=f(x)=y .
+\]
+Ci\`o dimostra che $f\circ g=\id_Y$. Notiamo che $g$ \`e iniettiva, essendo tale $\id_Y$.
+
+\textbf{(ii) ``$\Leftarrow$''.} Per ipotesi $\exists\,g\colon Y\to X$ tale che $f\circ g=\id_Y$. Ora $\id_Y$ \`e biiettiva e quindi $f$ \`e suriettiva (e $g$ \`e iniettiva). \qedhere
+\end{proof}
+
+\begin{osservazione}
+\textbf{Osservazione sulla scelta in (ii)}. 
+Nella dimostrazione di (ii) ``$\Rightarrow$'' si sceglie, \emph{per ogni} $y\in Y$, un elemento nella fibra $f^*(\{y\})=[x]_{\sim_f}$. Se $Y$ \`e infinito questa operazione contemporanea di infinite scelte richiede in generale l'\emph{assioma della scelta}; se invece, ad esempio, $X\subseteq\N$ (o $X$ ha un buon ordinamento), si pu\`o scegliere sempre il minimo della fibra, senza bisogno di alcun assioma.
+\end{osservazione}
+
+\begin{corollario}
+$f\colon X\to Y$ \`e biiettiva $\iff$ $f$ ha inversa sinistra ed ha inversa destra.
+\end{corollario}
+
+\begin{proposizione}
+Se $f\colon X\to Y$ ha inversa sinistra $g$ e inversa destra $h$, allora $h=g$.
+\end{proposizione}
+\begin{proof}
+$g=g\circ\id_Y=g\circ(f\circ h)=(g\circ f)\circ h=\id_X\circ h=h$.
+\end{proof}
+
+\begin{corollario}[2]
+$f$ \`e biiettiva $\iff$ $f$ ha una inversa bilatera, cio\`e $\exists\,f\inv\colon Y\to X$ t.c.\ $f\inv\circ f=\id_X$ e $f\circ f\inv=\id_Y$.
+\end{corollario}
+
+\textbf{Notazioni utili.} Se $f\colon X\to Y$, scriveremo
+\begin{align*}
+f\colon X\inj Y&\quad\text{per indicare che $f$ \`e \textsc{iniettiva}},\\
+f\colon X\sur Y&\quad\text{per indicare che $f$ \`e \textsc{suriettiva}},\\
+f\colon X\bij Y&\quad\text{per indicare che $f$ \`e \textsc{biiettiva}}.
+\end{align*}
+
+\begin{osservazione}[importante]
+Per ogni coppia di insiemi $X,Y$:
+\begin{align*}
+\exists\,f\colon X\inj Y&\iff\exists\,g\colon Y\sur X,\\
+\exists\,f\colon X\sur Y&\iff\exists\,g\colon Y\inj X.
+\end{align*}
+\emph{Dimostrazione.} $\exists\,X\xrightarrow{f}Y$ iniettiva $\iff\exists\,g$ con $g\circ f=\id\iff\exists\,g\colon Y\sur X$ (per la Proposizione~\ref{prop:inv} e la nota \textsc{NB} in (i) ``$\Leftarrow$''). Per la seconda, si scambiano i ruoli di $f$ e $g$.
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+
+\subsection{Insiemi di funzioni, potenze cartesiane e successioni}
+
+Siano $X,Y$ insiemi. Indichiamo con
+\[
+Y^X:=\{f\mid f\colon X\to Y\text{ è una funzione}\}
+\]
+l'insieme di tutte le funzioni da $X$ a $Y$. La notazione è coerente con l'idea che una funzione assegna a ogni elemento di $X$ un valore in $Y$; in particolare, se $X$ e $Y$ sono finiti, con $|X|=m$ e $|Y|=n$, allora
+\[
+|Y^X|=n^m.
+\]
+Infatti, per ciascuno dei $m$ elementi del dominio si può scegliere indipendentemente uno degli $n$ valori del codominio.
+
+\begin{nb}
+La convenzione di notazione è importante: $Y^X$ è l'insieme delle funzioni \emph{da $X$ a $Y$}; l'esponente indica il dominio, mentre la base indica il codominio.
+\end{nb}
+
+\subsubsection*{Potenze cartesiane finite}
+
+Per un insieme $X$ e un intero $n\geq 1$, la potenza cartesiana $X^n$ è il prodotto di $n$ copie di $X$:
+\[
+X^n=\underbrace{X\times\cdots\times X}_{n\text{ fattori}}
+=\{(x_1,\ldots,x_n)\mid x_i\in X\text{ per ogni }i=1,\ldots,n\}.
+\]
+Un elemento di $X^n$ è dunque una $n$-upla ordinata. In particolare, $X^1=X$ e $X^2=X\times X$.
+
+\subsubsection*{Successioni a valori in $X$}
+
+Si definisce
+\[
+X^{\mathbb N}:=\{f\mid f\colon\mathbb N\to X\}.
+\]
+Gli elementi di $X^{\mathbb N}$ sono precisamente le successioni a valori in $X$. A una funzione $f\colon\mathbb N\to X$ associamo la successione $(x_n)_{n\in\mathbb N}$ ponendo
+\[
+x_n:=f(n)\qquad\text{per ogni }n\in\mathbb N.
+\]
+Viceversa, ogni successione $(x_n)_{n\in\mathbb N}$ di elementi di $X$ determina una e una sola funzione $f\colon\mathbb N\to X$ tale che $f(n)=x_n$ per ogni $n$. Pertanto dare una funzione $\mathbb N\to X$ equivale a dare una successione in $X$:
+\[
+X^{\mathbb N}\ \longleftrightarrow\ \{\text{successioni a valori in }X\}.
+\]
+La corrispondenza è biunivoca: due funzioni $f,g\colon\mathbb N\to X$ sono uguali se e solo se $f(n)=g(n)$ per ogni $n\in\mathbb N$.
+
+Più in generale, una funzione $f\colon X\to Y$ può essere identificata con la famiglia dei suoi valori $(f(x))_{x\in X}$, indicizzata dagli elementi di $X$. Questa è una famiglia indicizzata da $X$ e non necessariamente una successione: si parla propriamente di successione quando l'insieme degli indici è $\mathbb N$.
+
+\subsection{Un esempio importante di applicazione del Corollario 2}
+
+\begin{esercizio}[importante]\label{es:partizione-2}
+Le funzioni $\alpha$ e $\beta$ cos\`i definite per ogni insieme $X\neq\emptyset$
+\[
+\{0,1\}^X\ \underset{\beta}{\overset{\alpha}{\rightleftarrows}}\ \Pot(X)
+\]
+(dove $\{0,1\}^X$ \`e l'insieme delle funzioni $X\to\{0,1\}$),
+\[
+\alpha\colon f\longmapsto\alpha(f):=f^*(\{1\}),\qquad
+\beta\colon A\longmapsto\chi_A\ \text{ dove }\ \chi_A(x)=\begin{cases}1&\text{se }x\in A\\0&\text{se }x\in X\setminus A\end{cases}
+\]
+(\,$\chi_A$ \`e la \textbf{funzione caratteristica} di $A$\,) sono biiettive, l'una l'inversa dell'altra.
+\end{esercizio}
+
+La tesi \`e
+\[
+{\,\beta\circ\alpha=\id_{\{0,1\}^X}\,}\qquad\text{e}\qquad{\,\alpha\circ\beta=\id_{\Pot(X)}\,}.
+\]
+
+\textbf{Dimostrazione di $\beta\circ\alpha=\id_{\{0,1\}^X}$.} $\forall\,f\in\{0,1\}^X$ si ha che
+\[
+\beta\circ\alpha(f)=\beta\bigl(f^*(\{1\})\bigr)=\chi_{f^*(\{1\})}\ \overset{?}{=}\ f .
+\]
+Ci\`o \`e vero perch\'e
+\[
+\chi_{f^*(\{1\})}(x)=\begin{cases}1&\text{se }x\in f^*(\{1\})\iff f(x)=1\\[2pt]0&\text{se }x\notin f^*(\{1\})\iff f(x)=0\end{cases}
+\]
+cio\`e $\chi_{f^*(\{1\})}(x)=f(x)$ per ogni $x\in X$ (perch\'e $f$ assume solo i valori $0$ e $1$).
+
+\textbf{Dimostrazione di $\alpha\circ\beta=\id_{\Pot(X)}$.} $\forall\,A\in\Pot(X)$ si ha che
+\[
+\alpha\circ\beta(A)=\alpha(\chi_A)=\chi_A^{\,*}(\{1\})=\{x\in X\mid\chi_A(x)=1\}=A .
+\]
+
+\begin{osservazione}
+\textbf{Conclusione e interpretazione}. 
+Per il Corollario~2, $\alpha$ e $\beta$ sono biiettive e $\beta=\alpha\inv$. Ci\`o significa che dare un sottoinsieme $A\subseteq X$ \`e \emph{la stessa cosa} che dare una funzione $X\to\{0,1\}$ (decidere, per ogni $x$, se $x\in A$ o no). In particolare, per $X$ finito con $|X|=n$ si ottiene $|\Pot(X)|=|\{0,1\}^X|=2^n$.
+\end{osservazione}
+
+
+
+\section{Ottava lezione: equipotenza e cardinalità}
+\textit{Giovedì 15 ottobre 2026}
+
+\subsection{Equipotenza}
+Due insiemi $X$ e $Y$ si dicono \emph{equipotenti}, e si scrive
+\[
+X\sim Y\qquad\text{oppure}\qquad |X|=|Y|,
+\]
+se esiste una funzione biiettiva $f\colon X\to Y$. In altre parole, gli elementi di $X$ e quelli di $Y$ possono essere messi in corrispondenza biunivoca. La cardinalità $|X|$ rappresenta la ``grandezza'' dell'insieme $X$, anche quando $X$ è infinito.
+
+L'equipotenza è una relazione di equivalenza:
+\begin{enumerate}
+  \item \textbf{riflessività:} $X\sim X$, perché $\id_X\colon X\to X$ è biiettiva;
+  \item \textbf{simmetria:} se $X\sim Y$, allora $Y\sim X$, perché l'inversa di una biiezione è biiettiva;
+  \item \textbf{transitività:} se $X\sim Y$ e $Y\sim Z$, allora $X\sim Z$, perché la composizione di due biiezioni è biiettiva.
+\end{enumerate}
+
+\subsection{Iniezioni e confronto tra cardinalità}
+Se esiste un'iniezione $f\colon X\to Y$, si interpreta ciò dicendo che $X$ ha cardinalità non maggiore di quella di $Y$ e si scrive, informalmente,
+\[
+|X|\leq |Y|.
+\]
+Se esistono iniezioni in entrambe le direzioni, cioè $X\hookrightarrow Y$ e $Y\hookrightarrow X$, allora il teorema di Cantor--Bernstein garantisce che esiste una biiezione tra $X$ e $Y$.
+
+\begin{proposizione}[Cantor--Bernstein]
+Siano $X,Y$ insiemi. Se esistono applicazioni iniettive $f\colon X\to Y$ e $g\colon Y\to X$, allora esiste una biiezione $h\colon X\to Y$. In particolare, $|X|=|Y|$.
+\end{proposizione}
+
+\begin{osservazione}
+Per dimostrare che due insiemi hanno la stessa cardinalità, può quindi essere sufficiente costruire due iniezioni, una per ciascuna direzione: non è necessario individuare direttamente una biiezione.
+\end{osservazione}
+
+\subsection{Insiemi finiti e infiniti}
+Un insieme è \emph{finito} se è equipotente a $\{1,\ldots,n\}$ per qualche $n\in\mathbb N$ (con la convenzione adottata per $0$), ed è \emph{infinito} se non è finito. Un insieme equipotente a $\mathbb N$ si dice \emph{numerabile infinito}. In particolare, la numerabilità non significa semplicemente ``avere infiniti elementi'': significa che gli elementi possono essere elencati in una successione
+\[
+a_0,a_1,a_2,\ldots
+\]
+in cui ogni elemento dell'insieme compare una e una sola volta, equivalentemente che esiste una biiezione $\mathbb N\to X$.
+
+\subsection{Il teorema di Cantor e l'insieme delle parti}
+Per ogni insieme $X$, l'applicazione
+\[
+i\colon X\to\Pot(X),\qquad i(x)=\{x\}
+\]
+è iniettiva: infatti $i(x)=i(y)$ implica $\{x\}=\{y\}$ e dunque $x=y$. Pertanto $X$ si immerge in $\Pot(X)$.
+
+\begin{proposizione}[Cantor]
+Per ogni insieme $X$ non esiste alcuna suriezione $f\colon X\to\Pot(X)$. Di conseguenza, $X$ e $\Pot(X)$ non sono equipotenti.
+\end{proposizione}
+
+\textbf{Dimostrazione.} Supponiamo per assurdo che $f\colon X\to\Pot(X)$ sia suriettiva. Consideriamo il sottoinsieme
+\[
+A:=\{x\in X\mid x\notin f(x)\}\subseteq X.
+\]
+Poiché $f$ è suriettiva, esiste $a\in X$ tale che $f(a)=A$. Per definizione di $A$,
+\[
+a\in A\iff a\notin f(a)=A,
+\]
+che equivale a $a\in A\iff a\notin A$, una contraddizione. Quindi nessuna funzione $X\to\Pot(X)$ è suriettiva. Se esistesse una biiezione, sarebbe in particolare una suriezione; pertanto $X\not\sim\Pot(X)$. \hfill$\square$
+
+Perciò l'insieme delle parti ha cardinalità strettamente maggiore di quella di $X$ (nel senso che $X$ si inietta in $\Pot(X)$, ma non esiste una biiezione tra i due):
+\[
+|X|<|\Pot(X)|.
+\]
+
+\subsection{La cardinalità di $\mathbb R$}
+La cardinalità di $\mathbb R$ è maggiore di quella di $\mathbb N$; in particolare, $\mathbb R$ non è numerabile. Una dimostrazione classica si ottiene con l'argomento diagonale di Cantor: dato un eventuale elenco di tutti i numeri reali dell'intervallo $(0,1)$, si costruisce un numero reale che differisce dal numero $n$-esimo almeno alla $n$-esima cifra decimale (scegliendo le cifre in modo da evitare le doppie rappresentazioni decimali). Il numero costruito appartiene a $(0,1)$ ma non compare nell'elenco, contro l'ipotesi che l'elenco fosse completo.
+
+\begin{nb}
+Questa è la struttura dell'argomento diagonale; per una dimostrazione formalmente completa occorre fissare una convenzione sulle rappresentazioni decimali, oppure usare direttamente sviluppi in base $2$ o $3$ con una scelta di cifre che eviti le ambiguità.
+\end{nb}
+
+\subsection*{Schema riepilogativo}
+\begin{itemize}
+  \item $X\sim Y$ se e solo se esiste una biiezione $X\to Y$.
+  \item Se esistono iniezioni $X\to Y$ e $Y\to X$, allora $X\sim Y$ (Cantor--Bernstein).
+  \item Per ogni insieme $X$, l'inclusione singleton $x\mapsto\{x\}$ è un'iniezione $X\to\Pot(X)$.
+  \item Non esiste una suriezione $X\to\Pot(X)$ (Cantor); quindi $X$ e $\Pot(X)$ non sono equipotenti.
+  \item $\mathbb R$ non è numerabile.
+\end{itemize}
+
+
+
+%=====================================================================
+\section{Nona lezione: numerabilità e aritmetica in $\Z$}
+%=====================================================================
+\textit{Venerdì 16 ottobre 2026}
+
+Convenzioni: $\aleph_0:=|\N|$; scriviamo $|X|\le|Y|$ se esiste un'iniezione $X\to Y$ e $|X|\ge|Y|$ se $|Y|\le|X|$ (come nella lezione precedente).
+
+\subsection{Unione numerabile di insiemi numerabili}
+
+\begin{proposizione}\label{prop:unione}
+Sia $|I|=\aleph_0$ e siano, per ogni $i\in I$, $A_i$ insiemi con $|A_i|=\aleph_0$. Allora
+\[
+\Bigl|\bigcup_{i\in I}A_i\Bigr|=\aleph_0 .
+\]
+\end{proposizione}
+
+\textbf{Dimostrazione.}
+Gli elementi di $A_i$ sono $a_{j,1},a_{j,2},a_{j,3},a_{j,4},...$ che è una biezione con $\mathbb{N}$.Ora numeriamo anche gli elementi di $A = \bigcup_{j}{A}$.Per farlo disponiamo gli elementi di tale unione l'uno di fianco l'altro formando una tabella/matrice dove ogni termine viene identificato dagli indici i,j. Infatti
+\[
+\begin{array}{c|cccccc}
+A_1 & a_{1,1} & a_{1,2} & a_{1,3} & \cdots & a_{1,i} & \cdots\\
+A_2 & a_{2,1} & a_{2,2} & a_{2,3} & \cdots & a_{2,i} & \cdots\\
+A_3 & a_{3,1} & a_{3,2} & a_{3,3} & \cdots & a_{3,i} & \cdots\\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \\
+A_j & a_{j,1} & a_{j,2} & a_{j,3} & \cdots & a_{j,i} & \cdots\\
+\vdots & \vdots & \vdots & \vdots &  & \vdots & \ddots
+\end{array}
+\]
+Si condieri la diagonale $j-esima,D_j$, cioè:
+\[
+D_j=\{a_{h,k}\in A\mid h+k=j+1\}.
+\]
+Ogni elemento appartiene ad una e una sola diagonale, precisamente alla diagonale $D_{h+k-1}$. Sia $T_m=\frac{m(m+1)}{2}=1+2+\dots+m$ (con
+$T_0=0$). Prima della diagonale $j$ ci sono $|D_1|+\dots+|D_{j-1}|=T_{j-1}$
+elementi. Percorrendo $D_j$ lungo $k=1,\dots,j$, all'elemento $(h,k)$
+assegniamo
+\[
+N(h,k)=T_{j-1}+k=\frac{(j-1)j}{2}+k .
+\]
+Poich\'e $1\le k\le j$ e $T_j=T_{j-1}+j$, la funzione $N$ manda $D_j$ in
+\[
+I_j=\{T_{j-1}+1,\;T_{j-1}+2,\;\dots,\;T_j\}.
+\]
+\emph{Iniettivit\`a su ciascuna diagonale.} Su $D_j$ la funzione \`e
+$k\mapsto T_{j-1}+k$, cio\`e strettamente crescente in $k$; quindi $N|_{D_j}\colon D_j\to I_j$
+\`e una biezione.
+
+\emph{Gli intervalli $I_j$ partizionano $\mathbb{N}^*$.} Gli $I_j$ sono
+intervalli consecutivi di interi, di lunghezza $j$:
+l'ultimo elemento di $I_j$ \`e $T_j$ e il primo di $I_{j+1}$ \`e $T_j+1$.
+Dunque sono a due a due disgiunti e, poich\'e $T_j\to\infty$,
+\[
+\mathbb{N}^*=\bigsqcup_{j\in\mathbb{N}^*}I_j .
+\]
+
+\emph{Conclusione.} $N$ \`e biezione su ogni pezzo $D_j\to I_j$, e sia i $D_j$
+sia gli $I_j$ sono partizioni dei rispettivi insiemi. Quindi
+$N\colon\mathbb{N}^*\times\mathbb{N}^*\to\mathbb{N}^*$ \`e biettiva:
+
+\begin{itemize}
+  \item \emph{iniettiva}: se $N(h,k)=N(h',k')$ i due valori stanno nello
+        stesso $I_j$, quindi $(h,k),(h',k')\in D_j$, e su $D_j$ $N$ \`e iniettiva;
+  \item \emph{suriettiva}: dato $n\in\mathbb{N}^*$, esiste un unico $j$ con
+        $n\in I_j$, e $n=N(h,k)$ con $k=n-T_{j-1}$, $h=j+1-k$.
+\end{itemize}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,
+               row sep=2em, column sep=2.5em,
+               left delimiter={.}]
+  {
+    a_{1,1} & a_{1,2} & a_{1,3} & \cdots \\
+    a_{2,1} & a_{2,2} & a_{2,3} & \cdots \\
+    a_{3,1} & a_{3,2} & a_{3,3} & \cdots \\
+    \vdots  & \vdots  & \vdots  & \ddots \\
+  };
+
+  % diagonale j=1 -> j=2 (percorsa lungo k)
+  \draw[->] (m-1-1) -- (m-2-1);
+  \draw[->] (m-2-1) -- (m-1-2);
+  % diagonale j=2 -> j=3
+  \draw[->] (m-1-2) -- (m-3-1);
+  \draw[->] (m-3-1) -- (m-2-2);
+  \draw[->] (m-2-2) -- (m-1-3);
+\end{tikzpicture}
+\noindent Poich\'e $\mathbb{N}^*\times\mathbb{N}^*\sim\mathbb{N}^*\sim\mathbb{N}$,
+si conclude $|\mathbb{N}\times\mathbb{N}|=\aleph_0$.
+\hfill$\blacksquare$
+
+\textbf{Dimostrazione.} Non è restrittivo supporre che $I=\N$ e che gli insiemi siano $A_0,A_1,\dots,A_n,\dots$ per ogni $i\in\N$. Sia dunque, per ogni $i\in\N$, $\varphi_i\colon\N\to A_i$ la biiezione che prova $|A_i|=\aleph_0$.
+
+Consideriamo la funzione
+\[
+\Phi\colon\N\times\N\longrightarrow\bigcup_{i\in\N}A_i,\qquad(i,j)\longmapsto\varphi_i(j).
+\]
+È ben definita ed è suriettiva perché per ogni $x\in\bigcup_{i}A_i$ esiste $i\in\N$ tale che $x\in A_i$ ed allora esiste $j\in\N$ tale che $\varphi_i(j)=x$, cioè $\Phi(i,j)=x$.
+Ciò dimostra $\bigl|\bigcup_iA_i\bigr|\le|\N\times\N|=|\N|=\aleph_0$.
+D'altra parte l'inclusione $A_0\inj\bigcup_iA_i$ fornisce $\bigl|\bigcup_{i\in I}A_i\bigr|\ge|A_0|=\aleph_0$. Per Cantor--Bernstein si ha l'uguaglianza. \hfill$\square$
+
+
+
+\subsection{Il prodotto $\N\times\N$ è numerabile}
+
+\begin{lemma}\label{lem:NN}
+$|\N\times\N|=|\N|=\aleph_0$.
+\end{lemma}
+
+\textbf{Dimostrazione.}(1) 
+Scriviamo questi insiemi come un unione di un numero finito o una infinità numerabile di insiemi numerabili. Infatti
+\[
+\Z =\N \cup\{-n:n\in \N\}
+\]
+\[\N\times\N =\bigcup_{h=1}^{\infty}A_h
+\]
+gli insiemi $\N$ e $\{-n:n\in \N\}$ sono numerabili($\{-n\mapsto n\}$.Allora Z è un unione finita di insiemi numerabili,dunque numerabile. Dove ogni $A_h$ è numerabile e a due a due disgiunti: $(h.n)\in A_h$ ha prima cordinata h.
+\[
+A_h=\{(h,1),(h,2),(h,3),...\}
+\]\[(h,n)\mapsto n
+\]
+Quindi\[|\N\times \N|=\aleph_0=|\N|\]
+\hfill$\square$\\
+\textbf{Dimostrazione.}(2) 
+\medskip
+\noindent $\mathbb{N}=\{0,1,2,3,\dots\}$.
+\smallskip
+\noindent\textbf{1. Decomposizione.} Per ogni $n\in\mathbb{N}$ poniamo
+\[
+A_n=\{n\}\times\mathbb{N}=\{(n,0),(n,1),(n,2),\dots\}.
+\]
+Una coppia $(a,b)\in\mathbb{N}\times\mathbb{N}$ appartiene ad $A_a$, quindi
+\[
+\mathbb{N}\times\mathbb{N}=\bigcup_{n\in\mathbb{N}}A_n .
+\]
+
+\noindent\textbf{2. Ogni $A_n$ \`e numerabile.} Fissato $n$, definiamo
+\[
+\varphi_n:A_n\to\mathbb{N},\qquad \varphi_n(n,m)=m .
+\]
+
+\emph{Iniettivit\`a.} Siano $x,y\in A_n$, cio\`e $x=(n,m)$ e $y=(n,m')$.
+Se $\varphi_n(x)=\varphi_n(y)$, allora $m=m'$, quindi $x=(n,m)=(n,m')=y$.
+
+\emph{Suriettivit\`a.} Sia $m\in\mathbb{N}$ e poniamo $x=(n,m)$. Allora
+$x\in A_n$, perch\'e ha prima coordinata uguale a $n$, e
+$\varphi_n(x)=\varphi_n(n,m)=m$.
+
+Dunque $\varphi_n$ \`e una biezione e $A_n$ \`e numerabile.
+
+\medskip
+\noindent\textbf{3. Gli $A_n$ sono a due a due disgiunti.} Sia $n\neq k$ e
+supponiamo per assurdo che esista $x\in A_n\cap A_k$. Poich\'e $x\in A_n$,
+la sua prima coordinata \`e $n$; poich\'e $x\in A_k$, la sua prima coordinata
+\`e $k$. Quindi $n=k$, contro l'ipotesi. Dunque $A_n\cap A_k=\emptyset$.
+
+\medskip
+\noindent\textbf{4. Conclusione.} $\mathbb{N}\times\mathbb{N}$ \`e unione
+numerabile (indicizzata da $n\in\mathbb{N}$) di insiemi numerabili $A_n$.
+Per il teorema sull'unione numerabile di insiemi numerabili,
+$\mathbb{N}\times\mathbb{N}$ \`e numerabile, cio\`e
+\[
+|\mathbb{N}\times\mathbb{N}|=\aleph_0=|\mathbb{N}| .
+\qquad\blacksquare
+\]
+
+
+\begin{lemma}\label{lem:prodbij}
+Se $f\colon A\to A'$ e $g\colon B\to B'$ sono biiettive, allora $f\times g\colon A\times B\to A'\times B'$, $(a,b)\mapsto(f(a),g(b))$, è biiettiva. In particolare, se $A\sim A'$ e $B\sim B'$ allora $A\times B\sim A'\times B'$.
+\end{lemma}
+
+\textbf{Dimostrazione.} L'applicazione $f\inv\times g\inv\colon A'\times B'\to A\times B$ è tale che $(f\inv\times g\inv)\circ(f\times g)=\id_{A\times B}$ e $(f\times g)\circ(f\inv\times g\inv)=\id_{A'\times B'}$; quindi $f\times g$ è invertibile, dunque biiettiva. \hfill$\square$
+
+\begin{corollario}\label{cor:Xn}
+Se $|X|=\aleph_0$, allora per ogni $n\in\N\setminus\{0\}$ si ha $|X^n|=\aleph_0$.
+\end{corollario}
+
+\noindent\textit{Dimostrazione.} Per ipotesi $X\sim\mathbb{N}$.
+Procediamo per induzione su $n\ge 1$.
+
+\smallskip
+\noindent\textbf{Base ($n=1$).} Si ha $X^1\sim X$ tramite la biezione
+$x\mapsto(x)$. Poich\'e $X\sim\mathbb{N}$, per transitivit\`a (C)
+si ottiene $X^1\sim\mathbb{N}$, cio\`e $|X^1|=\aleph_0$.
+
+\smallskip
+\noindent\textbf{Passo induttivo.} Supponiamo che $X^n\sim\mathbb{N}$
+(ipotesi induttiva) e dimostriamo che $X^{n+1}\sim\mathbb{N}$.
+
+\emph{(1) Identificazione.} L'applicazione
+\[
+\psi\colon X^{n+1}\to X^n\times X,\qquad
+(x_1,\dots,x_{n+1})\mapsto\bigl((x_1,\dots,x_n),x_{n+1}\bigr)
+\]
+\`e una biezione: due $(n+1)$-uple sono uguali se e solo se hanno uguali
+tutte le coordinate (iniettivit\`a), e ogni coppia
+$\bigl((x_1,\dots,x_n),x_{n+1}\bigr)$ \`e l'immagine della
+$(n+1)$-upla $(x_1,\dots,x_{n+1})$ (suriettivit\`a). Dunque
+$X^{n+1}\sim X^n\times X$.
+
+\emph{(2) Uso del Lemma.} Per ipotesi induttiva $X^n\sim\mathbb{N}$, e per
+ipotesi $X\sim\mathbb{N}$. Per il Lemma (B), con $A=X^n$, $A'=\mathbb{N}$,
+$B=X$, $B'=\mathbb{N}$, si ha
+\[
+X^n\times X\sim\mathbb{N}\times\mathbb{N}.
+\]
+
+\emph{(3) Risultato noto.} Per (A), $\mathbb{N}\times\mathbb{N}\sim\mathbb{N}$.
+
+\emph{Conclusione del passo.} Mettendo insieme (1), (2), (3):
+\[
+X^{n+1}\ \sim\ X^n\times X\ \sim\ \mathbb{N}\times\mathbb{N}\ \sim\ \mathbb{N}.
+\]
+Per la transitivit\`a (C), $X^{n+1}\sim\mathbb{N}$, cio\`e
+$|X^{n+1}|=\aleph_0$.
+
+\smallskip
+\noindent\textbf{Conclusione.} Per il principio di induzione,
+$|X^n|=\aleph_0$ per ogni $n\in\mathbb{N}\setminus\{0\}$.
+\hfill$\blacksquare$
+
+
+\subsection{I razionali sono numerabili}
+
+\begin{corollario}\label{cor:Q}
+$|\Q|=\aleph_0$.
+\end{corollario}
+
+\noindent\textbf{1. Decomposizione.} Per ogni $q\in\mathbb{N}^*$ poniamo
+\[
+A_q=\Bigl\{\tfrac{p}{q} : p\in\mathbb{Z}\Bigr\}.
+\]
+Mostriamo che
+\[
+\mathbb{Q}=\bigcup_{q\in\mathbb{N}^*}A_q .
+\]
+
+\begin{itemize}
+  \item[($\supseteq$)] Ogni $A_q$ \`e formato da frazioni con numeratore
+        intero e denominatore $q\neq0$, quindi $A_q\subseteq\mathbb{Q}$ e di
+        conseguenza $\bigcup_q A_q\subseteq\mathbb{Q}$.
+  \item[($\subseteq$)] Ogni $x\in\mathbb{Q}$ si scrive $x=\tfrac{p}{q}$ con
+        $p\in\mathbb{Z}$ e $q\in\mathbb{N}^*$. Quindi $x\in A_q$, e dunque
+        $x\in\bigcup_q A_q$.
+\end{itemize}
+
+\noindent\textbf{2. Ogni $A_q$ \`e numerabile.} Fissato $q\in\mathbb{N}^*$,
+definiamo
+\[
+\varphi_q\colon A_q\to\mathbb{Z},\qquad \varphi_q\Bigl(\tfrac{p}{q}\Bigr)=p .
+\]
+
+\emph{Ben definita.} Se $\tfrac{p}{q}=\tfrac{p'}{q}$, moltiplicando per $q$
+si ottiene $p=p'$. Il valore dipende quindi solo dall'elemento di $A_q$ e non
+dalla sua scrittura (il denominatore \`e fissato, quindi non si pone il
+problema delle frazioni equivalenti con denominatori diversi).
+
+\emph{Iniettivit\`a.} Siano $x=\tfrac{p}{q}$ e $y=\tfrac{p'}{q}$ in $A_q$
+con $\varphi_q(x)=\varphi_q(y)$. Allora $p=p'$, quindi $x=\tfrac{p}{q}=
+\tfrac{p'}{q}=y$.
+
+\emph{Suriettivit\`a.} Sia $p\in\mathbb{Z}$ e poniamo $x=\tfrac{p}{q}$.
+Allora $x\in A_q$ per definizione di $A_q$ (numeratore intero $p$,
+denominatore $q$), e $\varphi_q(x)=\varphi_q\bigl(\tfrac{p}{q}\bigr)=p$.
+
+Dunque $\varphi_q$ \`e una biezione, cio\`e $A_q\sim\mathbb{Z}$. Poich\'e
+$\mathbb{Z}\sim\mathbb{N}$ per (A), per transitivit\`a (C) si ha
+$A_q\sim\mathbb{N}$: ogni $A_q$ \`e numerabile.
+
+\medskip
+\noindent\textbf{3. Osservazione sulla disgiunzione.} Gli $A_q$ \emph{non}
+sono a due a due disgiunti: ad esempio $\tfrac12=\tfrac24$ appartiene sia ad
+$A_2$ sia ad $A_4$. Il teorema (T) non richiede la disgiunzione (le
+ripetizioni si eliminano scartando le occorrenze successive), quindi
+questo non \`e un problema.
+
+\medskip
+\noindent\textbf{4. Conclusione.} $\mathbb{Q}$ \`e unione numerabile
+(indicizzata da $q\in\mathbb{N}^*$) di insiemi numerabili $A_q$. Per il
+teorema (T), $\mathbb{Q}$ \`e numerabile:
+\[
+|\mathbb{Q}|=\aleph_0 .
+\qquad\blacksquare
+\]
+
+\medskip
+\noindent\textit{Nota.} In generale il teorema (T) usa l'assioma della scelta
+numerabile, ma qui le biezioni $\varphi_q$ sono date da una formula esplicita,
+quindi non serve scegliere.
+
+
+\textbf{Dimostrazione.} Poiché l'applicazione $\N\to\Q$, $n\mapsto\frac n1$ è iniettiva (infatti $\frac n1=\frac m1\iff n\cdot1=m\cdot1\iff n=m$), segue subito che $|\Q|\ge|\N|=\aleph_0$.
+
+Proviamo quindi che $|\Q|\le\aleph_0$. La funzione
+\[
+\Z\times\Z^*\longrightarrow\Q,\qquad(a,b)\longmapsto\frac ab,\qquad\Z^*=\Z\setminus\{0\},
+\]
+è chiaramente suriettiva, e così $|\Q|\le|\Z\times\Z^*|\le|\Z\times\Z|=|\Z|^2=|\Z|=\aleph_0$, poiché $|\Z|=|\N|$, come dimostra la biiezione $\N\to\Z$: $0\mapsto0,\ 1\mapsto1,\ 2\mapsto-1,\ 3\mapsto2,\dots$ \hfill$\square$
+
+\begin{teorema}\label{thm:cardistretta}
+Dato comunque un insieme numerabile A,risulta 
+\[
+Card(A)<Card(P(A))
+\]
+\end{teorema}
+\begin{proof}
+Supponiamo per assurdo che $\mathcal{P}(A)$ sia numerabile.
+Poiché $A$ è numerabile infinito, possiamo scrivere
+\[
+A=\{a_1,a_2,\ldots\}.
+\]
+Esiste quindi una successione $(X_k)_{k\in\mathbb{N}}$ tale che
+\[
+\mathcal{P}(A)=\{X_k:k\in\mathbb{N}\}.
+\]
+
+Definiamo l'insieme
+\[
+S=\{a_k\in A:a_k\notin X_k\}.
+\]
+Poiché $S\subseteq A$, si ha $S\in\mathcal{P}(A)$.
+Per l'ipotesi, esiste dunque $j\in\mathbb{N}$ tale che $S=X_j$.
+
+Consideriamo l'elemento $a_j$. Per definizione di $S$,
+\[
+a_j\in S \iff a_j\notin X_j.
+\]
+Essendo $S=X_j$, otteniamo
+\[
+a_j\in X_j \iff a_j\notin X_j,
+\]
+che è una contraddizione.
+
+Pertanto $\mathcal{P}(A)$ non è numerabile.
+\end{proof}
+
+\subsection{La cardinalità del continuo}
+
+\begin{teorema}\label{thm:ontinuo}
+Posto $\mathfrak{c}:=|\mathbb{R}|$, si ha
+\[
+{
+\mathfrak{c}
+=|\mathbb{R}|
+=|\{0,1\}^{\mathbb{N}}|
+=|\mathcal{P}(\mathbb{N})|
+=2^{|\mathbb{N}|}
+=2^{\aleph_0}
+>\aleph_0.
+}
+\]
+Qui
+\[
+\{0,1\}^{\mathbb{N}}
+=
+\{f:\mathbb{N}\to\{0,1\}\}
+\]
+è l'insieme delle funzioni da $\mathbb{N}$ a $\{0,1\}$, mentre
+\[
+2^{|X|}:=|\{0,1\}^{X}|=|\mathcal{P}(X)|.
+\]
+L'uguaglianza $|\{0,1\}^{X}|=|\mathcal{P}(X)|$
+segue dalla corrispondenza biunivoca tra ogni sottoinsieme
+$B\subseteq X$ e la sua funzione caratteristica
+$\chi_B:X\to\{0,1\}$.
+\end{teorema}
+
+\begin{proof}
+Dimostriamo separatamente le due disuguaglianze
+\[
+|\mathbb{R}|\leq 2^{\aleph_0}
+\qquad\text{e}\qquad
+2^{\aleph_0}\leq|\mathbb{R}|.
+\]
+
+\medskip
+\noindent
+\textbf{1. Dimostrazione di $|\mathbb{R}|\leq 2^{\aleph_0}$.}
+
+Poiché $\mathbb{Q}$ è numerabile, esiste una biiezione
+tra $\mathbb{Q}$ e $\mathbb{N}$; pertanto
+\[
+|\mathcal{P}(\mathbb{Q})|
+=
+|\mathcal{P}(\mathbb{N})|
+=
+2^{\aleph_0}.
+\]
+
+A ogni $r\in\mathbb{R}$ associamo l'insieme
+\[
+D_r:=\{q\in\mathbb{Q}:q<r\}\subseteq\mathbb{Q}.
+\]
+La funzione
+\[
+\Phi:\mathbb{R}\to\mathcal{P}(\mathbb{Q}),
+\qquad
+\Phi(r):=D_r,
+\]
+è iniettiva: se $r<s$, per la densità di $\mathbb{Q}$ in
+$\mathbb{R}$ esiste $q\in\mathbb{Q}$ tale che
+$r<q<s$. Quindi $q\notin D_r$, ma $q\in D_s$,
+perciò $D_r\neq D_s$.
+
+Ne segue che
+\[
+|\mathbb{R}|
+\leq|\mathcal{P}(\mathbb{Q})|
+=|\mathcal{P}(\mathbb{N})|
+=2^{\aleph_0}.
+\]
+
+\medskip
+\noindent
+\textbf{2. Dimostrazione di $2^{\aleph_0}\leq|\mathbb{R}|$.}
+
+Per ogni successione $(\varepsilon_n)_{n\in\mathbb{N}}$
+con $\varepsilon_n\in\{0,1\}$, consideriamo il numero reale
+\[
+x_{(\varepsilon_n)}
+:=
+\sum_{n=0}^{\infty}\frac{2\varepsilon_n}{3^{n+1}}.
+\]
+La serie converge, perché
+\[
+0\leq
+\sum_{n=0}^{\infty}\frac{2\varepsilon_n}{3^{n+1}}
+\leq
+\sum_{n=0}^{\infty}\frac{2}{3^{n+1}}
+=1.
+\]
+
+Inoltre, successioni distinte determinano numeri reali
+distinti: se $(\varepsilon_n)\neq(\delta_n)$ e $k$ è
+il primo indice per cui $\varepsilon_k\neq\delta_k$,
+allora
+\[
+\left|x_{(\varepsilon_n)}-x_{(\delta_n)}\right|
+\geq
+\frac{2}{3^{k+1}}
+-
+\sum_{n=k+1}^{\infty}\frac{2}{3^{n+1}}
+=
+\frac{1}{3^{k+1}}>0.
+\]
+Dunque la funzione
+\[
+\Psi:\{0,1\}^{\mathbb{N}}\to\mathbb{R},
+\qquad
+\Psi((\varepsilon_n)):=x_{(\varepsilon_n)},
+\]
+è iniettiva. Pertanto
+\[
+2^{\aleph_0}
+=|\{0,1\}^{\mathbb{N}}|
+\leq|\mathbb{R}|.
+\]
+
+Dalle due disuguaglianze segue
+\[
+|\mathbb{R}|=2^{\aleph_0}.
+\]
+Infine, per il teorema di Cantor,
+\[
+2^{\aleph_0}=|\mathcal{P}(\mathbb{N})|
+>|\mathbb{N}|=\aleph_0.
+\]
+Quindi
+\[
+{\mathfrak{c}=2^{\aleph_0}>\aleph_0.}
+\]
+\end{proof}
+
+
+
+
+
+\subsection{Aritmetica dei cardinali infiniti}
+
+In realtà si può dimostrare che se $|A|=\alpha$ e $|B|=\beta$ con $\alpha\ge\aleph_0$ \emph{oppure} $\beta\ge\aleph_0$, allora
+\[
+\alpha+\beta\ \overset{\text{DEF}}{:=}\ |A\sqcup B|=\max\{\alpha,\beta\},\qquad
+\alpha\cdot\beta\ \overset{\text{DEF}}{:=}\ |A\times B|=\max\{\alpha,\beta\},
+\]
+dove $A\sqcup B$ è l'\emph{unione disgiunta} (ad esempio $A\sqcup B:=(A\times\{0\})\cup(B\times\{1\})$). In particolare, in tale caso, $\alpha+\beta=\alpha\cdot\beta$\,!
+
+
+
+\bigskip\hrule\bigskip
+
+\subsection{Un po' di aritmetica in $\Z$}
+
+\subsubsection*{Divisibilità}
+
+\begin{definizione}
+Siano $a,b\in\Z$. Diciamo che \emph{$a$ divide $b$}, e scriveremo $a\mid b$, se e solo se
+\[
+\exists\,b'\in\Z\ \text{ tale che }\ b=a\cdot b'.
+\]
+\end{definizione}
+
+Notiamo che $1\mid b$ per ogni $b\in\Z$: infatti $b=1\cdot b$; e $a\mid0$ per ogni $a\in\Z$: infatti $0=a\cdot0$.
+
+La divisibilità ha le seguenti proprietà:
+\begin{itemize}
+\item \textsc{Riflessiva}: $a\mid a$ per ogni $a\in\Z$, poiché $a=a\cdot1$.
+\item \textsc{Transitiva}: $a\mid b\ \wedge\ b\mid c\Rightarrow a\mid c$, poiché da $b=ab'$ e $c=bc'$ segue $c=bc'=a\,b'c'$.
+\item \textsc{Antisimmetrica}? $a\mid b\wedge b\mid a\Rightarrow a=b$\,? Proviamo: sia $0\ne b=ab'$ e $a=ba'$. Allora $b=ba'b'$, cioè $b(1-a'b')=0\Rightarrow a'b'=1\iff a'=b'=\pm1\iff a=\pm b$. \textbf{Quasi!}
+\item È poi \textsc{parziale}, nel senso che dati ad arbitrio $a,b\in\Z$ non è sempre vero che $a\mid b\ \vee\ b\mid a$: ad esempio $a=2$, $b=3$.
+\end{itemize}
+
+\begin{definizione}
+Diremo che $a,b\in\Z$ sono tra loro \emph{associati} se e solo se $a\mid b\wedge b\mid a$, cioè se e solo se $a=\pm b$.
+\end{definizione}
+
+(``Essere associati'' è una relazione di equivalenza, perché $a=\pm b$ è riflessiva, simmetrica e transitiva; le classi sono gli insiemi $\{a,-a\}$.)
+
+\begin{definizione}
+Sia $p\in\Z$. Diremo che $p$ è \emph{primo} se $p\neq0$, $p\neq\pm1$, e se per ogni $a,b\in\Z$
+\[
+ab=p\ \Longrightarrow\ a=\pm1\ \vee\ b=\pm1 .
+\]
+Gli interi primi \emph{positivi} si denotano con
+\[
+\Prim=\{2,3,5,7,11,\dots\}.
+\]
+\end{definizione}
+
+\subsubsection*{Il crivello di Eratostene}
+
+Si scrivono gli interi $2,3,4,\dots,N$ (negli appunti $N=22$). Si prende il primo numero non cancellato, lo si cerchia, e si cancellano tutti i suoi multipli propri (cioè $2k,3k,\dots$); poi si ripete con il successivo numero non cancellato. Per $N=22$:
+\begin{itemize}[nosep]
+\item $2$ cerchiato; si cancellano $4,6,8,10,12,14,16,18,20,22$;
+\item $3$ cerchiato; si cancellano $6,9,12,15,18,21$ (nuovi: $9,15,21$);
+\item $5$ cerchiato; si cancellano $10,15,20$ (già tutti cancellati);
+\item $7$ cerchiato; si cancellano $14,21$ (già cancellati);
+\item restano non cancellati $11,13,17,19$, che sono anch'essi primi.
+\end{itemize}
+I numeri cerchiati o rimasti sono $2,3,5,7,11,13,17,19$, cioè i primi $\le22$.
+
+
+
+\subsubsection{Massimo comune divisore e minimo comune multiplo}
+
+\begin{definizione}
+Siano $a,b\in\Z$. Diremo che $d=\operatorname{MCD}(a,b)\in\Z$ se $d$ è \emph{massimo comune divisore} di $a$ e $b$, cioè se
+\begin{enumerate}[label=\arabic*),nosep]
+\item $d\mid a\ \wedge\ d\mid b$;
+\item $\forall\,c\in\Z$ tale che $c\mid a\wedge c\mid b$ allora $c\mid d$.
+\end{enumerate}
+Dualmente, $m=\operatorname{mcm}(a,b)\in\Z$ è il \emph{minimo comune multiplo} di $a$ e $b$ se
+\begin{enumerate}[label=\arabic*),nosep]
+\item $a\mid m\ \wedge\ b\mid m$;
+\item $\forall\,c\in\Z$ tale che $a\mid c\wedge b\mid c$ allora $m\mid c$.
+\end{enumerate}
+\end{definizione}
+
+\begin{nb}
+Se $d$ e $d'$ sono due $\operatorname{MCD}(a,b)$, allora dalla proprietà 2) segue che $d\mid d'$ e $d'\mid d$, e allora $d=\pm d'$: cioè $\operatorname{MCD}(a,b)$ è unico a meno del segno. Di solito si prende quello $\ge0$. Analogamente per il $\operatorname{mcm}(a,b)$.
+\end{nb}
+
+
+
+\subsubsection*{Osservazioni facili ma importanti}
+
+\begin{enumerate}[label=\textcircled{\small\arabic*}]
+\item Se $d\mid a\wedge d\mid b$ allora $d\mid\alpha a+\beta b$ per ogni $\alpha,\beta\in\Z$.
+\item Se $a\mid a'\wedge b\mid b'$ allora $ab\mid a'b'$.
+\item Se $d=\operatorname{MCD}(a,b)$ e $a=da'\wedge b=db'$ allora $\operatorname{MCD}(a',b')=1$, cioè $a'$ e $b'$ sono \textsc{coprimi}.
+\end{enumerate}
+
+\textbf{Dimostrazione.}
+(1) Per ipotesi esistono $a',b'\in\Z$ tali che $a=da'$ e $b=db'$. Allora $\alpha a+\beta b=\alpha da'+\beta db'=d(\alpha a'+\beta b')$ con $\alpha a'+\beta b'\in\Z$. Ciò dimostra la tesi.
+
+(2) Per ipotesi esistono $a'',b''\in\Z$ tali che $a'=aa''$ e $b'=bb''$, da cui $a'b'=(ab)(a''b'')$. Ciò prova la tesi.
+
+(3) Sia $d'=\operatorname{MCD}(a',b')$. Allora $d'\mid a'$ e $d'\mid b'$, ma allora (per (2), essendo $d\mid d$) $dd'\mid da'=a$ e $dd'\mid db'=b$. Per la $2^{\text a}$ proprietà di $d=\operatorname{MCD}(a,b)$ segue allora che $dd'\mid d$, cioè $\exists\,d''\in\Z$ con $d=dd'd''$, cioè $d(1-d'd'')=0$, da cui $d'd''=1$ e dunque $d'=d''=\pm1$, dunque $d'=\operatorname{MCD}(a',b')=1$ (scegliendo il segno non negativo).
+
+Osserviamo che qui abbiamo implicitamente assunto che $d=\operatorname{MCD}(a,b)\neq0$, che è sempre il caso se $a\neq0\vee b\neq0$. \hfill$\square$
+
+%=====================================================================
+\section{Decima lezione: divisione euclidea e identità di Bézout}
+%=====================================================================
+\textit{Mercoledì 21 ottobre 2026}
+
+Dimostreremo che $\forall\,a,b\in\Z$ esistono sempre $\operatorname{MCD}(a,b)$ e $\operatorname{mcm}(a,b)$, e che
+\[
+\operatorname{MCD}(a,b)\cdot\operatorname{mcm}(a,b)=|ab|,
+\]
+e troveremo un semplice algoritmo per calcolarli. Per fare ciò serve dimostrare che in $\Z$ c'è l'algoritmo della divisione intera.
+
+\subsection{La divisione intera (con resto)}
+
+\begin{teorema}[divisione euclidea]\label{thm:divisione}
+$\forall\,a,b\in\Z$, $b\neq0$, $\exists!\ q,r\in\Z$ tali che
+\[
+a=bq+r\qquad\text{con}\qquad 0\le r<|b| .
+\]
+\end{teorema}
+
+\begin{esempio}
+\begin{itemize}[nosep]
+\item $a=27,\ b=12$: \ $27=12\cdot2+3$, \quad $q=2,\ r=3$;
+\item $a=-5,\ b=12$: \ $-5=12\cdot(-1)+7$, \quad $q=-1,\ r=7$;
+\item $a=8,\ b=-3$: \ $8=(-3)(-2)+2$, \quad $q=-2,\ r=2<|-3|$;
+\item $a=-10,\ b=-3$: \ $-10=(-3)\cdot4+2$, \quad $q=4,\ r=2<|-3|$.
+\end{itemize}
+\end{esempio}
+
+\begin{proof}
+\textbf{Esistenza.}
+
+$\bullet$ Supponiamo dapprima $a\ge0$ e $b>0$ e procediamo per induzione su $a$. Il caso iniziale in cui $a=0$ è verificato, essendo $0=a=b\cdot0+0$.
+\begin{itemize}[nosep]
+\item se $0\le a<b$ allora $a=b\cdot0+a$;
+\item se $a=b$ allora $a=b\cdot1+0$;
+\item se $a>b$ allora per ipotesi induttiva $\exists\,q,r$ con $0\le r<b$ tali che
+\[
+a-1=bq+r\tag{$*$}
+\]
+da cui $a=bq+(r+1)$. Se $r+1<b$ abbiamo finito. Altrimenti $r+1=b$ ed allora da $(*)$ segue $a=b(q+1)$ e abbiamo finito.
+\end{itemize}
+Chiamiamo $\odot$ questo caso ($a\ge0,\ b>0$).
+
+$\bullet\bullet$ Supponiamo ora che $a<0$ (e $b>0$). Allora, per $\odot$, $\exists\,q',r'$ tali che $-a=bq'+r'$ con $0\le r'<b$.
+\begin{itemize}[nosep]
+\item se $r'=0$ allora $a=b(-q')+0$ ed abbiamo finito;
+\item se $r'>0$ allora $0<b-r'<b$, ed anche
+\[
+a=b(-q')-r'=b(-q')-b+b-r'=\underbrace{b(-q'-1)}_{=\,bq}+\underbrace{(b-r')}_{=\,r}.
+\]
+\end{itemize}
+Chiamiamo $\odot\!\odot$ questo caso ($a<0,\ b>0$).
+
+$\bullet\bullet\bullet$ Supponiamo infine che $b<0$. Allora per i punti precedenti $\odot$ e $\odot\!\odot$ (applicati a $a$ e a $-b>0$) otteniamo che
+\[
+a=(-b)q'+r'\qquad\text{con}\qquad 0\le r'<|-b|=|b|,
+\]
+e con $a=b(-q')+r'$ si conclude la dimostrazione.
+
+\medskip
+\textbf{Unicità.} Se $a=bq+r=bq'+r'$, con $0\le r,r'<|b|$, allora supponendo ad esempio che $r'\ge r$ ricaviamo
+\[
+0\le r'-r=b(q-q'),
+\]
+da cui
+\[
+|b|\,|q-q'|=|r'-r|=r'-r\le r'<|b| .
+\]
+Ma allora $|q-q'|<1$ e così ${q=q'}$; allora $r'-r=b(q-q')=0$, cioè ${r=r'}$. \qedhere
+\end{proof}
+
+\subsection{Il teorema di Bézout: esistenza del MCD}
+
+\begin{teorema}\label{thm:bezout}
+Siano $a,b\in\Z$, $(a,b)\neq(0,0)$. Allora $\exists\ \operatorname{MCD}(a,b)>0$ ed è
+\[
+\operatorname{MCD}(a,b)=\min\{\,\alpha a+\beta b>0\mid\alpha,\beta\in\Z\,\}\in\N^* .
+\]
+\end{teorema}
+
+\begin{proof}
+Consideriamo l'insieme
+\[
+S=\{\,\alpha a+\beta b>0\mid\alpha,\beta\in\Z\,\},
+\]
+ove $S\subseteq\N^*=\N\setminus\{0\}$ e $S\neq\emptyset$ poiché $(a,b)\neq(0,0)$. Allora $S$ ha un elemento minimo
+\[
+d=\alpha_0a+\beta_0b>0\qquad\exists\,\alpha_0,\beta_0\in\Z .
+\]
+Verifichiamo che $d=\operatorname{MCD}(a,b)$.
+\begin{itemize}
+\item $d\mid a$: infatti se $a=dq+r$ con $0\le r<|d|=d$ proviamo che $r=0$. Ora
+\[
+r=a-dq=a-(\alpha_0a+\beta_0b)q=a(1-\alpha_0q)+b(-\beta_0q).
+\]
+Se fosse $r>0$ avremmo che $r\in S$ e che $r<d$, e ciò è assurdo, poiché $d$ era il minimo. Quindi $r=0$.
+\item $d\mid b$: si argomenta come sopra.
+\item Se $d'\in\Z$ è tale che $d'\mid a\wedge d'\mid b$, allora per l'Osservazione~\textcircled{\small1} della nona lezione si ha che $d'\mid\alpha_0a+\beta_0b=d$. \qedhere
+\end{itemize}
+\end{proof}
+
+\begin{osservazione}
+\textbf{Dettagli sulla dimostrazione}. 
+\begin{itemize}[nosep]
+\item $S\neq\emptyset$: ad esempio $a^2+b^2=a\cdot a+b\cdot b>0$ appartiene a $S$ (equivalentemente, se $a\neq0$ allora $|a|=(\pm1)a+0\,b\in S$).
+\item L'esistenza del minimo di $S\subseteq\N^*$ è il principio del buon ordinamento di $\N$.
+\item I tre punti verificano esattamente le due condizioni della definizione di $\operatorname{MCD}$: i primi due danno la condizione 1) ($d$ è un divisore comune), il terzo la condizione 2) (ogni divisore comune divide $d$).
+\item Per il caso escluso $(a,b)=(0,0)$ si ha $\operatorname{MCD}(0,0)=0$: ogni intero $c$ divide $0$, quindi dovrebbe dividere anche $d$, e ciò forza $d=0$. Per questo, da qui in poi, $\operatorname{MCD}(a,b)$ indica il valore $\ge0$ (e $>0$ se $(a,b)\neq(0,0)$).
+\end{itemize}
+\end{osservazione}
+
+
+%=====================================================================
+\section{Undicesima lezione: Bézout, algoritmo di Euclide e fattorizzazione}
+%=====================================================================
+\textit{Giovedì 22 ottobre 2026}
+
+\subsection{La formula di Bézout e i suoi corollari}
+
+\begin{definizione}
+Presi $a,b\in\Z$, $(a,b)\neq(0,0)$, la scrittura
+\[
+\operatorname{MCD}(a,b)=\alpha_0a+\beta_0b\qquad\text{con }\alpha_0,\beta_0\in\Z
+\]
+è detta \textsc{formula di Bézout}.
+\end{definizione}
+
+\begin{nb}
+$\alpha_0$ e $\beta_0$ \textbf{non sono unici}! \quad \textbf{HW.}
+\end{nb}
+
+\begin{osservazione}
+\textbf{Svolgimento dell'HW}. 
+Siano $d=\operatorname{MCD}(a,b)$, $a=da'$, $b=db'$ e sia $d=\alpha_0a+\beta_0b$. Allora per ogni $k\in\Z$
+\[
+(\alpha_0+kb')\,a+(\beta_0-ka')\,b=d+k(b'a-a'b)=d+k(b'da'-a'db')=d,
+\]
+quindi anche $(\alpha_0+kb',\ \beta_0-ka')$ è una coppia di Bézout, e queste coppie sono tutte distinte al variare di $k$ (se $(a,b)\neq(0,0)$). Si può mostrare che sono \emph{tutte} le coppie: da $\alpha a+\beta b=d=\alpha_0a+\beta_0b$ segue $(\alpha-\alpha_0)a'=(\beta_0-\beta)b'$, con $\operatorname{MCD}(a',b')=1$ per l'Osservazione~\textcircled{\small3} della nona lezione, e la proprietà $\odot$ più sotto dà $b'\mid\alpha-\alpha_0$.
+
+\emph{Esempio.} $12=\operatorname{MCD}(420,72)=-1\cdot420+6\cdot72$; con $a'=35$, $b'=6$ e $k=1$ si ottiene anche $12=5\cdot420-29\cdot72$ (infatti $2100-2088=12$).
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+\begin{corollario}\label{cor:coprimi}
+$a,b\in\Z$ sono \textsc{coprimi} (cioè $\operatorname{MCD}(a,b)=1$) se e solo se $\exists\,\alpha,\beta\in\Z$ tali che $\alpha a+\beta b=1$.
+\end{corollario}
+
+\begin{proof}
+``$\Rightarrow$'' Se $a$ e $b$ sono coprimi allora $\operatorname{MCD}(a,b)=1$ e così dal Teorema di ieri $\exists\,\alpha,\beta\in\Z$ tali che $\alpha a+\beta b=1$ (Bézout).
+
+``$\Leftarrow$'' Per ipotesi $\exists\,\alpha,\beta\in\Z$ t.c.\ $\alpha a+\beta b=1$, e $1$ è il minimo intero positivo, e così dal Teorema di ieri discende che $1=\operatorname{MCD}(a,b)$. \qedhere
+\end{proof}
+
+\begin{corollario}
+Siano $a,b\in\Z$ con $(a,b)\neq(0,0)$. Allora
+\[
+\{\,\alpha a+\beta b\mid\alpha,\beta\in\Z\,\}=\operatorname{MCD}(a,b)\,\Z\ \overset{\text{DEF}}{:=}\ \{\,\operatorname{MCD}(a,b)\,k\mid k\in\Z\,\}.
+\]
+\end{corollario}
+
+\begin{proof}
+``$\subseteq$'' Sia $d=\operatorname{MCD}(a,b)$. Ora $d\mid a\wedge d\mid b$ e così $d\mid\alpha a+\beta b$ $\forall\,\alpha,\beta\in\Z$ (cfr.\ Osservazione~\textcircled{\small1} della nona lezione).
+
+``$\supseteq$'' Per Bézout $\exists\,\alpha_0,\beta_0\in\Z$ tali che
+\[
+d=\alpha_0a+\beta_0b
+\]
+e allora ogni $n\in\operatorname{MCD}(a,b)\,\Z$ è del tipo $n=dk$ $\exists\,k\in\Z$ e dunque
+\[
+n=dk=(\alpha_0a+\beta_0b)k=(k\alpha_0)\,a+(k\beta_0)\,b
+\]
+appartiene a $\{\alpha a+\beta b\mid\alpha,\beta\in\Z\}$, essendo $k\alpha_0,k\beta_0\in\Z$. \qedhere
+\end{proof}
+
+\bigskip\hrule\bigskip
+
+\subsection{L'algoritmo esteso di Euclide}
+
+Vediamo ora come sia possibile calcolare in modo algoritmicamente efficiente $d=\operatorname{MCD}(a,b)$, trovando inoltre $\alpha,\beta\in\Z$ per cui $d=\alpha a+\beta b$.
+
+\begin{teorema}[algoritmo esteso di Euclide]\label{thm:euclide}
+Siano $0<b<a\in\Z$. Consideriamo la seguente tabella, nella quale ogni riga a partire dalla terza si ottiene sommando alla riga di due posti sopra la riga immediatamente precedente moltiplicata per il numero $-q_{i+1}$ scritto a sinistra di quest'ultima:
+\[
+\begin{array}{r|rr|r}
+ & 1 & 0 & a\\
+-q_1 & 0 & 1 & b\\
+-q_2 & 1 & -q_1 & r_1\\
+ & -q_2 & 1+q_1q_2 & r_2\\[2pt]
+ & \vdots & \vdots & \vdots\\[2pt]
+ & \alpha_{i-1} & \beta_{i-1} & r_{i-1}\\
+-q_{i+1} & \alpha_i & \beta_i & r_i\\
+ & \alpha_{i-1}-q_{i+1}\alpha_i & \beta_{i-1}-q_{i+1}\beta_i & r_{i+1}\\[2pt]
+ & \vdots & \vdots & \vdots\\[2pt]
+ & & & r_m\\
+ & \alpha & \beta & d\\
+ & & & 0
+\end{array}
+\]
+dove i quozienti $q_i$ e i resti $r_i$ sono quelli delle divisioni con resto successive
+\begin{align*}
+a&=bq_1+r_1, & 0&\le r_1<b,\\
+b&=r_1q_2+r_2, & 0&\le r_2<r_1,\\
+&\ \ \vdots\\
+r_{i-1}&=r_iq_{i+1}+r_{i+1}, & 0&\le r_{i+1}<r_i,
+\end{align*}
+e la tabella si arresta quando compare il resto $0$. Allora
+\[
+d=\operatorname{MCD}(a,b)\qquad\text{e}\qquad d=\alpha a+\beta b .
+\]
+\end{teorema}
+
+\begin{proof}
+Osserviamo e dimostriamo che:
+\begin{enumerate}[label=\arabic*),itemsep=3pt]
+\item la successione di interi $\ge0$ $a,b,r_1,r_2,\dots,r_i,\dots$ è strettamente decrescente, quindi termina a $0$.
+\item In ogni riga si ha che
+\[
+{\,r_i=\alpha_i a+\beta_i b\,}\ :
+\]
+infatti ciò è vero per le prime due righe; supponendo per ipotesi induttiva che ciò sia vero per le righe $i-1$ e $i$, lo dimostriamo vero per la riga $i+1$. Essendo $r_{i-1}=r_iq_{i+1}+r_{i+1}$ si ottiene
+\begin{align*}
+r_{i+1}&=r_{i-1}-r_iq_{i+1}\\
+&\overset{\text{per induzione}}{=}(\alpha_{i-1}a+\beta_{i-1}b)-q_{i+1}(\alpha_ia+\beta_ib)\\
+&=(\alpha_{i-1}-q_{i+1}\alpha_i)\,a+(\beta_{i-1}-q_{i+1}\beta_i)\,b .
+\end{align*}
+\item Si vede che $d\mid r_m$ poiché il resto è $0$, e quindi $d\mid r_{m-1}$ perché $r_{m-1}=r_mq_{m+1}+d$. Iterando dalle equazioni $r_{i-1}=r_iq_{i+1}+r_{i+1}$ si ottiene che $d\mid r_j$ $\forall\,j$, ed in particolare $d\mid a$ e $d\mid b$. Ciò dimostra che $d\mid\operatorname{MCD}(a,b)$.
+\item $d=\operatorname{MCD}(a,b)$ perché se $d'\mid a$ e $d'\mid b$ allora $d'\mid\alpha a+\beta b=d$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{osservazione}
+\textbf{Precisazioni sulla tabella e sulla dimostrazione}. 
+\begin{itemize}[nosep]
+\item Gli indici sono scelti in modo che le prime due righe siano $r_{-1}=a$ e $r_0=b$, con $(\alpha_{-1},\beta_{-1})=(1,0)$ e $(\alpha_0,\beta_0)=(0,1)$: così $r_i=\alpha_ia+\beta_ib$ vale già per $i=-1,0$, ed è questa la base dell'induzione al punto 2).
+\item Ogni quoziente $q_{i+1}$ e ogni resto $r_{i+1}$ esistono (e sono unici) per il Teorema~\ref{thm:divisione} della decima lezione.
+\item Nel punto 3) la lettera $d$ indica l'ultimo resto non nullo, e $r_m$ è quello immediatamente precedente: la divisione finale è $r_m=d\,q_{m+2}+0$, quindi $d\mid r_m$; poi $r_{m-1}=r_mq_{m+1}+d$ dà $d\mid r_{m-1}$, e così via risalendo fino a $r_0=b$ e $r_{-1}=a$.
+\item Con il punto 3) $d$ è un divisore comune di $a$ e $b$ (condizione 1) della definizione di $\operatorname{MCD}$), e con il punto 4) ogni divisore comune divide $d$ (condizione 2).
+\end{itemize}
+\end{osservazione}
+
+\begin{esempio}
+Calcoliamo $\operatorname{MCD}(72,-420)$. Poiché i divisori di $72$ e $-420$ sono gli stessi di quelli di $72$ e $420$,
+\[
+\operatorname{MCD}(72,-420)=\operatorname{MCD}(420,72),
+\]
+con $a=420$ e $b=72$.
+\[
+\begin{array}{r|rr|r}
+ & 1 & 0 & 420\\
+-5 & 0 & 1 & 72\\
+-1 & 1 & -5 & 60\\
+ & -1 & 6 & {12}\\
+ & & & 0
+\end{array}
+\qquad\qquad
+\begin{aligned}
+420&=72\cdot5+60,\\
+72&=60\cdot1+12,\\
+60&=12\cdot5+0.
+\end{aligned}
+\]
+Quindi
+\[
+\operatorname{MCD}(420,72)=12=-1\cdot420+6\cdot72 .
+\]
+\end{esempio}
+
+\begin{osservazione}
+\textbf{Per la coppia $(72,-420)$}. 
+Dalla formula di Bézout per $(420,72)$ si ricava $12=6\cdot72+1\cdot(-420)$, cioè $\operatorname{MCD}(72,-420)=12=6\cdot72+1\cdot(-420)$.
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+\subsection{Conseguenze di Bézout: il lemma di Euclide e i numeri primi}
+
+Verifichiamo che in $\Z$ valgono le proprietà seguenti:
+\begin{itemize}
+\item[$\odot$] Se $c\mid ab\ \wedge\ \operatorname{MCD}(c,a)=1$ allora $c\mid b$.
+
+Infatti per ipotesi $ab=cd$ $\exists\,d\in\Z$ ed anche $1=\alpha a+\gamma c$ $\exists\,\alpha,\gamma\in\Z$ (per Bézout). Allora
+\[
+b=b\cdot1=b(\alpha a+\gamma c)=\alpha ab+\gamma bc=\alpha cd+\gamma bc=c(\gamma b+\alpha d),
+\]
+che dimostra $c\mid b$.
+
+\item[$\odot\!\odot$] Se $a\mid c\ \wedge\ b\mid c\ \wedge\ \operatorname{MCD}(a,b)=1$ allora $ab\mid c$.
+
+Infatti per ipotesi $c=ac'=bc''$ $\exists\,c',c''\in\Z$ e $1=\alpha a+\beta b$ $\exists\,\alpha,\beta\in\Z$. Allora
+\[
+c=c\cdot1=c(\alpha a+\beta b)=\alpha ac+\beta bc=\alpha a\,bc''+\beta b\,ac'=ab(\alpha c''+\beta c'),
+\]
+che dimostra $ab\mid c$.
+\end{itemize}
+
+\begin{proposizione}[caratterizzazione dei numeri primi]
+$p\in\Z$ è primo $\iff$
+\[
+\begin{cases}
+p\mid ab\ \Rightarrow\ p\mid a\ \vee\ p\mid b\quad\forall\,a,b\in\Z,\\
+p\neq0\ \wedge\ p\neq\pm1 .
+\end{cases}
+\]
+\end{proposizione}
+
+\begin{proof}
+``$\Rightarrow$'' $p\neq0\wedge p\neq\pm1$ per definizione. Inoltre se $p\mid ab$ e $p\nmid a$ allora $\operatorname{MCD}(p,a)=1$ poiché $p$ è primo e così per $\odot$ $p\mid b$. Ciò conclude la dimostrazione, per simmetria $a\leftrightarrow b$.
+
+``$\Leftarrow$'' Sia $p=ab$: dobbiamo dimostrare che $a=\pm1\vee b=\pm1$. Per ipotesi $p\mid ab$ e così, ancora per ipotesi, $p\mid a\vee p\mid b$. Nel primo caso $p\mid a\wedge a\mid p$ e così $p\sim a$ sono associati, cioè $b=\pm1$. Nel secondo caso si conclude in modo analogo. \qedhere
+\end{proof}
+
+\begin{osservazione}
+\textbf{Dettagli sui due versi}. 
+\begin{itemize}[nosep]
+\item ``$\Rightarrow$'': $d=\operatorname{MCD}(p,a)$ è un divisore positivo di $p$, cioè $p=dk$ per qualche $k$; poiché $p$ è primo, $d=\pm1$ oppure $k=\pm1$. Se fosse $k=\pm1$ avremmo $d=|p|$ e dunque $p\mid a$, contro l'ipotesi; quindi $d=1$.
+\item ``$\Leftarrow$'': se $p\mid a$, poiché anche $a\mid p$ (essendo $p=ab$), si ha $a=\pm p$ (vedi la divisibilità antisimmetrica ``a meno del segno'' della nona lezione); allora $p=ab=\pm pb$ e, essendo $p\neq0$ e $\Z$ un dominio, $b=\pm1$.
+\end{itemize}
+\end{osservazione}
+
+\bigskip\hrule\bigskip
+
+\subsection{Il teorema fondamentale dell'aritmetica}
+
+\begin{teorema}[fondamentale dell'aritmetica, o di fattorizzazione unica in $\Z$]\label{thm:fond}
+Sia $m\in\Z$, $m\neq0$, $m\neq\pm1$. Supponiamo, per semplicità, che $m>0$. Allora \underline{esistono} interi primi (positivi) $p_1,p_2,\dots,p_n\in\Prim$ tutti distinti tra loro e interi positivi $a_1,a_2,\dots,a_n\in\N\setminus\{0\}$ tali che
+\[
+m=p_1^{a_1}\,p_2^{a_2}\cdots p_n^{a_n}
+\]
+e tale scrittura è \underline{essenzialmente unica}, cioè se
+\[
+m=q_1^{b_1}\,q_2^{b_2}\cdots q_s^{b_s}
+\]
+con analogo significato di notazione, allora $n=s$ e, \underline{a meno dell'ordine}, $p_i=q_i\wedge a_i=b_i$ $\forall\,i$.
+\end{teorema}
+
+\begin{proof}[Dimostrazione: esistenza]
+Per induzione su $m$.
+
+\emph{Passo base:} $m=2$ è primo! Così $2=2^1$.
+
+\emph{Passo induttivo:} sia $m>2$ e supponiamo vere la tesi $\forall\,k\in\N$ con $2\le k<m$ e proviamo la tesi per $m$. Se $m$ è primo, allora $m=m^1$ ed abbiamo finito. Altrimenti $m=ab$ $\exists\,a,b\ge2$ e così sia $a$ che $b$ sono minori di $m$. Per ipotesi induttiva
+\[
+a=p_1^{e_1}\cdots p_n^{e_n}\qquad\wedge\qquad b=q_1^{b_1}\cdots q_s^{b_s}
+\]
+con ovvie notazioni, e così
+\[
+m=ab=p_1^{e_1}\cdots p_n^{e_n}\,q_1^{b_1}\cdots q_s^{b_s}
+\]
+e riordinando i fattori in modo da associare tra loro gli eventuali $p_i=q_j$, otteniamo la tesi.
+\end{proof}
+
+\begin{proof}[Dimostrazione dell'unicità]
+Siano $m=p_1\cdots p_r=q_1\cdots q_s$ due prodotti di primi, con ripetizioni ammesse. Poiché $p_1$ divide $q_1\cdots q_s$, applicando ripetutamente il lemma di Euclide si ha $p_1\mid q_j$ per un indice $j$. Essendo entrambi primi positivi, $p_1=q_j$. Riordinando i fattori e cancellando $p_1$ nell'uguaglianza, otteniamo due fattorizzazioni dello stesso intero con un fattore in meno. Per induzione sul numero dei fattori le liste coincidono a meno dell'ordine. Raggruppando i fattori uguali, coincidono anche gli esponenti.
+\end{proof}
+
+\begin{osservazione}
+\textbf{Dettagli sul passo induttivo}. 
+\begin{itemize}[nosep]
+\item Si usa l'induzione ``forte'': l'ipotesi vale per \emph{tutti} i $k$ con $2\le k<m$, non solo per $k=m-1$.
+\item Se $m>2$ non è primo, per la definizione di primo (con $m\neq0,\pm1$) esistono $a,b\in\Z$ con $ab=m$ e $a\neq\pm1$, $b\neq\pm1$; cambiando il segno a entrambi se necessario, si può supporre $a,b>0$ e quindi $a,b\ge2$. Allora $a=m/b\le m/2<m$ e analogamente $b<m$.
+\item ``Associare tra loro gli eventuali $p_i=q_j$'' significa sommare gli esponenti dei fattori uguali. Ad esempio, $m=12=2\cdot6$ con $a=2=2^1$ e $b=6=2^1\cdot3^1$: $12=2^1\cdot2^1\cdot3^1=2^2\cdot3$.
+\end{itemize}
+\end{osservazione}
+
+
+
+%=====================================================================
+\section{Dodicesima lezione: fattorizzazione unica e aritmetica modulare}
+%=====================================================================
+\textit{Venerdì 23 ottobre 2026}
+
+\subsection{Unicità della fattorizzazione in numeri primi}
+
+\begin{teorema}[unicità della fattorizzazione]
+Se $m>1$ ammette due scritture
+\[
+m=p_1^{a_1}\cdots p_r^{a_r}=q_1^{b_1}\cdots q_s^{b_s},
+\]
+con primi positivi distinti all'interno di ciascuna scrittura ed esponenti positivi, allora $r=s$ e, dopo un riordinamento, $p_i=q_i$ e $a_i=b_i$ per ogni $i$.
+\end{teorema}
+\begin{proof}
+Procediamo per induzione sul numero $\ell=a_1+\cdots+a_r$ di fattori primi della prima scrittura, contati con molteplicità. Se $\ell=1$, $m=p_1$ è primo. Poiché $p_1$ divide il prodotto $q_1^{b_1}\cdots q_s^{b_s}$, il lemma di Euclide implica che $p_1\mid q_j$ per qualche $j$, dunque $p_1=q_j$. Cancellando questo fattore, l'uguaglianza impone che il prodotto dei fattori rimanenti sia $1$, perciò non ve ne sono.
+
+Supponiamo $\ell>1$. Ancora $p_1\mid q_j$ per qualche $j$, dunque $p_1=q_j$. Cancellando $p_1$ otteniamo un'uguaglianza fra prodotti di primi con $\ell-1$ fattori a sinistra. L'ipotesi induttiva mostra che i fattori rimasti coincidono con le stesse molteplicità. Reinserendo il fattore cancellato si conclude. L'ordine è irrilevante per la commutatività del prodotto.
+\end{proof}
+
+\begin{osservazione}
+\textbf{Interpretazione.} L'esistenza garantisce che ogni intero $m>1$ possa essere scomposto in primi; l'unicità afferma che i primi e le rispettive molteplicità non dipendono dal procedimento scelto. Per $m< -1$ si fattorizza $|m|$ e si antepone il segno $-$.
+\end{osservazione}
+
+\subsection{Massimo comune divisore e minimo comune multiplo}
+
+\begin{proposizione}
+Siano $a,b$ interi positivi e sia $p_1,\dots,p_t$ l'insieme dei primi che dividono almeno uno tra $a$ e $b$. Scriviamo
+\[
+a=\prod_{i=1}^{t}p_i^{\alpha_i},\qquad b=\prod_{i=1}^{t}p_i^{\beta_i},\qquad \alpha_i,\beta_i\in\N.
+\]
+Allora
+\[
+\operatorname{MCD}(a,b)=\prod_{i=1}^{t}p_i^{\min(\alpha_i,\beta_i)},\qquad
+\operatorname{mcm}(a,b)=\prod_{i=1}^{t}p_i^{\max(\alpha_i,\beta_i)}.
+\]
+In particolare, $\operatorname{MCD}(a,b)\operatorname{mcm}(a,b)=ab$.
+\end{proposizione}
+\begin{proof}
+Per l'unicità della fattorizzazione, un intero positivo $d=\prod p_i^{\delta_i}$ divide $a$ se e solo se $\delta_i\le\alpha_i$ per ogni $i$; analogamente, divide $b$ se e solo se $\delta_i\le\beta_i$. Pertanto il massimo divisore comune si ottiene scegliendo per ogni $i$ l'esponente massimo consentito, cioè $\min(\alpha_i,\beta_i)$. Analogamente, un multiplo comune deve avere esponenti almeno pari a $\alpha_i$ e $\beta_i$, e il minimo multiplo comune positivo ha esponenti $\max(\alpha_i,\beta_i)$. Infine, poiché $\min(u,v)+\max(u,v)=u+v$, moltiplicando le due espressioni si ottiene $ab$.
+\end{proof}
+\begin{osservazione}
+Per interi non nulli di segno qualsiasi, applicando il risultato a $|a|,|b|$ si ricava $\operatorname{MCD}(a,b)\operatorname{mcm}(a,b)=|ab|$. Se uno è zero, con la convenzione $\operatorname{mcm}(a,0)=0$, la formula resta valida purché non siano entrambi zero.
+\end{osservazione}
+
+\subsection{Infinità dei numeri primi}
+\begin{teorema}[Euclide]
+L'insieme $\Prim$ dei numeri primi positivi è infinito.
+\end{teorema}
+\begin{proof}
+Supponiamo per assurdo che $\Prim=\{p_1,\ldots,p_t\}$ sia finito. L'intero $N=p_1\cdots p_t+1$ è maggiore di $1$, quindi ammette un divisore primo $p_j$ per il teorema fondamentale dell'aritmetica. Ma $p_j$ divide sia $N$ sia $p_1\cdots p_t$, dunque divide la loro differenza $1$, impossibile. Pertanto $\Prim$ è infinito.
+\end{proof}
+
+\subsection{Un'applicazione: irrazionalità della radice di un primo}
+\begin{proposizione}
+Per ogni primo positivo $p$, $\sqrt p\notin\Q$.
+\end{proposizione}
+\begin{proof}
+Se $\sqrt p=a/b$ con $a,b\in\Z$, $b\ne0$, allora $a^2=pb^2$. Nella fattorizzazione di $a^2$ l'esponente di ogni primo è pari, mentre nella fattorizzazione di $pb^2$ l'esponente di $p$ è dispari. Ciò contraddice l'unicità della fattorizzazione.
+\end{proof}
+
+\subsection{Congruenze modulo $n$}
+\begin{definizione}
+Fissato $n\in\N$ con $n\ge2$, per $a,b\in\Z$ poniamo
+\[
+a\equiv b\pmod n\quad\Longleftrightarrow\quad n\mid(a-b).
+\]
+Equivalentemente, $a$ e $b$ hanno lo stesso resto nella divisione euclidea per $n$.
+\end{definizione}
+\begin{proof}[Dimostrazione dell'equivalenza delle due caratterizzazioni]
+Scriviamo $a=nq+r$ e $b=nq'+r'$ con $0\le r,r'<n$. Se $r=r'$, allora $a-b=n(q-q')$. Viceversa, se $n\mid(a-b)$, allora $n\mid(r-r')$. Siccome $|r-r'|<n$, l'unico multiplo di $n$ possibile è $0$; dunque $r=r'$.
+\end{proof}
+\begin{proposizione}
+La congruenza modulo $n$ è una relazione di equivalenza su $\Z$.
+\end{proposizione}
+\begin{proof}
+È riflessiva perché $n\mid(a-a)=0$. È simmetrica perché $n\mid(a-b)$ implica $n\mid(b-a)=-(a-b)$. È transitiva perché da $n\mid(a-b)$ e $n\mid(b-c)$ segue $n\mid(a-c)=(a-b)+(b-c)$.
+\end{proof}
+\begin{definizione}
+L'insieme quoziente delle classi resto modulo $n$ è
+\[
+\Z/n\Z=\{[0]_n,[1]_n,\ldots,[n-1]_n\},\qquad [a]_n=a+n\Z=\{a+kn:k\in\Z\}.
+\]
+\end{definizione}
+\begin{proof}[Giustificazione della descrizione delle classi]
+Per definizione $b\in[a]_n$ se e solo se $n\mid(b-a)$, ossia $b-a=kn$ per qualche $k\in\Z$. La divisione euclidea garantisce che ogni intero è congruo a uno e un solo elemento di $\{0,\ldots,n-1\}$, quindi le classi elencate sono tutte e sono distinte.
+\end{proof}
+\begin{osservazione}
+\textbf{Interpretazione euristica.} Gli interi sono suddivisi in $n$ famiglie, ciascuna formata dagli interi che differiscono per multipli di $n$. Per esempio, in $\Z/12\Z$ si ha $[-7]_{12}=[5]_{12}$.
+\end{osservazione}
+
+\subsection{Operazioni sulle classi resto}
+\begin{proposizione}
+Le operazioni
+\[
+[a]_n+[b]_n:=[a+b]_n,\qquad [a]_n\cdot[b]_n:=[ab]_n
+\]
+sono ben definite, cioè indipendenti dai rappresentanti scelti.
+\end{proposizione}
+\begin{proof}
+Se $a\equiv a'\pmod n$ e $b\equiv b'\pmod n$, esistono $h,k\in\Z$ tali che $a-a'=nh$ e $b-b'=nk$. Allora
+\[
+(a+b)-(a'+b')=n(h+k),
+\]
+e quindi $[a+b]_n=[a'+b']_n$. Inoltre
+\[
+ab-a'b'=b(a-a')+a'(b-b')=n(bh+a'k),
+\]
+e dunque $[ab]_n=[a'b']_n$.
+\end{proof}
+\begin{proposizione}
+Con tali operazioni $\Z/n\Z$ è un anello commutativo con unità $[1]_n$; lo zero è $[0]_n$ e l'opposto additivo di $[a]_n$ è $[-a]_n$.
+\end{proposizione}
+\begin{proof}
+Le identità associativa e commutativa per somma e prodotto, e la distributività, discendono dalle corrispondenti identità in $\Z$ applicando le definizioni; ad esempio
+\[
+([a]_n+[b]_n)+[c]_n=[(a+b)+c]_n=[a+(b+c)]_n=[a]_n+([b]_n+[c]_n).
+\]
+Inoltre $[a]_n+[0]_n=[a]_n$, $[a]_n+[-a]_n=[0]_n$ e $[a]_n[1]_n=[a]_n$.
+\end{proof}
+
+\subsection{Elementi invertibili modulo $n$}
+\begin{teorema}
+La classe $[a]_n$ è invertibile rispetto al prodotto se e solo se $\operatorname{MCD}(a,n)=1$.
+\end{teorema}
+\begin{proof}
+Se $\operatorname{MCD}(a,n)=1$, l'identità di Bézout fornisce $u,v\in\Z$ con $ua+vn=1$. Passando alle classi modulo $n$ si ottiene $[u]_n[a]_n=[1]_n$, quindi $[u]_n$ è l'inversa di $[a]_n$.
+
+Viceversa, se $[a]_n$ è invertibile, esiste $[u]_n$ tale che $[a]_n[u]_n=[1]_n$. Ciò significa $au\equiv1\pmod n$, ossia $au-1=kn$ per un certo $k\in\Z$, dunque $au-kn=1$. Ogni divisore comune di $a$ e $n$ divide $1$; perciò il loro MCD è $1$.
+\end{proof}
+\begin{esempio}
+In $\Z/12\Z$, $[5]_{12}$ è invertibile poiché $\operatorname{MCD}(5,12)=1$; in effetti $[5]_{12}^2=[25]_{12}=[1]_{12}$. Invece $[6]_{12}$ non è invertibile, perché $\operatorname{MCD}(6,12)=6$.
+\end{esempio}
+
+\end{document}

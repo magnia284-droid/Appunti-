@@ -1,0 +1,3285 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[makeroom]{cancel}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,angles,quotes}
+\usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+
+% ---------- Macro ----------
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\KK}{\mathbb{K}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\newcommand{\vect}[2]{\begin{pmatrix}#1\\#2\end{pmatrix}}
+\newcommand{\MCD}{\operatorname{MCD}}
+
+% ---------- Teoremi ----------
+\theoremstyle{plain}
+\newtheorem{prop}{Proposizione}[section]
+\newtheorem{lemma}[prop]{Lemma}
+\newtheorem{teo}[prop]{Teorema}
+\newtheorem{cor}[prop]{Corollario}
+\theoremstyle{definition}
+\newtheorem{defn}[prop]{Definizione}
+\newtheorem{esempio}[prop]{Esempio}
+\theoremstyle{remark}
+\newtheorem{oss}[prop]{Osservazione}
+
+\title{Geometria 1 --- Appunti delle lezioni\\[2pt]
+\large rielaborati e integrati}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\bigskip
+Il testo segue le note delle lezioni; i richiami, i passaggi esplicitati e le dimostrazioni sono integrati direttamente nella trattazione.
+
+
+% =====================================================================
+\section{Lezione 2 (29 settembre) --- Coniugio e modulo}
+% =====================================================================
+
+\subsection{Il coniugato}
+
+Sia $z\in\CC$, $z=a+bi$ con $a,b\in\RR$; si pone $a=\Re z$ (parte reale) e $b=\Im z$ (parte immaginaria).
+
+\begin{defn}[Coniugato]
+Il \emph{coniugato} di $z=a+bi$ è
+\[
+  \bar z := a-bi .
+\]
+\end{defn}
+
+\subsection{Proprietà del coniugio}
+
+\begin{prop}[Proprietà del coniugio]\label{prop:coniugio}
+Per ogni $z,w\in\CC$:
+\begin{enumerate}[label=(\arabic*)]
+  \item $\overline{\bar z}=z$;
+  \item $\overline{z+w}=\bar z+\bar w$;
+  \item $\overline{zw}=\bar z\,\bar w$;
+  \item $\bar z=z$ se, e solo se, $z\in\RR$;
+  \item $\Re z=\dfrac{z+\bar z}{2}$;
+  \item $\Im z=\dfrac{z-\bar z}{2i}$.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+\emph{(1)} Se $z=a+bi$, allora $\bar z=a-bi$ e $\overline{\bar z}=a-(-b)i=a+bi=z$.
+
+\emph{(2)} Siano $z=a+ib$ e $w=c+id$. Allora $z+w=(a+c)+(b+d)i$, quindi
+\[
+  \overline{z+w}=(a+c)+(-b-d)i .
+\]
+D'altra parte $\bar z=a-bi$, $\bar w=c-di$ e
+\[
+  \bar z+\bar w=(a-bi)+(c-di)=(a+c)+(-b-d)i .
+\]
+I due membri coincidono.
+
+\emph{(4)} Con $z=a+ib$ e $\bar z=a-ib$:
+\[
+  z=\bar z \iff a+ib=a-ib \iff 2ib=0 \iff (2b)\,i=0 .
+\]
+Il numero complesso $(2b)\,i$ ha parte reale $0$ e parte immaginaria $2b$ (è il punto $(0,2b)$ del piano);
+è uguale a $0=(0,0)$ se e solo se $2b=0$. Quindi
+\[
+  z=\bar z\iff b=0\iff z\in\RR .
+\]
+
+\emph{(6)} Con $z=a+ib$:
+\[
+  \frac{z-\bar z}{2i}=\frac{(a+ib)-(a-ib)}{2i}=\frac{a+ib-a+ib}{2i}=\frac{2bi}{2i}=b=\Im z .
+\]
+\end{proof}
+
+\par\medskip
+\noindent\textbf{i due punti lasciati per esercizio.}\par
+
+\textbf{(3) $\overline{zw}=\bar z\,\bar w$.}
+Con $z=a+bi$, $w=c+di$:
+\[
+  zw=(ac-bd)+(ad+bc)i\quad\Longrightarrow\quad \overline{zw}=(ac-bd)-(ad+bc)i .
+\]
+Dall'altra parte
+\[
+  \bar z\,\bar w=(a-bi)(c-di)=ac-adi-bci+bd\,i^2=(ac-bd)-(ad+bc)i .
+\]
+Coincidono.
+
+\medskip
+\textbf{(5) $\Re z=\frac{z+\bar z}{2}$ (esercizio algebrico).}
+\[
+  \frac{z+\bar z}{2}=\frac{(a+ib)+(a-ib)}{2}=\frac{2a}{2}=a=\Re z .
+\]
+
+\medskip
+\textbf{Conseguenza utile (da (4)).} Un numero complesso è \emph{reale} se e solo se coincide con il suo coniugato;
+è \emph{immaginario puro} (cioè $a=0$) se e solo se $\bar z=-z$.
+\par\medskip
+
+\subsection{Il modulo}
+
+\begin{defn}[Modulo]
+Il \emph{modulo} di $z=a+bi$ è $|z|:=\sqrt{a^2+b^2}$, cioè la distanza di $z$ dall'origine nel piano di Gauss.
+\end{defn}
+
+Un fatto che useremo sempre:
+\begin{equation}\label{eq:zzbar}
+  z\bar z=(a+bi)(a-bi)=a^2-abi+abi-b^2i^2=a^2+b^2=|z|^2,
+\end{equation}
+quindi $|z|=\sqrt{z\bar z}$ e $|z|^2=z\bar z$ è un numero \emph{reale}.
+
+\subsection{Proprietà del modulo}
+
+\begin{prop}[Proprietà del modulo]\label{prop:modulo}
+\begin{enumerate}[label=(\arabic*)]
+  \item $|z|=|\bar z|$ per ogni $z\in\CC$;
+  \item $|z|\ge0$ per ogni $z\in\CC$, e $|z|=0$ se, e solo se, $z=0$;
+  \item se $z\neq0$ allora $z^{-1}=\bar z/|z|^2$;
+  \item (disuguaglianza triangolare) $|z+w|\le|z|+|w|$ per ogni coppia $z,w\in\CC$;
+  \item $|zw|=|z|\,|w|$ per ogni coppia $z,w\in\CC$.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+\emph{(1)} $|\bar z|=\sqrt{a^2+(-b)^2}=\sqrt{a^2+b^2}=|z|$.
+
+\emph{(2)} Una radice quadrata di un numero $\ge0$ è $\ge0$. Inoltre
+$|z|=0\iff a^2+b^2=0\iff a=b=0$, perché somma di due quadrati reali è nulla solo se lo sono entrambi.
+
+\emph{(3)} Sia $z\neq0$. Per \eqref{eq:zzbar}, $|z|^2=z\bar z$, ed è un numero reale diverso da $0$ (per (2)).
+Dividendo per $|z|^2$:
+\[
+  1=z\cdot\frac{\bar z}{|z|^2}
+\]
+Quindi $\bar z/|z|^2$ è l'inverso di $z$. In coordinate, con $z=a+ib$:
+\[
+  z^{-1}=\frac{a-ib}{a^2+b^2}=\frac{a}{a^2+b^2}-\frac{b}{a^2+b^2}\,i .
+\]
+\end{proof}
+
+\par\medskip
+\noindent\textbf{dimostrazione di (5) e (4) (lasciate per esercizio).}\par
+
+\textbf{(5)} Usando \eqref{eq:zzbar} e la Proposizione~\ref{prop:coniugio}(3):
+\[
+  |zw|^2=(zw)\overline{(zw)}=z\,w\,\bar z\,\bar w=(z\bar z)(w\bar w)=|z|^2|w|^2 .
+\]
+Poiché i moduli sono $\ge0$, prendendo la radice quadrata si ottiene $|zw|=|z||w|$.
+
+\textbf{(4)} (Si usa (5), quindi la dimostriamo dopo.) Sviluppiamo:
+\[
+  |z+w|^2=(z+w)(\bar z+\bar w)=z\bar z+w\bar w+(z\bar w+\bar z w)=|z|^2+|w|^2+2\Re(z\bar w),
+\]
+perché $\bar z w=\overline{z\bar w}$ (Prop.~\ref{prop:coniugio}(1),(3)) e $u+\bar u=2\Re u$ (Prop.~\ref{prop:coniugio}(5)).
+Ora, per ogni $u=a+bi$ vale $\Re u=a\le\sqrt{a^2+b^2}=|u|$. Dunque, con $u=z\bar w$ e usando (5) e (1),
+\[
+  \Re(z\bar w)\le|z\bar w|=|z||\bar w|=|z||w| .
+\]
+Allora
+\[
+  |z+w|^2\le|z|^2+|w|^2+2|z||w|=(|z|+|w|)^2,
+\]
+e prendendo la radice quadrata (funzione crescente su $[0,\infty)$) si ha $|z+w|\le|z|+|w|$.
+
+\smallskip
+\emph{Significato geometrico:} in un triangolo di vertici $0$, $z$, $z+w$ un lato è lungo al più quanto la somma degli altri due.
+\par\medskip
+
+\subsection{Rappresentazione trigonometrica}
+
+\begin{oss}\label{oss:modulo1}
+Se $z\neq0$, il numero $\dfrac{z}{|z|}$ ha modulo $1$.
+Infatti, posto $z=a+ib$ e $z'=\dfrac{a+ib}{\sqrt{a^2+b^2}}$,
+\[
+  |z'|=\sqrt{\frac{a^2}{a^2+b^2}+\frac{b^2}{a^2+b^2}}=\sqrt{\frac{a^2+b^2}{a^2+b^2}}=\sqrt1=1 .
+\]
+(In alternativa: $|z/|z||=|z|/\,||z||=1$ per la proprietà (5) del modulo applicata a $z\cdot|z|^{-1}$.)
+\end{oss}
+
+\begin{oss}\label{oss:trig}
+Sia $z\neq0$ (quindi $|z|\neq0$). Allora
+\[
+  z=|z|\cdot\frac{z}{|z|}=|z|\,(\cos\theta+i\sin\theta)
+\]
+per un opportuno $0\le\theta<2\pi$: infatti $\dfrac z{|z|}$ è un numero complesso \emph{di modulo~1}.
+\end{oss}
+
+\par\medskip
+\noindent\textbf{perché esiste $\theta$.}\par
+
+Con $z=a+ib$, $\rho=|z|$, il punto $\bigl(\tfrac a\rho,\tfrac b\rho\bigr)$ soddisfa
+$\bigl(\tfrac a\rho\bigr)^2+\bigl(\tfrac b\rho\bigr)^2=1$ (Oss.~\ref{oss:modulo1}), cioè sta sulla circonferenza unitaria.
+Ogni punto della circonferenza unitaria si scrive in modo unico come $(\cos\theta,\sin\theta)$ con $\theta\in[0,2\pi)$:
+\[
+  \cos\theta=\frac a\rho,\qquad \sin\theta=\frac b\rho .
+\]
+\par\medskip
+
+\begin{defn}[Rappresentazione trigonometrica]
+Con \emph{rappresentazione trigonometrica} di un numero $z\in\CC$, $z\neq0$, si intende la scrittura
+\[
+  z=\rho\,(\cos\theta+i\sin\theta),\qquad\text{ove }\rho=|z|>0,
+\]
+e $\theta$ indica l'angolo che la semiretta $\overrightarrow{Oz}$ forma con la semiretta delle $x$ positive (asse reale positivo).
+$\theta$ viene detto \textbf{argomento principale} se $0\le\theta<2\pi$; si scrive $\theta=\Arg z$.
+\end{defn}
+
+\par\medskip
+\noindent\textbf{argomento e argomento principale.}\par
+
+Se $\theta$ è un argomento di $z$, lo è anche $\theta+2\pi k$ per ogni $k\in\ZZ$ (seno e coseno hanno periodo $2\pi$);
+tra tutti questi ce n'è uno solo in $[0,2\pi)$: è l'argomento principale.
+Lo $0$ non ha argomento (la semiretta $\overrightarrow{O0}$ non è definita).
+\par\medskip
+
+% =====================================================================
+\section{Lezione 3 (30 settembre) --- Forma esponenziale e inverso}
+% =====================================================================
+
+\subsection{La notazione esponenziale}
+
+\par\medskip
+\noindent\textbf{Premessa: la notazione esponenziale.}\par
+
+Nelle osservazioni della lezione si usa la scrittura $\rho\,e^{\theta i}$. Essa è definita da
+\[
+  e^{i\theta}:=\cos\theta+i\sin\theta\qquad(\theta\in\RR),
+\]
+cosicché la rappresentazione trigonometrica diventa $z=\rho\,e^{i\theta}$. Proprietà fondamentali:
+\begin{enumerate}[label=(E\arabic*)]
+  \item $|e^{i\theta}|=\sqrt{\cos^2\theta+\sin^2\theta}=1$;
+  \item $e^{i\alpha}\,e^{i\beta}=e^{i(\alpha+\beta)}$;
+  \item $\overline{e^{i\theta}}=e^{-i\theta}$ e quindi $(e^{i\theta})^{-1}=e^{-i\theta}$;
+  \item $e^{i\alpha}=e^{i\beta}\iff\alpha-\beta\in2\pi\ZZ$.
+\end{enumerate}
+\emph{Dimostrazioni.}
+(E2): dalle formule di addizione,
+\begin{align*}
+(\cos\alpha+i\sin\alpha)(\cos\beta+i\sin\beta)
+ &=(\cos\alpha\cos\beta-\sin\alpha\sin\beta)+i(\sin\alpha\cos\beta+\cos\alpha\sin\beta)\\
+ &=\cos(\alpha+\beta)+i\sin(\alpha+\beta).
+\end{align*}
+(E3): $\overline{\cos\theta+i\sin\theta}=\cos\theta-i\sin\theta=\cos(-\theta)+i\sin(-\theta)=e^{-i\theta}$, e
+$e^{i\theta}e^{-i\theta}=e^{0}=1$ per (E2).
+(E4): per (E2),(E3), $e^{i\alpha}=e^{i\beta}\iff e^{i(\alpha-\beta)}=1\iff\cos(\alpha-\beta)=1$ e $\sin(\alpha-\beta)=0$
+$\iff\alpha-\beta\in2\pi\ZZ$.
+\par\medskip
+
+\subsection{Uguaglianza di numeri in forma esponenziale}
+
+\begin{oss}[Uguaglianza]\label{oss:uguaglianza}
+Siano $z_1=\rho_1e^{\theta_1i}$ e $z_2=\rho_2e^{\theta_2i}$ (con $\rho_1,\rho_2>0$). Allora $z_1=z_2$ implica che
+\begin{itemize}
+  \item $\rho_1=\rho_2$;
+  \item $\theta_2=\theta_1+2\pi k$ per un opportuno $k\in\ZZ$.
+\end{itemize}
+(NB: $\theta_1=\theta_2$ se $\theta_1,\theta_2$ sono argomenti principali, cioè in $[0,2\pi)$.)
+\end{oss}
+
+\par\medskip
+\noindent\textbf{Perché.}\par
+
+Prendendo i moduli e usando (E1): $\rho_1=|z_1|=|z_2|=\rho_2$. Dividendo per $\rho_1=\rho_2\neq0$ resta
+$e^{i\theta_1}=e^{i\theta_2}$, e per (E4) $\theta_2-\theta_1\in2\pi\ZZ$.
+Se entrambi sono in $[0,2\pi)$, la differenza è in $(-2\pi,2\pi)$, e l'unico multiplo di $2\pi$ lì dentro è $0$.
+Vale anche il viceversa: se $\rho_1=\rho_2$ e $\theta_2=\theta_1+2\pi k$, allora $z_1=z_2$.
+\par\medskip
+
+\begin{oss}[Il numero $1$]\label{oss:uno}
+$\rho\,e^{\theta i}=1=1\cdot e^{0\,i}$ implica $\rho=1$ e $\theta=0+2\pi k$, con $k\in\ZZ$.
+(È il caso particolare dell'Oss.~\ref{oss:uguaglianza} con $z_2=1$.)
+\end{oss}
+
+\subsection{L'inverso in forma esponenziale}
+
+\begin{oss}[Inverso]\label{oss:inverso}
+Se
+\[
+  \rho_1e^{\theta_1i}\cdot\rho_2e^{\theta_2i}=1,
+\]
+poiché il prodotto è $\rho_1\rho_2\,e^{(\theta_1+\theta_2)i}$ (per (E2)), dall'Oss.~\ref{oss:uno} si ha
+\begin{align*}
+  \rho_1\rho_2&=1 &&\Longrightarrow\quad \rho_2=\frac1{\rho_1}\in\RR,\\
+  \theta_1+\theta_2&=2\pi k,\ \text{per un }k\in\ZZ &&\Longrightarrow\quad \theta_2=-\theta_1+2\pi k,\ \text{per un }k\in\ZZ.
+\end{align*}
+\textbf{NB.} Se $\theta_1$ e $\theta_2$ sono argomenti principali (e $\theta_1\neq0$), allora $\theta_2=-\theta_1+2\pi=2\pi-\theta_1$.
+\end{oss}
+
+Ne deduco che
+\[
+  \bigl(\rho_1e^{\theta_1i}\bigr)^{-1}=\frac1{\rho_1}\,e^{(-\theta_1)i},
+  \qquad\text{infatti}\qquad e^{-\theta_1i}=e^{(2\pi-\theta_1)i}.
+\]
+
+\par\medskip
+\noindent\textbf{caso $\theta_1=0$, e legame con la formula $z^{-1}=\bar z/|z|^2$.}\par
+
+Se $\theta_1=0$ (cioè $z$ reale positivo) l'argomento principale dell'inverso è $0$ e non $2\pi$, perché $2\pi\notin[0,2\pi)$:
+la formula $2\pi-\theta_1$ vale per $\theta_1\in(0,2\pi)$.
+
+\smallskip
+Il risultato è coerente con la Lezione~2. Se $z=\rho e^{i\theta}$ allora $\bar z=\rho e^{-i\theta}$ (E3), $|z|^2=\rho^2$ e
+\[
+  \frac{\bar z}{|z|^2}=\frac{\rho\,e^{-i\theta}}{\rho^2}=\frac1\rho\,e^{-i\theta}.
+\]
+Quindi $\dfrac1z=\dfrac{\bar z}{|z|^2}$ ha argomento $-\theta\equiv2\pi-\theta$: giace sulla stessa semiretta di $\bar z$
+(il simmetrico di $z$ rispetto all'asse reale), ma a distanza $1/|z|$ dall'origine.
+\par\medskip
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+  \draw[->] (-1,0) -- (3.4,0) node[right] {$\Re$};
+  \draw[->] (0,-2.3) -- (0,2.3) node[above] {$\Im$};
+  \coordinate (z) at (1.2,1.6);
+  \coordinate (zb) at (1.2,-1.6);
+  \coordinate (inv) at (0.3,-0.4);
+  \fill (z) circle (1.6pt) node[above right] {$z=\rho e^{\theta i}$};
+  \fill (zb) circle (1.6pt) node[below right] {$\bar z=\rho e^{-\theta i}$};
+  \fill[red!70!black] (inv) circle (1.6pt) node[left] {\small $\dfrac1z$};
+  \draw[dashed,gray] (z) -- (zb);
+  \draw[dashed,gray] (0,0) -- (z);
+  \draw[dashed,gray] (0,0) -- (zb);
+  \draw (0.5,0) arc (0:53.13:0.5) node[midway,right,xshift=1pt] {\scriptsize $\theta$};
+  \draw (0.5,0) arc (0:-53.13:0.5) node[midway,right,xshift=1pt] {\scriptsize $-\theta$};
+\end{tikzpicture}
+\caption{$z$, il coniugato $\bar z$ e l'inverso $1/z$: $1/z$ sta sulla semiretta di $\bar z$, a distanza $1/|z|$ dall'origine.}
+\end{figure}
+
+\subsection{Prodotto, potenze e radici}
+
+\par\medskip
+\noindent\textbf{prodotto, potenze e radici in forma esponenziale.}\par
+
+Dalle (E2) e dall'Oss.~\ref{oss:uguaglianza}:
+\[
+  \rho_1e^{i\theta_1}\cdot\rho_2e^{i\theta_2}=\rho_1\rho_2\,e^{i(\theta_1+\theta_2)},\qquad
+  \bigl(\rho e^{i\theta}\bigr)^n=\rho^n e^{in\theta}\quad(n\in\ZZ)\ \ \text{(formula di de Moivre)}.
+\]
+Moltiplicare per $z$ significa quindi \emph{ruotare} di $\Arg z$ e \emph{scalare} di $|z|$.
+
+\begin{teo}[Radici $n$-esime]\label{teo:radici}
+Sia $w=\rho e^{i\theta}\neq0$ e $n\ge1$. L'equazione $u^n=w$ ha esattamente $n$ soluzioni:
+\[
+  u_k=\sqrt[n]{\rho}\;e^{\,i\frac{\theta+2\pi k}{n}},\qquad k=0,1,\dots,n-1 .
+\]
+\end{teo}
+\begin{proof}
+Se $u=re^{i\varphi}$ con $r>0$, allora $u^n=r^ne^{in\varphi}$. Per l'Oss.~\ref{oss:uguaglianza},
+$u^n=w\iff r^n=\rho$ e $n\varphi=\theta+2\pi k$ per un $k\in\ZZ$, cioè $r=\sqrt[n]\rho$ e $\varphi=\frac{\theta+2\pi k}{n}$.
+Due valori $k,k'$ danno lo stesso numero se e solo se $\frac{2\pi(k-k')}{n}\in2\pi\ZZ$, cioè $n\mid(k-k')$;
+quindi bastano $k=0,\dots,n-1$ e questi danno $n$ numeri distinti (i vertici di un $n$-agono regolare).
+\end{proof}
+\par\medskip
+
+% =====================================================================
+\section{Lezione 4 (5 ottobre) --- Polinomi reali e radici complesse}
+% =====================================================================
+
+\subsection{Zeri di un polinomio e coniugio}
+
+Il testo segue le note delle lezioni; i richiami, i passaggi esplicitati e le dimostrazioni sono integrati direttamente nella trattazione.
+
+
+\begin{lemma}\label{lemma:coniugato}
+Sia $p(x)\in\RR[x]$ di grado $n\ge1$. Se $\alpha\in\CC$ è zero di $p(x)$, allora anche $\bar\alpha$ lo è.
+\end{lemma}
+
+\begin{proof}
+Sia $p(x)=\sum_{i=0}^na_ix^i=a_nx^n+\dots+a_0$ con $a_i\in\RR$. Poiché $\alpha$ è zero di $p(x)$,
+\[
+  p(\alpha)=\sum_{i=0}^na_i\alpha^i=a_n\alpha^n+\dots+a_0=0\in\CC\qquad(\alpha^0=1).
+\]
+Coniughiamo entrambi i membri:
+\begin{align*}
+  0=\bar0&=\overline{\sum_{i=0}^na_i\alpha^i}=\sum_{i=0}^n\overline{a_i\alpha^i}=\sum_{i=0}^n\bar a_i\,(\bar\alpha)^i\\
+  &=\bar a_n\bar\alpha^{\,n}+\bar a_{n-1}\bar\alpha^{\,n-1}+\dots+\bar a_0\\
+  &=a_n\bar\alpha^{\,n}+a_{n-1}\bar\alpha^{\,n-1}+\dots+a_0\qquad\text{perché }a_i\in\RR\\
+  &=p(\bar\alpha).
+\end{align*}
+Dunque $\bar\alpha$ è zero di $p(x)$.
+\end{proof}
+
+\par\medskip
+\noindent\textbf{giustificazione dei passaggi.}\par
+
+\begin{itemize}[leftmargin=*]
+  \item Il secondo passaggio usa che il coniugio è additivo (Prop.~\ref{prop:coniugio}(2), esteso per induzione a somme finite).
+  \item Il terzo usa che è moltiplicativo (Prop.~\ref{prop:coniugio}(3)): $\overline{a_i\alpha^i}=\bar a_i\,\overline{\alpha^i}=\bar a_i(\bar\alpha)^i$, dove
+  $\overline{\alpha^i}=(\bar\alpha)^i$ per induzione su $i$.
+  \item L'ipotesi \emph{reale} dei coefficienti entra solo in $\bar a_i=a_i$ (Prop.~\ref{prop:coniugio}(4)).
+  Per un polinomio a coefficienti complessi il lemma è falso: $x-i$ ha zero $i$ ma non $-i$.
+\end{itemize}
+\par\medskip
+
+\begin{oss}
+Il risultato vale anche se $\alpha\in\RR$, perché in tal caso $\alpha=\bar\alpha$.
+\end{oss}
+
+\subsection{Fattori reali di grado 2}
+
+Se $\alpha\in\CC\setminus\RR$ è zero di $p(x)\in\RR[x]$, allora $(x-\alpha)(x-\bar\alpha)$ divide $p(x)$.
+Notiamo che
+\[
+  (x-\alpha)(x-\bar\alpha)=x^2-\alpha x-\bar\alpha x+\alpha\bar\alpha=x^2-\underbrace{(\alpha+\bar\alpha)}_{2\Re\alpha}x+|\alpha|^2
+  =x^2-2\Re\alpha\,x+|\alpha|^2\in\RR[x].
+\]
+
+\par\medskip
+\noindent\textbf{perché $(x-\alpha)(x-\bar\alpha)$ divide $p(x)$.}\par
+
+Poniamo $m(x)=(x-\alpha)(x-\bar\alpha)=x^2-2\Re\alpha\,x+|\alpha|^2$, che ha coefficienti reali e grado $2$.
+Dividendo in $\RR[x]$: $p(x)=m(x)q(x)+r(x)$ con $q,r\in\RR[x]$ e $\deg r\le1$, cioè $r(x)=cx+d$ con $c,d\in\RR$.
+Valutando in $\alpha$ e in $\bar\alpha$ (che sono zeri sia di $p$, per il Lemma~\ref{lemma:coniugato}, sia di $m$) si ottiene
+$r(\alpha)=0=r(\bar\alpha)$, cioè $c\alpha+d=0=c\bar\alpha+d$. Sottraendo: $c(\alpha-\bar\alpha)=0$.
+Siccome $\alpha\notin\RR$, $\alpha\ne\bar\alpha$, quindi $c=0$ e poi $d=0$. Dunque $r=0$ e $p=m\,q$ con $q\in\RR[x]$ di grado $\deg p-2$.
+\par\medskip
+
+\subsection{Fattorizzazione in $\RR[x]$}
+
+\begin{teo}[{Fattorizzazione in $\RR[x]$}]\label{teo:fattorizzazione}
+Se $p(x)\in\RR[x]$ è di grado $n\ge1$ ed è \textbf{monico} ($a_n=1$), allora
+\[
+  p(x)=(x-\alpha_1)(x-\alpha_2)\cdots(x-\alpha_r)\;
+  \underbrace{(x-\beta_1)(x-\bar\beta_1)}_{x^2-2\Re\beta_1\,x+|\beta_1|^2}\cdots(x-\beta_s)(x-\bar\beta_s),
+\]
+dove $\alpha_1,\dots,\alpha_r\in\RR$ e $\beta_1,\dots,\beta_s\in\CC\setminus\RR$.
+In particolare $n=r+2s$ e ogni fattore $(x-\beta_j)(x-\bar\beta_j)=x^2-2\Re\beta_j\,x+|\beta_j|^2$ ha coefficienti reali.
+\end{teo}
+
+\par\medskip
+\noindent\textbf{dimostrazione (per induzione sul grado).}\par
+
+Si usa il \emph{teorema fondamentale dell'algebra}: ogni polinomio di grado $\ge1$ a coefficienti complessi ha almeno uno zero in $\CC$.
+
+Per $n=0$ il polinomio monico è $1$ (prodotto vuoto). Sia $n\ge1$ e sia $\gamma\in\CC$ uno zero di $p$.
+\begin{itemize}[leftmargin=*]
+  \item Se $\gamma\in\RR$: $p(x)=(x-\gamma)q(x)$ con $q\in\RR[x]$ monico di grado $n-1$; si applica l'ipotesi induttiva a $q$.
+  \item Se $\gamma\notin\RR$: per quanto visto sopra $p(x)=(x-\gamma)(x-\bar\gamma)q(x)$ con $q\in\RR[x]$ monico di grado $n-2$;
+  si applica l'ipotesi induttiva a $q$.
+\end{itemize}
+\par\medskip
+
+\subsection{Esempio e corollario}
+
+\par\medskip
+\noindent\textbf{esempio e corollario.}\par
+
+\textbf{Esempio.} $p(x)=x^3-1$. Gli zeri sono le radici cubiche di $1$ (Teorema~\ref{teo:radici}):
+$1$, $\beta=e^{2\pi i/3}=-\tfrac12+\tfrac{\sqrt3}2i$ e $\bar\beta=e^{4\pi i/3}$. Dato che $\Re\beta=-\tfrac12$ e $|\beta|=1$,
+\[
+  x^3-1=(x-1)(x-\beta)(x-\bar\beta)=(x-1)\bigl(x^2-2\Re\beta\,x+|\beta|^2\bigr)=(x-1)(x^2+x+1),
+\]
+e $x^2+x+1$ non ha zeri reali.
+
+\smallskip
+\textbf{Corollario.} Se $\deg p$ è \emph{dispari}, $p\in\RR[x]$ ha almeno uno zero reale: da $n=r+2s$ segue che $r$ è dispari, quindi $r\ge1$.
+\par\medskip
+
+% =====================================================================
+\section{Lezione 5 (6 ottobre) --- Esercizio: $1^\circ$ compitino 2024}
+% =====================================================================
+
+\subsection{Testo dell'esercizio}
+Sia
+\[
+  z=\frac{2-2\sqrt3\,i}{\sqrt3+3i}.
+\]
+\begin{enumerate}[label=\alph*)]
+  \item Calcolare $|z|$ e $\Arg z$.
+  \item Calcolare $|z^4|$ e $\Arg z^4$. Esistono $n\in\NN_{>0}$ tali che $z^n\in\RR$?
+  \item Calcolare tutte le radici quarte di $z^4$.
+  \item Come cambiano le risposte a a), b), c) se si considera $w=z\cdot i$ al posto di $z$?
+\end{enumerate}
+
+\subsection{Punto a): modulo e argomento di $z$}
+
+Scriviamo numeratore e denominatore in forma esponenziale.
+\begin{align*}
+  z_N&=2-2\sqrt3\,i=2\bigl(1-\sqrt3\,i\bigr)=4\Bigl(\tfrac12-\tfrac{\sqrt3}2\,i\Bigr)=4e^{-\frac\pi3 i}=4e^{\frac53\pi i},\\
+  z_D&=\sqrt3+3i=2\sqrt3\Bigl(\tfrac12+\tfrac{\sqrt3}2\,i\Bigr)=2\sqrt3\,e^{\frac\pi3 i}.
+\end{align*}
+Quindi
+\[
+  z=\frac{4}{2\sqrt3}\cdot\frac{e^{\frac53\pi i}}{e^{\frac\pi3 i}}=\frac2{\sqrt3}\,e^{\frac43\pi i}.
+\]
+Da cui
+\[
+  \boxed{|z|=\frac2{\sqrt3}=\frac{2\sqrt3}3,\qquad\Arg z=\frac43\pi.}
+\]
+
+\par\medskip
+\noindent\textbf{passaggi e controllo.}\par
+
+\begin{itemize}[leftmargin=*]
+  \item $|2-2\sqrt3i|=\sqrt{4+12}=4$ e $|\sqrt3+3i|=\sqrt{3+9}=2\sqrt3$: sono i fattori davanti agli esponenziali. Si divide per il modulo ($4$ e $2\sqrt3$) per ottenere numeri di modulo $1$ con coseno e seno noti.
+  \item $e^{-\frac\pi3 i}=e^{\frac53\pi i}$ perché $-\frac\pi3+2\pi=\frac53\pi$ (si porta l'argomento in $[0,2\pi)$).
+  \item Il quoziente si calcola con (E2),(E3): $\frac{e^{i\alpha}}{e^{i\beta}}=e^{i(\alpha-\beta)}$, qui $\frac53\pi-\frac13\pi=\frac43\pi$.
+  \item \emph{Controllo in forma algebrica.} Razionalizzando,
+  $z=\dfrac{(2-2\sqrt3i)(\sqrt3-3i)}{12}=\dfrac{-4\sqrt3-12i}{12}=-\dfrac1{\sqrt3}-i$,
+  e infatti $\frac2{\sqrt3}\bigl(\cos\frac43\pi+i\sin\frac43\pi\bigr)=\frac2{\sqrt3}\bigl(-\frac12-\frac{\sqrt3}2i\bigr)=-\frac1{\sqrt3}-i$ (terzo quadrante).
+\end{itemize}
+\par\medskip
+
+\subsection{Punto b): potenze di $z$}
+
+\[
+  z^4=\frac{2^4}{3^2}\,e^{\frac{16}3\pi i},\qquad |z^4|=\frac{2^4}{3^2}=\frac{16}{9},
+\]
+\[
+  \Arg z^4=\frac{16}3\pi=\frac43\pi+4\pi\equiv\frac43\pi\pmod{2\pi}\ \Longrightarrow\ \Arg z^4=\frac43\pi.
+\]
+
+\medskip
+\noindent\emph{Esistono $n\in\NN_{>0}$ tali che $z^n\in\RR$?}
+\[
+  z^n=|z|^n\,e^{\frac{4n\pi}3i}\in\RR
+  \iff\frac{4n\pi}{3}=k\pi\ \text{per un }k\in\ZZ
+  \iff\frac{4n}3\in\ZZ
+  \iff n\in3\NN_{>0}=\{3,6,9,\dots\}.
+\]
+
+\par\medskip
+\noindent\textbf{perché le equivalenze valgono.}\par
+
+\begin{itemize}[leftmargin=*]
+  \item $|z|^n>0$, quindi $z^n$ è reale se e solo se $e^{i n\theta}$ è reale, cioè $\sin(n\theta)=0$, cioè $n\theta\in\pi\ZZ$
+  (con $\theta=\frac43\pi$: $n\theta=\frac{4n}3\pi$). Si noti che $z^n$ è allora $\pm|z|^n$.
+  \item $\frac{4n}3\in\ZZ\iff3\mid4n\iff3\mid n$, perché $\MCD(4,3)=1$ (se $3$ divide $4n$ e non divide $4$, divide $n$).
+  \item Esempio: $n=3$ dà $\frac{4\cdot3}3\pi=4\pi$, $z^3=|z|^3e^{4\pi i}=|z|^3>0$. Per $n=1,2,4,5$ l'argomento $\frac43\pi,\frac83\pi,\frac{16}3\pi,\frac{20}3\pi$ non è multiplo di $\pi$.
+\end{itemize}
+\par\medskip
+
+\subsection{Punto c): radici quarte di $z^4$}
+
+Cerchiamo tutti gli $u\in\CC$ tali che
+\[
+  u^4=z^4=\Bigl(\frac2{\sqrt3}\Bigr)^4e^{\frac43\pi i}.
+\]
+
+\textbf{Metodo 1 (formula di de Moivre).} Per il Teorema~\ref{teo:radici}, il modulo è
+\[
+  |u|=\frac2{\sqrt3}=\sqrt[4]{\Bigl(\frac2{\sqrt3}\Bigr)^4},
+\]
+e gli argomenti sono $\dfrac{\frac43\pi+2\pi k}{4}=\dfrac\pi3+\dfrac{\pi}{2}k$, $k=0,1,2,3$. Quindi
+\[
+  u_k=\frac2{\sqrt3}\,e^{\left(\frac\pi3+k\frac\pi2\right)i},\qquad
+  \begin{array}{l}
+   u_0=\frac2{\sqrt3}e^{\frac\pi3 i},\quad u_1=\frac2{\sqrt3}e^{\frac56\pi i},\\[3pt]
+   u_2=\frac2{\sqrt3}e^{\frac43\pi i}=z,\quad u_3=\frac2{\sqrt3}e^{\frac{11}6\pi i}.
+  \end{array}
+\]
+
+\par\medskip
+\noindent\textbf{Metodo 2 e forma algebrica.}\par
+
+\textbf{Metodo 2.} Poiché $z\ne0$: $u^4=z^4\iff(u/z)^4=1$. Le radici quarte di $1$ sono $1,i,-1,-i$, quindi
+\[
+  u\in\{z,\ iz,\ -z,\ -iz\}.
+\]
+Sono le quattro soluzioni trovate con il Metodo 1: infatti moltiplicare per $i=e^{i\pi/2}$ ruota di $\frac\pi2$. In forma algebrica, con $z=-\frac1{\sqrt3}-i$:
+\[
+  z=-\tfrac1{\sqrt3}-i,\quad iz=1-\tfrac1{\sqrt3}i,\quad -z=\tfrac1{\sqrt3}+i,\quad -iz=-1+\tfrac1{\sqrt3}i .
+\]
+(Ad esempio $iz=-\frac i{\sqrt3}-i^2=1-\frac i{\sqrt3}$ ha argomento $-\frac\pi6\equiv\frac{11}6\pi$ e modulo $\sqrt{1+\frac13}=\frac2{\sqrt3}$: è $u_3$.)
+\par\medskip
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+  \draw[->] (-2.4,0) -- (2.4,0); \draw[->] (0,-2.4) -- (0,2.4);
+  \draw[magenta!70!black] (0,0) circle (2);
+  \draw[dashed,magenta!70!black] (0,0) -- (60:2) node[above right] {\small $\frac{z_D}{|z_D|}$};
+  \draw[dashed,magenta!70!black] (0,0) -- (-60:2) node[below right] {\small $\frac{z_N}{|z_N|}$};
+  \draw[dashed,orange!85!black] (0,0) -- (240:2.3);
+  \fill[orange!85!black] (240:2) circle (1.6pt) node[below left] {\small $\frac z{|z|}$};
+\end{tikzpicture}
+
+\small a): argomenti $-\frac\pi3\,(\equiv\frac53\pi)$, $\frac\pi3$, $\frac43\pi$.
+\end{minipage}\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+  \draw[->] (-2.4,0) -- (2.4,0); \draw[->] (0,-2.4) -- (0,2.4);
+  \draw[gray] (0,0) circle (2);
+  \foreach \a/\n/\p in {60/u_0/above right, 150/u_1/above left, 240/u_2=z/below left, 330/u_3/below right}{
+     \fill (\a:2) circle (1.6pt) node[\p] {\small $\n$};
+  }
+  \draw[dashed,gray] (60:2) -- (150:2) -- (240:2) -- (330:2) -- cycle;
+\end{tikzpicture}
+
+\small c): le quattro radici quarte di $z^4$ (vertici di un quadrato).
+\end{minipage}
+\caption{Dati dell'esercizio e radici.}
+\end{figure}
+
+\subsection{Punto d): il caso $w=z\cdot i$}
+
+\emph{(Svolgimento aggiunto; sulle note è solo il testo della domanda.)}
+Sia $w=z\cdot i$, con $i=e^{\frac\pi2 i}$: moltiplicare per $i$ ruota di $\frac\pi2$ e non cambia il modulo.
+\begin{itemize}[leftmargin=*]
+  \item[a)] $|w|=|z||i|=\dfrac2{\sqrt3}$ \emph{(invariato)}; $\ \Arg w=\frac43\pi+\frac\pi2=\frac{11}6\pi$ \emph{(cambia)}, ed è principale perché $\frac{11}6\pi<2\pi$.
+  In forma algebrica $w=1-\frac{i}{\sqrt3}$.
+  \item[b)] $w^4=z^4\,i^4=z^4$: quindi $|w^4|=\frac{16}9$ e $\Arg w^4=\frac43\pi$ \emph{(invariati)}.
+  Invece per le potenze reali: $w^n=|z|^n e^{\frac{11n\pi}{6}i}\in\RR\iff\frac{11n}6\in\ZZ\iff6\mid n$ (perché $\MCD(11,6)=1$), cioè
+  \[
+    n\in6\NN_{>0}=\{6,12,18,\dots\}\quad\text{\emph{(cambia: prima }}n\in3\NN_{>0}\text{\emph{)}}.
+  \]
+  Ad esempio $w^3=i^3z^3=-i\,z^3$ con $z^3>0$ è immaginario puro, non reale.
+  \item[c)] Siccome $w^4=z^4$, le radici quarte di $w^4$ sono le stesse di $z^4$: l'insieme $\{z,iz,-z,-iz\}$ \emph{non cambia}
+  (cambia solo il fatto che ora $w=iz$ è uno dei quattro elementi, e non $z$).
+\end{itemize}
+
+\par\medskip
+\noindent\textbf{Indicazioni del docente (fine lezione).}\par
+
+Per approfondimenti sulle \emph{trasformazioni di Möbius} e sull'\emph{inversione circolare} si vedano le note su Moodle.
+Per la lezione successiva: leggere le slide sulla definizione e le proprietà dei \emph{vettori geometrici}.
+\par\medskip
+
+% =====================================================================
+\section{Lezione 6 (7 ottobre) --- Combinazioni lineari e sottospazi}
+% =====================================================================
+
+Nel seguito $V$ è uno spazio vettoriale su un campo $\KK$.
+
+\subsection{Segmenti orientati}
+
+\begin{defn}[Equipollenza di segmenti orientati]
+Due segmenti orientati sono \textbf{equipollenti} $\iff$ hanno stessa direzione, verso e lunghezza.
+\end{defn}
+\begin{oss}
+La relazione di equipollenza è una relazione di equivalenza di segmenti orientati.
+\end{oss}
+
+\subsection{Spazi vettoriali}
+
+\begin{defn}[Spazio vettoriale]
+Uno spazio vettoriale su $\KK$ è un insieme non vuoto $V$ che soddisfa gli assiomi algebrici (S1-S4) e (M1-M4).
+\end{defn}
+\begin{oss}
+Segue che, in ogni spazio vettoriale $V$, si ha $0\cdot_Vv=0_V$ per ogni $v\in V$. Infatti
+\[
+    v+0=1\cdot_Vv = (1+0)\cdot _Vv=v.
+\]
+\end{oss}
+Sommando otteniamo: $-v+v +0\cdot_Vv =0_Vv=0_V$.
+Deduciamo che: $0_V= 0_Vv=(1-1)\cdot_Vv = 1\cdot_Vv(-1)=v+(-1)\cdot_Vv=0_V$ cioè il suo opposto è unico.
+
+\subsection{Combinazioni lineari}
+
+\begin{defn}[Combinazione lineare]
+Una \textbf{combinazione lineare} di vettori di $V$ è un vettore di $V$ scritto come somma \textbf{finita} del tipo
+\[
+  \sum_{i=1}^{n}\alpha_iv_i =\alpha_1v_1+\alpha_2v_2+\dots+\alpha_nv_n
+\]
+per opportuni $\alpha_1,\dots,\alpha_n\in\KK$, $v_1,\dots,v_n\in V$ e $n\ge1$.
+Il numero $n$ si dice \textbf{lunghezza} della combinazione lineare (c.l.).
+\end{defn}
+
+\begin{esempio}
+In $\RR^2$:
+\[
+  \vect23=2\vect10+3\vect01 .
+\]
+È una c.l. di lunghezza $2$.
+\end{esempio}
+
+\par\medskip
+\noindent\textbf{la lunghezza è una proprietà della scrittura.}\par
+
+La lunghezza si riferisce alla \emph{scrittura}, non al vettore: lo stesso vettore ha c.l. di lunghezze diverse, ad esempio
+$\vect23=1\cdot\vect23$ (lunghezza $1$) oppure $\vect23=\vect10+\vect10+3\vect01$ (lunghezza $3$).
+\par\medskip
+
+\subsection{Criteri per i sottospazi}
+
+\par\medskip
+\noindent\textbf{Richiamo: definizione e primo criterio.}\par
+
+Un sottoinsieme $U\subseteq V$ è un \emph{sottospazio vettoriale} se è uno spazio vettoriale con le operazioni di $V$ ristrette a $U$.
+\textbf{I criterio} (quello usato a lezione prima di questa; qui lo richiamo): $U$ è sottospazio di $V$ se e solo se
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+  \item $U\ne\emptyset$ (equivalentemente $0\in U$);
+  \item $u,v\in U\Rightarrow u+v\in U$ (chiuso per somma);
+  \item $\alpha\in\KK,\ u\in U\Rightarrow\alpha u\in U$ (chiuso per prodotto per scalari).
+\end{enumerate}
+\par\medskip
+
+\begin{teo}[II criterio]\label{teo:II}
+Sia $U\subseteq V$, $U\neq\emptyset$. Allora
+\[
+  U\text{ è sottospazio di }V\iff U\text{ è chiuso per c.l. di lunghezza }2,
+\]
+cioè $\alpha u_1+\beta u_2\in U$ per ogni $\alpha,\beta\in\KK$ e $u_1,u_2\in U$.
+\end{teo}
+
+\begin{teo}[III criterio]\label{teo:III}
+Sia $U\subseteq V$, $U\neq\emptyset$. Allora
+\[
+  U\text{ è sottospazio di }V\iff U\text{ è chiuso per c.l. di lunghezza arbitraria.}
+\]
+\end{teo}
+
+\par\medskip
+\noindent\textbf{dimostrazioni e nota sull'ipotesi $U\ne\emptyset$.}\par
+
+\textbf{Nota.} L'ipotesi $U\ne\emptyset$ (o $0\in U$) va sempre richiesta: l'insieme vuoto è ``chiuso per c.l.'' in modo vacuo, ma non è un sottospazio (non contiene lo $0$).
+
+\smallskip
+\textbf{II criterio.}
+($\Rightarrow$) Se $U$ è sottospazio e $u_1,u_2\in U$, allora $\alpha u_1\in U$ e $\beta u_2\in U$ (prodotto per scalari), quindi la somma $\alpha u_1+\beta u_2\in U$.\\
+($\Leftarrow$) Verifichiamo (i)--(iii) del I criterio. (i) vale per ipotesi. Preso $u\in U$:
+(ii) se $u,v\in U$, $u+v=1\cdot u+1\cdot v\in U$; (iii) se $\alpha\in\KK$, $\alpha u=\alpha u+0\cdot u\in U$.
+
+\smallskip
+\textbf{III criterio.}
+($\Leftarrow$) La lunghezza $2$ è un caso particolare di lunghezza arbitraria, quindi si applica il II criterio.\\
+Sia $U\neq\emptyset$ chiuso per combinazioni lineari di lunghezza arbitraria.
+Siano $u,w\in U$, $\lambda\in\KK$ e fissiamo $n\ge 2$; completiamo con vettori ripetuti di $U$ e coefficienti nulli.
+
+\begin{itemize}
+  \item \textbf{Prodotto:} $\lambda u = \lambda u + 0\cdot u + \dots + 0\cdot u \in U$.
+  \item \textbf{Somma:} $u+w = 1\cdot u + 1\cdot w + 0\cdot u + \dots + 0\cdot u \in U$.
+  \item \textbf{Zero:} per $\lambda=0$ si ha $0=0\cdot u\in U$.
+\end{itemize}
+
+Dunque $U$ è non vuoto, chiuso per somma e prodotto per scalari, cioè sottospazio di $V$.\\
+($\Rightarrow$) Per induzione su $n$: se $U$ è sottospazio, per $n=1$ si ha $\alpha_1v_1\in U$ (chiusura per scalari).
+Se $\alpha_1v_1+\dots+\alpha_nv_n\in U$, allora
+\[
+  \alpha_1v_1+\dots+\alpha_nv_n+\alpha_{n+1}v_{n+1}=\underbrace{(\alpha_1v_1+\dots+\alpha_nv_n)}_{\in U\text{ (ip.\ ind.)}}+\underbrace{\alpha_{n+1}v_{n+1}}_{\in U}\in U
+\]
+per la chiusura per somma.
+\par\medskip
+
+\subsection{Esercizi di verifica}
+
+\paragraph{1.} Verificare che $U=\Bigl\{\vect a0:\ a\in\RR\Bigr\}\subseteq\RR^2$ è un sottospazio.
+
+\par\medskip
+\noindent\textbf{Svolgimento.}\par
+
+$U\neq\emptyset$ (contiene $\vect00$). Siano $\vect a0,\vect b0\in U$ e $\alpha,\beta\in\RR$:
+\[
+  \alpha\vect a0+\beta\vect b0=\vect{\alpha a+\beta b}{0}\in U,
+\]
+perché $\alpha a+\beta b\in\RR$ e la seconda coordinata è $0$. Per il II criterio $U$ è sottospazio (è l'asse $x$).
+\par\medskip
+
+\paragraph{2.} Verificare che $\RR[x]_{\le2}=\{a_0+a_1x+a_2x^2:\ a_i\in\RR\}\subseteq\RR[x]$ è un sottospazio.
+
+\par\medskip
+\noindent\textbf{Svolgimento.}\par
+
+Contiene il polinomio nullo. Siano $p=a_0+a_1x+a_2x^2$, $q=b_0+b_1x+b_2x^2$ in $\RR[x]_{\le2}$ e $\alpha,\beta\in\RR$:
+\[
+  \alpha p+\beta q=(\alpha a_0+\beta b_0)+(\alpha a_1+\beta b_1)x+(\alpha a_2+\beta b_2)x^2\in\RR[x]_{\le2}.
+\]
+Per il II criterio è un sottospazio. (Qui ``grado $\le2$'' include il polinomio $0$ e quelli di grado $0,1$: i coefficienti $a_i$ sono liberi in $\RR$, anche nulli.)
+\par\medskip
+
+\paragraph{3.} $U'=\Bigl\{\vect a{a^2}:\ a\in\RR\Bigr\}\subseteq\RR^2$ \textbf{non} è un sottospazio.
+Infatti
+\[
+  \vect a{a^2}+\vect b{b^2}=\vect{a+b}{a^2+b^2}.
+\]
+
+\par\medskip
+\noindent\textbf{spiegazione del controesempio.}\par
+
+Il vettore $\vect{a+b}{a^2+b^2}$ appartiene a $U'$ se e solo se $a^2+b^2=(a+b)^2$, cioè $2ab=0$, cioè $a=0$ o $b=0$.
+Per $a=b=1$: $\vect11+\vect11=\vect22$, ma $\vect22\notin U'$ (servirebbe $2^2=4\neq2$). Quindi $U'$ non è chiuso per somma.
+
+\smallskip
+\emph{Osservazione:} $\vect00\in U'$ (con $a=0$), quindi il ``test dello zero'' non basta per escludere $U'$: serve il controesempio alla chiusura.
+Geometricamente $U'$ è una parabola, non una retta o un piano per l'origine.
+\par\medskip
+
+\paragraph{4.} $\{a_0+a_1x+a_2x^2:\ a_i\in\RR,\ a_2\ne0\}\subseteq\RR[x]$ \textbf{non} è un sottospazio.
+Infatti
+\[
+  x^2+(-x^2)=0 .
+\]
+
+\par\medskip
+\noindent\textbf{Aggiunta.}\par
+
+$x^2$ e $-x^2$ appartengono all'insieme (hanno $a_2=\pm1\ne0$), ma la loro somma è il polinomio nullo, che ha $a_2=0$ e quindi non appartiene all'insieme. Non è chiuso per somma (c.l. di lunghezza $2$ con $\alpha=\beta=1$); in particolare l'insieme non contiene lo $0$.
+
+\smallskip
+\textbf{Metodo per verificare/escludere un sottospazio.} Per \emph{dimostrare} che $U$ è sottospazio si prendono $u_1,u_2\in U$ e $\alpha,\beta\in\KK$ generici e si mostra che $\alpha u_1+\beta u_2\in U$ (II criterio). Per \emph{escludere} che $U$ lo sia basta \emph{un solo} controesempio concreto: una scelta di $u_1,u_2,\alpha,\beta$ per cui la c.l. esce da $U$ (o la verifica che $0\notin U$).
+\par\medskip
+
+\subsection{Sottospazi banali}
+
+\begin{oss}
+Ogni spazio $V$ è sottospazio di se stesso. Indichiamo con $\{0_V\}$ il sottospazio nullo di $V$.
+\end{oss}
+
+% =====================================================================
+\section{Lezione 7 (12 ottobre) --- Intersezione, Span, Somma e Somma diretta}
+% =====================================================================
+
+\subsection{Intersezione di sottospazi}
+
+\begin{prop}[Intersezione di sottospazi]
+Se $\{W_i\}_{i\in I}$ è una famiglia di sottospazi vettoriali di uno spazio vettoriale $V$, allora anche la loro intersezione
+\[
+  W = \bigcap_{i\in I}W_i
+\]
+è un sottospazio vettoriale di $V$.
+\end{prop}
+\begin{proof}
+    Poiché $0\in W_i$ per ogni $i\in I$, si ha $0\in W$, quindi $W\neq\emptyset$.
+    Siano $\alpha_1,\alpha_2\in \KK$ e $w_1,w_2\in W.$ Allora $w_1,w_2\in W_i ,\forall i \in I$, quindi anche $\alpha_1w_1+\alpha_2w_2 \in W_i $ dato che $W_i$ è sottospazio vettoriale.\\Da ciò segue che $\alpha_1w_1+\alpha_2w_2 \in W$.
+\end{proof}
+\begin{oss}
+    Una proprietà analoga per l'unione non vale allo stesso modo.
+\end{oss}
+
+\subsection{Altri esempi di sottospazi}
+
+Per ogni $n\geq 0$, l'insieme dei polinomi di grado al più $n$,
+\[
+  \KK[x]_{\leq n}=\{p\in\KK[x]\mid \deg p\leq n\},
+\]
+è un sottospazio di $\KK[x]$. Qui si pone $\deg 0=-\infty$, così il polinomio nullo appartiene a $\KK[x]_{\leq n}$ per ogni $n$. Infatti, se $p,q$ hanno grado al più $n$ e $\alpha,\beta\in\KK$, allora anche $\alpha p+\beta q$ ha grado al più $n$.
+
+Dato un intervallo non vuoto $[a,b]\subseteq\RR$, anche
+\[
+ C^0([a,b],\RR)=\{f:[a,b]\to\RR\mid f\text{ è continua}\}
+\]
+è un sottospazio dello spazio vettoriale di tutte le funzioni $[a,b]\to\RR$: la somma di funzioni continue e il prodotto di una funzione continua per uno scalare reale sono ancora funzioni continue.
+
+In $\RR^2$, i sottospazi propri non nulli sono esattamente le rette passanti per l'origine. Ciascuna di esse è descritta da un'equazione omogenea
+\[
+ ax+by=0,\qquad (a,b)\neq(0,0).
+\]
+Al contrario, l'insieme delle soluzioni di $ax+by=c$ con $c\neq0$ non è un sottospazio, perché non contiene il vettore nullo.
+
+\subsection{Unione di sottospazi}
+
+\begin{lemma}\label{lemma:unione-sottospazi}
+Siano $U,W$ sottospazi di uno spazio vettoriale $V$. Allora $U\cup W$ è un sottospazio se e solo se $U\subseteq W$ oppure $W\subseteq U$.
+\end{lemma}
+\begin{proof}
+Se $U\subseteq W$, allora $U\cup W=W$, che è un sottospazio; analogamente se $W\subseteq U$.
+Viceversa, supponiamo che né $U\subseteq W$ né $W\subseteq U$. Esistono allora $u\in U\setminus W$ e $w\in W\setminus U$. Se $U\cup W$ fosse un sottospazio, avremmo $u+w\in U\cup W$. Se $u+w\in U$, allora $w=(u+w)-u\in U$, assurdo; se $u+w\in W$, allora $u=(u+w)-w\in W$, ancora assurdo. Dunque $U\cup W$ non è un sottospazio.
+\end{proof}
+
+\subsection{Sottospazio generato (Span)}
+
+\begin{defn}[Sottospazio generato (Span)]
+    Sia $S$ un sottoinsieme di uno spazio vettoriale $V$. Il sottospazio vettoriale generato da $S$, indicato con $\langle S\rangle$ o $\operatorname{Span}(S)$, è il più piccolo sottospazio vettoriale di $V$ contenente $S$ (se $S = \emptyset$, allora $\langle S\rangle = \{0\}$). Esplicitamente, per $S\neq\emptyset$:
+    \[
+        \operatorname{Span}(S) =\left\{
+        \sum_{i=1}^{n}\lambda_i v_i \;\middle|\; n\geq 1,\ \lambda_i\in\mathbb{K},\ v_i\in S
+        \right\}, \qquad S\subseteq\operatorname{Span}(S)\subseteq V.
+    \]
+\end{defn}
+
+\begin{prop}[Proprietà dello Span]
+    Sia $S\subseteq V$ e sia $W=\operatorname{Span}(S)$ come sopra. Allora
+    \begin{enumerate}[label=(\arabic*)]
+        \item $W$ è un sottospazio vettoriale di $V$;
+        \item $S\subseteq W$;
+        \item $W$ è il più piccolo sottospazio vettoriale di $V$ contenente $S$;
+        \item $W=\displaystyle\bigcap_{\substack{U\leq V\\S\subseteq U}}U$.
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    Sia \(V\) uno spazio vettoriale su un campo \(\mathbb{K}\) e sia \(S\subseteq V\). Definiamo
+    \[
+        W=\operatorname{Span}(S)
+        =\left\{\sum_{i=1}^{n}\lambda_i v_i\;\middle|\;n\geq 1,\ \lambda_i\in\mathbb{K},\ v_i\in S
+        \right\},
+    \]
+    con la convenzione \(\operatorname{Span}(\varnothing)=\{0_V\}\).
+
+    1) Dimostriamo che \(W\) è un sottospazio vettoriale di \(V\).
+
+    Se \(S\neq\varnothing\), scegliendo \(v\in S\), si ha
+    \[
+        0_V=0_{\mathbb{K}}\cdot v\in W.
+    \]
+    Se \(S=\varnothing\), la proprietà segue dalla convenzione adottata.
+
+    Siano \(x,y\in W\). Per definizione possiamo scrivere
+    \(x\) e \(y\) come combinazioni lineari finite di vettori di \(S\):
+    \[
+        x=\sum_{i=1}^{n}\lambda_i v_i,
+        \qquad
+        y=\sum_{j=1}^{m}\mu_j w_j.
+    \]
+    Pertanto
+    \[
+        x+y=
+        \sum_{i=1}^{n}\lambda_i v_i+
+        \sum_{j=1}^{m}\mu_j w_j\in W,
+    \]
+    poiché \(x+y\) è una combinazione lineare finita di elementi di \(S\).
+
+    Inoltre, per ogni \(\alpha\in\mathbb{K}\),
+    \[
+        \alpha x
+        =\alpha\sum_{i=1}^{n}\lambda_i v_i
+        =\sum_{i=1}^{n}(\alpha\lambda_i)v_i\in W.
+    \]
+    Dunque \(W\) contiene il vettore nullo ed è chiuso rispetto alla somma e al prodotto per scalari. Ne segue che
+    \[
+        W\leq V.
+    \]
+    2) Dimostriamo che \(S\subseteq W\).
+    Sia \(v\in S\) arbitrario. Poiché
+    \[
+        v=1_{\mathbb{K}}\cdot v,
+    \]
+    il vettore \(v\) è una combinazione lineare finita di elementi di \(S\). Per definizione di \(W\), si ha \(v\in W\). Essendo \(v\) arbitrario, concludiamo che
+    \[
+    S\subseteq W.
+    \]
+
+    3) Dimostriamo che \(W\) è il più piccolo sottospazio vettoriale contenente \(S\).
+
+    Sia \(U\leq V\) un sottospazio vettoriale tale che \(S\subseteq U\). Sia \(x\in W\) arbitrario. Per definizione di \(W\), esistono \(v_1,\ldots,v_n\in S\) e \(\lambda_1,\ldots,\lambda_n\in\mathbb{K}\) tali che
+    \[
+        x=\sum_{i=1}^{n}\lambda_i v_i.
+    \]
+    Poiché \(S\subseteq U\), si ha \(v_i\in U\) per ogni \(i\). Essendo \(U\) un sottospazio vettoriale, è chiuso rispetto alla somma e al prodotto per scalari. Pertanto
+    \[
+    x=\sum_{i=1}^{n}\lambda_i v_i\in U.
+    \]
+    Poiché \(x\) è arbitrario, segue che \(W\subseteq U\).
+
+    Abbiamo quindi dimostrato che
+    \[
+    W\leq V,\qquad S\subseteq W,
+    \]
+    e che, per ogni sottospazio \(U\leq V\),
+    \[
+    S\subseteq U\implies W\subseteq U.
+    \]
+    Pertanto \(W\) è il più piccolo sottospazio vettoriale di \(V\) contenente \(S\).
+
+    4) Dimostriamo la caratterizzazione mediante intersezione.
+
+    Consideriamo la famiglia
+    \[
+    \mathcal{F}=\{U\leq V\mid S\subseteq U\}.
+    \]
+    La famiglia non è vuota, poiché \(V\in\mathcal{F}\). Definiamo
+    \[
+    I=\bigcap_{U\in\mathcal{F}}U.
+    \]
+
+    Poiché \(W\) è un sottospazio vettoriale contenente \(S\), si ha \(W\in\mathcal{F}\). Dalla definizione di intersezione segue quindi che
+    \[
+    I\subseteq W.
+    \]
+
+    D'altra parte, dal punto 3 sappiamo che \(W\subseteq U\) per ogni \(U\in\mathcal{F}\). Per definizione di intersezione, ciò implica
+    \[
+    W\subseteq I.
+    \]
+
+    Per doppia inclusione otteniamo \(W=I\). Pertanto
+    \[
+    \boxed{
+    \operatorname{Span}(S)
+    =
+    \bigcap_{\substack{U\leq V\\S\subseteq U}}U
+    }.
+    \]
+
+    In conclusione, lo span di \(S\) è il più piccolo sottospazio vettoriale di \(V\) contenente \(S\), ed è uguale all'intersezione di tutti i sottospazi vettoriali di \(V\) che contengono \(S\).
+\end{proof}
+
+\subsection{Somma di sottospazi}
+
+% ATTENZIONE: nelle note la definizione riportava "Span(V+W) generato da W1 ∩ W2";
+% l'ho corretta in Span(W1 ∪ W2), che è la definizione standard.
+\begin{defn}[Somma di sottospazi]
+    Se $W_1,W_2$ sono sottospazi vettoriali di $V$, la loro \textbf{somma} è il sottospazio
+    \[
+        W_1+W_2 := \operatorname{Span}(W_1\cup W_2).
+    \]
+\end{defn}
+
+\begin{prop}[Caratterizzazione della somma]
+    Siano $W_1,W_2$ due sottospazi vettoriali di $V$. Si ha
+    \[
+        W_1+W_2
+        =
+        \{w_1+w_2\mid w_1\in W_1,\ w_2\in W_2\}.
+    \]
+\end{prop}
+
+% ATTENZIONE: la prima inclusione qui sotto usa già la caratterizzazione che si vuole
+% dimostrare (è circolare). Una dimostrazione corretta usa W1+W2 = Span(W1 ∪ W2):
+% (⊆) l'insieme di destra è un sottospazio che contiene W1 e W2, quindi contiene lo Span;
+% (⊇) w1+w2 è una c.l. di elementi di W1 ∪ W2.
+\begin{proof}
+    Dimostriamo l'uguaglianza mediante doppia inclusione.
+
+    \textbf{Prima inclusione.}
+    Sia
+    \[
+        x\in W_1+W_2.
+    \]
+    Per definizione di somma di sottospazi, esistono
+    $w_1\in W_1$ e $w_2\in W_2$ tali che
+    \[
+        x=w_1+w_2.
+    \]
+    Pertanto
+    \[
+        x\in\{w_1+w_2\mid w_1\in W_1,\ w_2\in W_2\}.
+    \]
+    Essendo $x$ arbitrario, segue che
+    \[
+        W_1+W_2 \subseteq
+        \{w_1+w_2\mid w_1\in W_1,\ w_2\in W_2\}.
+    \]
+
+    \textbf{Seconda inclusione.}
+    Sia
+    \[
+        x\in\{w_1+w_2\mid w_1\in W_1,\ w_2\in W_2\}.
+    \]
+    Per definizione, esistono $w_1\in W_1$ e $w_2\in W_2$
+    tali che
+    \[
+        x=w_1+w_2.
+    \]
+    Per definizione di somma di sottospazi, si ha
+    \[
+        x\in W_1+W_2.
+    \]
+    Essendo $x$ arbitrario, segue che
+    \[
+        \{w_1+w_2\mid w_1\in W_1,\ w_2\in W_2\}
+        \subseteq W_1+W_2.
+    \]
+
+    Dalle due inclusioni concludiamo che
+    \[
+        \boxed{
+        W_1+W_2
+        =
+        \{w_1+w_2\mid w_1\in W_1,\ w_2\in W_2\}.
+        }
+    \]
+\end{proof}
+
+\subsection{Somma diretta di due sottospazi}
+
+\begin{defn}[Somma diretta]
+    La somma di due sottospazi vettoriali $W_1,W_2\subseteq V$ è detta \textbf{somma diretta}, e si indica con $W_1\oplus W_2$, se $W_1\cap W_2=\{0\}$.
+\end{defn}
+
+\begin{prop}[Unicità della scrittura in somma diretta]
+    Ogni $v\in W_1\oplus W_2$ si scrive in modo \textbf{univoco} nella forma $v = w_1+w_2$, con $w_1\in W_1$, $w_2\in W_2$.
+\end{prop}
+\begin{proof}
+    Poiché $v\in W_1\oplus W_2$, allora per definizione $v=w_1+w_2$ per qualche $w_1\in W_1$, $w_2\in W_2$.
+    \\ Supponiamo
+    \[
+        v = w_1+w_2=w_1'+w_2' \;\Rightarrow\;  w_1-w_1' = w_2'-w_2 \in W_1\cap W_2 \;\overset{\text{ip.}}{=}\; \{0\}\;\Rightarrow\;w_1=w_1',\ w_2=w_2'.
+    \]
+\end{proof}
+
+
+\subsection{Somma diretta di una famiglia di sottospazi}
+
+\begin{defn}[Somma diretta di una famiglia di sottospazi]
+    Sia $\{W_i\}_{i\in I}$ una famiglia di sottospazi vettoriali di $V$. Diremo che un sottospazio $W\subseteq V$ è \textbf{somma diretta} dei $W_i$, e scriveremo
+    \[
+        W = \bigoplus_{i\in I}W_i,
+    \]
+    se ogni $w \in W$ si può scrivere in modo univoco come somma (finita) di vettori $w_i \in W_i$.
+\end{defn}
+\subsection{Definizione}
+
+Siano $W_1,\ldots,W_n$ sottospazi vettoriali di uno spazio vettoriale $V$. La loro somma è
+\[
+W_1+\cdots+W_n
+=
+\left\{w_1+\cdots+w_n \mid w_i\in W_i\right\}.
+\]
+
+La somma si dice \emph{diretta} se ogni vettore della somma si può scrivere in modo unico come
+\[
+w=w_1+\cdots+w_n,
+\qquad w_i\in W_i.
+\]
+In tal caso si scrive
+\[
+W_1\oplus\cdots\oplus W_n.
+\]
+
+\subsection{Caratterizzazione tramite le intersezioni}
+
+Per due sottospazi $W_1,W_2\leq V$ vale
+\[
+W_1+W_2=W_1\oplus W_2
+\quad\Longleftrightarrow\quad
+W_1\cap W_2=\{0_V\}.
+\]
+
+\begin{proof}
+Supponiamo che $W_1+W_2$ sia una somma diretta e sia $x\in W_1\cap W_2$.
+Poiché $x\in W_1$ e $x\in W_2$, si ha
+\[
+x=x+0_V=0_V+x.
+\]
+L'unicità della decomposizione implica $x=0_V$. Dunque
+$W_1\cap W_2=\{0_V\}$.
+
+Viceversa, supponiamo che $W_1\cap W_2=\{0_V\}$. Se un vettore $w$ ammette due decomposizioni
+\[
+w=w_1+w_2=w_1'+w_2',
+\]
+con $w_1,w_1'\in W_1$ e $w_2,w_2'\in W_2$, allora
+\[
+w_1-w_1'=w_2'-w_2.
+\]
+Il membro sinistro appartiene a $W_1$ e quello destro a $W_2$; quindi entrambi appartengono a $W_1\cap W_2=\{0_V\}$. Ne segue
+$w_1=w_1'$ e $w_2=w_2'$. La decomposizione è unica, dunque la somma è diretta.
+\end{proof}
+
+\subsection{Attenzione al caso di tre o più sottospazi}
+
+Per tre o più sottospazi, la condizione
+\[
+W_i\cap W_j=\{0_V\}\qquad\text{per ogni }i\ne j
+\]
+è necessaria, ma in generale non è sufficiente per garantire che la somma sia diretta.
+
+\section{Prodotto cartesiano e somma diretta esterna}
+
+\subsection{Definizione del prodotto cartesiano}
+
+Siano $W_1,\ldots,W_n$ spazi vettoriali sullo stesso campo $\mathbb K$. Il prodotto cartesiano
+\[
+W_1\times\cdots\times W_n
+\]
+è l'insieme delle tuple $(w_1,\ldots,w_n)$ con $w_i\in W_i$.
+
+\subsection{Operazioni vettoriali}
+
+Le operazioni sono definite componente per componente:
+\[
+(w_1,\ldots,w_n)+(v_1,\ldots,v_n)
+=(w_1+v_1,\ldots,w_n+v_n),
+\]
+\[
+\lambda(w_1,\ldots,w_n)
+=(\lambda w_1,\ldots,\lambda w_n),
+\qquad \lambda\in\mathbb K.
+\]
+Con queste operazioni, il prodotto cartesiano è uno spazio vettoriale, detto anche \emph{somma diretta esterna} e indicato con
+\[
+W_1\oplus_{\mathrm{est}}\cdots\oplus_{\mathrm{est}}W_n.
+\]
+
+\subsection{Differenza tra somma interna ed esterna}
+
+Nella somma diretta esterna gli elementi sono tuple; nella somma diretta interna, invece, gli elementi sono vettori dello spazio $V$, ottenuti sommando componenti appartenenti ai sottospazi.
+
+\section{Iniezioni canoniche}
+
+\subsection{Definizione}
+
+Nel caso di due spazi vettoriali $W_1,W_2$, si definiscono le applicazioni canoniche
+\[
+\begin{aligned}
+i_1:W_1&\longrightarrow W_1\times W_2,\\
+w_1&\longmapsto (w_1,0_{W_2}),
+\end{aligned}
+\qquad
+\begin{aligned}
+i_2:W_2&\longrightarrow W_1\times W_2,\\
+w_2&\longmapsto (0_{W_1},w_2).
+\end{aligned}
+\]
+
+\subsection{Dimostrazione dell'iniettività}
+
+La funzione $i_1$ è iniettiva: se $i_1(w_1)=i_1(v_1)$, allora
+\[
+(w_1,0_{W_2})=(v_1,0_{W_2}),
+\]
+da cui $w_1=v_1$. Analogamente, $i_2$ è iniettiva.
+
+\section{La funzione che collega somma esterna e interna}
+
+\subsection{Definizione dell'applicazione}
+
+Siano $W_1,W_2\leq V$. Si considera l'applicazione
+\[
+\begin{aligned}
+\varphi:W_1\times W_2&\longrightarrow W_1+W_2,\\
+(w_1,w_2)&\longmapsto w_1+w_2.
+\end{aligned}
+\]
+
+\subsection{Dimostrazione della suriettività}
+
+La funzione $\varphi$ è suriettiva per definizione di $W_1+W_2$: ogni
+$w\in W_1+W_2$ si scrive infatti come $w=w_1+w_2$, con
+$w_1\in W_1$ e $w_2\in W_2$.
+
+\subsection{Caratterizzazione dell'iniettività}
+
+La funzione $\varphi$ è iniettiva se e solo se
+\[
+W_1\cap W_2=\{0_V\}.
+\]
+
+\begin{proof}
+Supponiamo che $\varphi$ sia iniettiva e sia $x\in W_1\cap W_2$.
+Allora
+\[
+\varphi(x,0_{W_2})=x=\varphi(0_{W_1},x).
+\]
+Per l'iniettività, $(x,0_{W_2})=(0_{W_1},x)$, e quindi $x=0_V$.
+Pertanto $W_1\cap W_2=\{0_V\}$.
+
+Viceversa, supponiamo che $W_1\cap W_2=\{0_V\}$ e che
+$\varphi(w_1,w_2)=\varphi(v_1,v_2)$. Allora
+\[
+w_1+w_2=v_1+v_2
+\quad\Longrightarrow\quad
+w_1-v_1=v_2-w_2.
+\]
+Il vettore comune appartiene a $W_1\cap W_2$, dunque è nullo.
+Ne segue $w_1=v_1$ e $w_2=v_2$, perciò $\varphi$ è iniettiva.
+\end{proof}
+
+\subsection{Conclusione}
+
+La funzione $\varphi$ è sempre suriettiva ed è iniettiva esattamente quando la somma interna è diretta. In tal caso, $\varphi$ è un isomorfismo tra la somma diretta esterna $W_1\times W_2$ e la somma diretta interna $W_1\oplus W_2$.
+
+% =====================================================================
+\section{Lezione 8 (13 ottobre) --- Dipendenza lineare, basi}
+% =====================================================================
+
+Nel seguito $V$ è uno spazio vettoriale su un campo $\KK$.
+
+\begin{oss}[Somma diretta di più sottospazi]
+Per una famiglia $U_1,\ldots,U_m$ di sottospazi, la somma è diretta quando ogni vettore della somma ammette un'unica decomposizione $u_1+\cdots+u_m$, con $u_i\in U_i$. Per tre o più sottospazi non basta richiedere $U_i\cap U_j=\{0\}$ per ogni $i\neq j$.
+
+Ad esempio, in $\RR^2$ poniamo
+\[
+ U_1=\langle(1,0)\rangle,\qquad
+ U_2=\langle(0,1)\rangle,\qquad
+ U_3=\langle(1,1)\rangle.
+\]
+Le intersezioni a due a due sono tutte nulle, ma la somma non è diretta, poiché
+\[
+ (1,1)=(1,0)+(0,1)
+\]
+fornisce una relazione non banale tra vettori dei tre sottospazi.
+\end{oss}
+
+\subsection{Vettori linearmente (in)dipendenti}
+
+\begin{defn}[Vettori linearmente dipendenti]
+I vettori $v_1,\dots,v_n\in V$ si dicono \textbf{linearmente dipendenti} se esistono scalari $a_1,\dots,a_n\in\KK$, \emph{non tutti nulli}, tali che
+\[
+  \sum_{i=1}^{n}a_iv_i=a_1v_1+\dots+a_nv_n=0_V .
+\]
+\end{defn}
+
+\begin{defn}[Vettori linearmente indipendenti]
+I vettori $v_1,\dots,v_n\in V$ si dicono \textbf{linearmente indipendenti} se non sono linearmente dipendenti, cioè se
+\[
+  \sum_{i=1}^{n}a_iv_i=0_V\quad\Longrightarrow\quad a_i=0\ \ \text{per ogni } i=1,\dots,n .
+\]
+\end{defn}
+
+\begin{oss}[Aggiunta: precisazioni sulle definizioni]
+\begin{itemize}[leftmargin=*]
+  \item Nelle note compariva ``$\iff$''.
+  Il verso ``$\Leftarrow$'' vale sempre: coefficienti nulli danno
+  somma nulla. La definizione richiede soltanto ``$\Rightarrow$''.
+  Gli indici corretti sono $i=1,\dots,n$.
+  \item Dire ``dipendenti'' significa che il vettore nullo si scrive come c.l. dei $v_i$ in \emph{almeno due modi}: quello banale (tutti i coefficienti $0$) e uno non banale.
+  \item Casi particolari utili:
+  \begin{itemize}
+    \item un solo vettore $v$ è indipendente $\iff v\neq0$ (se $v\ne0$ e $av=0$ allora $a=0$; se $v=0$ allora $1\cdot v=0$ è una relazione non banale);
+    \item se uno dei $v_i$ è $0_V$, i vettori sono dipendenti;
+    \item se $v_i=v_j$ per qualche $i\ne j$, sono dipendenti ($1\cdot v_i+(-1)\cdot v_j=0$);
+    \item per convenzione la famiglia vuota è indipendente (e $\langle\emptyset\rangle=\{0\}$).
+  \end{itemize}
+  \item \emph{Significato geometrico} (in $\RR^2$ e $\RR^3$): due vettori sono dipendenti $\iff$ stanno su una stessa retta per l'origine (paralleli); tre vettori di $\RR^3$ sono dipendenti $\iff$ stanno su uno stesso piano per l'origine (complanari).
+\end{itemize}
+\end{oss}
+
+\begin{esempio}
+In $\RR^3$ sia $S=\{(1,1,0),\,(-1,3,2)\}$.
+\begin{itemize}[leftmargin=*]
+  \item \emph{Sono indipendenti.} Da $a(1,1,0)+b(-1,3,2)=(0,0,0)$ si ha $(a-b,\ a+3b,\ 2b)=(0,0,0)$; la terza componente dà $b=0$, poi la prima dà $a=0$.
+  \item \emph{Non generano $\RR^3$.} Per esempio $(0,0,1)\notin\langle S\rangle$: servirebbe $2b=1$, quindi $b=\frac12$, poi $a-b=0$ dà $a=\frac12$, ma allora $a+3b=2\ne0$. In effetti $\langle S\rangle$ è un piano per l'origine.
+  \item Aggiungendo $(0,4,2)=(1,1,0)+(-1,3,2)$ si ottengono tre vettori \emph{dipendenti}: il terzo è c.l. dei primi due.
+\end{itemize}
+\end{esempio}
+
+\begin{lemma}\label{lemma:dipendenza}
+Siano $v_1,\dots,v_n\in V$, con $n\ge2$. Allora $v_1,\dots,v_n$ sono linearmente dipendenti se e solo se uno di essi è combinazione lineare degli altri.
+\end{lemma}
+
+\begin{proof}
+($\Rightarrow$) Per ipotesi esistono $a_1,\dots,a_n\in\KK$ non tutti nulli con $\sum_ia_iv_i=0$. Sia $a_j\neq0$. Allora
+\[
+  a_jv_j=-\sum_{i\neq j}a_iv_i
+  \quad\Longrightarrow\quad
+  v_j=\sum_{i\neq j}\bigl(-a_j^{-1}a_i\bigr)v_i ,
+\]
+cioè $v_j$ è c.l. degli altri.
+
+($\Leftarrow$) Supponiamo $v_j=\sum_{i\ne j}b_iv_i$. Allora
+\[
+  \sum_{i\neq j}b_iv_i+(-1)\,v_j=0_V ,
+\]
+è una c.l. nulla in cui il coefficiente di $v_j$ è $-1\neq0$. Quindi i vettori sono dipendenti.
+\end{proof}
+
+\begin{oss}
+[Aggiunta: attenzione al quantificatore]
+Il lemma dice che \emph{almeno uno} dei vettori è c.l. degli altri, \emph{non} che lo sia ciascuno.
+Per esempio $v_1=(1,0)$, $v_2=(2,0)$, $v_3=(0,1)$ sono dipendenti e $v_2=2v_1$ è c.l. degli altri, ma $v_3$ non è c.l. di $v_1,v_2$.
+Nell'implicazione ($\Rightarrow$) il vettore che si ``estrae'' è quello con coefficiente $a_j\neq0$.
+(Per $n=1$ il lemma si legge: $v$ è dipendente $\iff v=0$, la c.l. della famiglia vuota.)
+\end{oss}
+
+\subsection{Basi}
+
+\begin{defn}[Base]
+Una \textbf{base} di $V$ è una famiglia \emph{ordinata} $(v_1,\dots,v_n)$ di vettori di $V$ che sono
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{generatori} di $V$, cioè $\langle v_1,\dots,v_n\rangle=V$;
+  \item \textbf{linearmente indipendenti}.
+\end{enumerate}
+\end{defn}
+
+\begin{oss}[Aggiunta: cosa vuol dire ``ordinata'']
+L'ordine conta perché servirà per le coordinate: in $\RR^2$ le basi $(e_1,e_2)$ e $(e_2,e_1)$ hanno lo stesso insieme di vettori, ma sono basi \emph{diverse} (le coordinate di $(3,5)$ sono $(3,5)$ nella prima e $(5,3)$ nella seconda).
+\end{oss}
+
+\begin{esempio}[{Base canonica di $\KK[x]$}]
+Una base canonica dello spazio $\KK[x]$ è
+$(1,x,x^2,x^3,\dots)$.
+\end{esempio}
+
+\begin{oss}[Aggiunta: perché è una base]
+Sulle note c'era scritto ``$V=K$'': deve essere $V=\KK[x]$. È una famiglia \emph{infinita}, ma le c.l. sono sempre finite.
+\emph{Generatori:} ogni polinomio $a_0+a_1x+\dots+a_dx^d$ è una c.l. finita di potenze di $x$.
+\emph{Indipendenti:} un polinomio è il polinomio nullo se e solo se tutti i suoi coefficienti sono nulli, quindi $\sum a_ix^i=0\Rightarrow a_i=0$ per ogni $i$.
+Il sottospazio $\KK[x]_{\le n}$ ha invece la base \emph{finita} $(1,x,\dots,x^n)$.
+\end{oss}
+
+\begin{oss}[Base canonica di $\KK^n$]
+In $\KK^n$ la base canonica $\varepsilon=(e_1,\dots,e_n)$ è formata dai vettori
+\[
+  e_1=(1,0,\dots,0),\quad e_2=(0,1,0,\dots,0),\quad\dots,\quad e_n=(0,\dots,0,1),
+\]
+cioè $e_i$ ha $1$ al posto $i$ e $0$ altrove. Inoltre
+\[
+  \KK^n=\langle e_1\rangle\oplus\langle e_2\rangle\oplus\dots\oplus\langle e_n\rangle .
+\]
+\end{oss}
+
+\begin{oss}[Aggiunta: perché vale la somma diretta]
+Ogni $v=(a_1,\dots,a_n)\in\KK^n$ si scrive come
+$v=a_1e_1+\dots+a_ne_n$ con $a_ie_i\in\langle e_i\rangle$, quindi $\KK^n=\langle e_1\rangle+\dots+\langle e_n\rangle$.
+La scrittura è unica: se $\sum_i a_ie_i=\sum_i b_ie_i$, confrontando la componente $i$-esima si ha $a_i=b_i$.
+(Attenzione, come visto nella Lezione 7: per $n\ge3$ non basta controllare che $\langle e_i\rangle\cap\langle e_j\rangle=\{0\}$ a coppie; qui si usa direttamente l'unicità.)
+\end{oss}
+
+\begin{prop}[Unicità delle coordinate]\label{prop:coordinate}
+Sia $(v_1,\dots,v_n)$ una base di $V$. Allora ogni $v\in V$ si scrive in modo \textbf{unico} come
+\[
+  v=a_1v_1+\dots+a_nv_n,\qquad a_i\in\KK .
+\]
+\end{prop}
+
+\begin{proof}
+\emph{Esistenza.} I $v_i$ generano $V$, quindi $v\in\langle v_1,\dots,v_n\rangle$ è una c.l. dei $v_i$.
+
+\emph{Unicità.} Siano $v=\sum_ia_iv_i=\sum_ib_iv_i$. Sottraendo,
+\[
+  \sum_{i=1}^n(a_i-b_i)v_i=0_V .
+\]
+I $v_i$ sono indipendenti, quindi $a_i-b_i=0$, cioè $a_i=b_i$ per ogni $i$.
+\end{proof}
+
+\begin{oss}[Aggiunta: coordinate e implicazione inversa]
+Gli scalari $(a_1,\dots,a_n)$ si dicono le \textbf{coordinate} di $v$ rispetto alla base $(v_1,\dots,v_n)$.
+Vale anche il viceversa: se $v_1,\dots,v_n$ sono tali che ogni vettore di $V$ si scrive in modo unico come c.l., allora sono una base.
+Infatti generano per l'esistenza; e lo $0_V$ si scrive già come $0\cdot v_1+\dots+0\cdot v_n$, quindi per l'unicità ogni c.l. nulla ha tutti i coefficienti nulli (indipendenza).
+\end{oss}
+
+\begin{esempio}[Base canonica delle matrici]
+Sia $M_{m\times n}(\KK)$ lo spazio delle matrici $m\times n$ e sia $E_{ij}$ la matrice con $1$ al posto $(i,j)$ e $0$ altrove. Allora $(E_{ij})_{i,j}$ è una base (la base canonica) e
+\[
+  M_{m\times n}(\KK)=\bigoplus_{i,j}\langle E_{ij}\rangle,\qquad \text{in particolare ha } mn \text{ elementi.}
+\]
+\end{esempio}
+
+\par\medskip
+\noindent\textbf{verifica per le matrici $2\times2$.}\par
+
+\[
+  \begin{pmatrix}a&b\\c&d\end{pmatrix}
+  =a\begin{pmatrix}1&0\\0&0\end{pmatrix}
+  +b\begin{pmatrix}0&1\\0&0\end{pmatrix}
+  +c\begin{pmatrix}0&0\\1&0\end{pmatrix}
+  +d\begin{pmatrix}0&0\\0&1\end{pmatrix}.
+\]
+\emph{Generatori:} ogni matrice è $\sum_{i,j}a_{ij}E_{ij}$.
+\emph{Indipendenti:} $\sum_{i,j}a_{ij}E_{ij}$ è la matrice che ha $a_{ij}$ al posto $(i,j)$; è la matrice nulla solo se tutti gli $a_{ij}=0$.
+L'unicità della scrittura (Prop.~\ref{prop:coordinate}) dà la somma diretta, come per $\KK^n$.
+\par\medskip
+
+\subsection{Operazioni elementari sui vettori}
+
+Data una famiglia $(v_1,\dots,v_n)$ chiamiamo \textbf{operazioni elementari} le tre operazioni:
+\begin{enumerate}[label=(\arabic*)]
+  \item scambiare di posto due vettori $v_i$ e $v_j$;
+  \item moltiplicare un $v_i$ per uno scalare $\lambda\neq0$;
+  \item sostituire $v_i$ con $v_i+\lambda v_j$, per un $j\neq i$ e $\lambda\in\KK$.
+\end{enumerate}
+
+\begin{lemma}\label{lemma:elementari}
+Siano $v_1,\dots,v_n\in V$ e sia $(w_1,\dots,w_n)$ la famiglia ottenuta con una operazione elementare.
+\begin{itemize}[leftmargin=*]
+  \item Se i $v_i$ generano $V$, allora anche i $w_i$ generano $V$.
+  \item Se i $v_i$ sono linearmente indipendenti, allora anche i $w_i$ sono linearmente indipendenti.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+\emph{Generatori.} Ogni $w_k$ è c.l. dei $v_i$, quindi $\langle w_1,\dots,w_n\rangle\subseteq\langle v_1,\dots,v_n\rangle$.
+Viceversa, ogni operazione si inverte con un'operazione dello stesso tipo:
+(1) si scambia di nuovo; (2) si moltiplica per $\lambda^{-1}$; (3) da $w_i=v_i+\lambda v_j$ si ottiene $v_i=w_i-\lambda w_j$ (qui $w_j=v_j$).
+Quindi ogni $v_i$ è c.l. dei $w_k$ e $\langle v_1,\dots,v_n\rangle\subseteq\langle w_1,\dots,w_n\rangle$.
+Dunque i due span coincidono, e se i $v_i$ generano $V$ lo fanno anche i $w_k$.
+
+\emph{Indipendenza.} Sia $\sum_kc_kw_k=0$ e riscriviamo in termini dei $v$.
+\begin{enumerate}[label=(\arabic*)]
+  \item È la stessa somma con i termini permutati: i $c_k$ sono i coefficienti dei $v_i$, quindi tutti nulli.
+  \item $c_i\lambda\,v_i+\sum_{k\neq i}c_kv_k=0\Rightarrow c_i\lambda=0$ e $c_k=0$ per $k\ne i$; poiché $\lambda\neq0$, anche $c_i=0$.
+  \item Con $w_i=v_i+\lambda v_j$:
+  \[
+    c_i(v_i+\lambda v_j)+\sum_{k\ne i}c_kv_k
+    =c_iv_i+(c_j+\lambda c_i)v_j+\sum_{k\neq i,j}c_kv_k=0 ,
+  \]
+  da cui $c_i=0$, $c_j+\lambda c_i=0$ (quindi $c_j=0$) e $c_k=0$ per gli altri $k$.
+\end{enumerate}
+In ogni caso tutti i $c_k$ sono nulli.
+\end{proof}
+
+\par\medskip
+\noindent\textbf{a cosa serve.}\par
+
+Il lemma dice che le operazioni elementari \emph{non cambiano il sottospazio generato} e \emph{conservano l'indipendenza}.
+È il motivo per cui il metodo di eliminazione di Gauss si può usare per studiare dipendenza e span di una famiglia di vettori (ad esempio le righe di una matrice).
+\par\medskip
+
+% =====================================================================
+\section{Lezione 9 (14 ottobre) --- Il lemma di scambio}
+% =====================================================================
+
+\subsection{Richiami e osservazioni sull'indipendenza}
+
+Ricordo che $w_1,\dots,w_r$ vettori in $W$ sono linearmente indipendenti se
+\[
+  \sum_{i=1}^{r}a_iw_i=0 \iff a_i=0\ \text{ per ogni } i .
+\]
+
+\begin{oss}
+Nessun $w_i$ può essere $0$. Infatti, se ad esempio $w_1=0$, allora $0=1\cdot w_1$ è una combinazione lineare nulla con coefficiente $1\neq0$.
+\end{oss}
+
+\begin{oss}
+Sia $r=2$. Allora $w_1,w_2$ sono linearmente dipendenti se e solo se uno dei due è multiplo dell'altro.
+Infatti abbiamo visto (Lemma~\ref{lemma:dipendenza}) che uno dei due deve essere combinazione lineare degli altri, in questo caso dell'altro.
+\end{oss}
+
+\begin{esempio}
+I vettori
+\[
+  w_1=\begin{pmatrix}1\\2\\1\end{pmatrix},\qquad
+  w_2=\begin{pmatrix}-4\\-8\\-4\end{pmatrix}
+\]
+sono linearmente dipendenti: $w_2=-4w_1$.
+I vettori
+\[
+  w_1=\begin{pmatrix}1\\2\\1\end{pmatrix},\qquad
+  w_2=\begin{pmatrix}1\\2\\-1\end{pmatrix}
+\]
+sono invece indipendenti: non esiste $\lambda$ tale che $w_2=\lambda w_1$.
+\end{esempio}
+
+\subsection{Lemma di scambio}
+
+\begin{lemma}[Lemma di scambio]\label{lemma:scambio}
+Sia $V\neq0$ uno spazio vettoriale finitamente generato e siano $v_1,\dots,v_n$ generatori di $V$ e $w_1,\dots,w_r$ vettori linearmente indipendenti in $V$.
+Allora
+\[
+  r\le n .
+\]
+\end{lemma}
+
+\begin{proof}
+Per ipotesi $V=\langle v_1,\dots,v_n\rangle$ con $n\ge1$ (perché $V\neq0$), e $\langle w_1,\dots,w_r\rangle\subseteq V$ con $r\ge1$ (altrimenti non c'è nulla da dimostrare); inoltre $w_i\neq0$ per ogni $i$.
+
+Poiché $w_1\in V$, si ha
+\[
+  w_1=a_1v_1+\dots+a_nv_n ,
+\]
+con gli $a_i$ non tutti nulli (perché $w_1\neq0$).
+A meno di cambiare l'ordine dei $v_1,\dots,v_n$ posso assumere $a_1\neq0$. Allora
+\[
+  \frac1{a_1}\,w_1=v_1+\frac{a_2}{a_1}v_2+\dots+\frac{a_n}{a_1}v_n ,
+  \qquad\text{cioè}\qquad
+  v_1=\frac1{a_1}\,w_1-\sum_{j=2}^{n}\frac{a_j}{a_1}\,v_j .
+\]
+Quindi $v_1\in\langle w_1,v_2,\dots,v_n\rangle$ e dunque
+\[
+  V=\langle w_1,v_2,\dots,v_n\rangle ,
+\]
+cioè ho \emph{scambiato} $v_1$ con $w_1$.
+
+Dimostro per induzione su $k=1,\dots,r$ l'affermazione
+\[
+  P(k):\quad k\le n\ \text{ e, a meno di riordinare i } v_j,\ \ V=\langle w_1,\dots,w_k,v_{k+1},\dots,v_n\rangle .
+\]
+Per $k=r$ essa dà $r\le n$. Quanto fatto sopra è $P(1)$ (si ricordi $n\ge1$).
+
+Sia $1\le k<r$ e supponiamo $P(k)$. Poiché $w_{k+1}\in V$, scrivo
+\[
+  w_{k+1}=b_1w_1+\dots+b_kw_k+c_{k+1}v_{k+1}+\dots+c_nv_n .
+\]
+Se tutti i $c_j$ fossero nulli (in particolare se $k=n$, perché allora non restano $v_j$), $w_{k+1}$ sarebbe combinazione lineare di $w_1,\dots,w_k$, e i vettori $w_1,\dots,w_{k+1}$ sarebbero dipendenti per il Lemma~\ref{lemma:dipendenza} (qui $k+1\ge2$), contro l'ipotesi.
+Dunque $k<n$, cioè $k+1\le n$, e qualche $c_j\ne0$; a meno di riordinare $v_{k+1},\dots,v_n$ posso assumere $c_{k+1}\ne0$. Allora
+\[
+  v_{k+1}=\frac1{c_{k+1}}\Bigl(w_{k+1}-\sum_{i=1}^{k}b_iw_i-\sum_{j=k+2}^{n}c_jv_j\Bigr)\in W:=\langle w_1,\dots,w_{k+1},v_{k+2},\dots,v_n\rangle .
+\]
+Anche $w_1,\dots,w_k,v_{k+2},\dots,v_n$ stanno in $W$; quindi $W$ contiene tutti i generatori dello span $\langle w_1,\dots,w_k,v_{k+1},\dots,v_n\rangle=V$ (ipotesi $P(k)$), e dunque $W=V$. Questo è $P(k+1)$.
+\end{proof}
+
+% =====================================================================
+\section{Lezione 10 (19 ottobre) --- Dimensione}
+% =====================================================================
+
+\subsection{Definizione di dimensione}
+
+\begin{cor}
+Ogni spazio vettoriale finitamente generato ammette una base.
+\end{cor}
+
+\begin{proof}
+Sia $V=\langle v_1,\dots,v_n\rangle$. Se i $v_i$ sono linearmente indipendenti, sono una base. Altrimenti esiste una relazione $\sum_ia_iv_i=0$ con qualche $a_j\ne0$, da cui $v_j=\sum_{i\ne j}(-a_j^{-1}a_i)v_i$ (la somma è vuota, cioè $v_j=0$, se $n=1$). Allora $v_j$ si può togliere senza cambiare lo span. Si ripete: dopo al più $n$ passi la famiglia rimasta è indipendente (la famiglia vuota lo è, e genera $\{0\}$) e genera ancora $V$, quindi è una base.
+\end{proof}
+
+\begin{defn}[Dimensione]
+Sia $V$ uno spazio vettoriale su $\KK$ finitamente generato. La \textbf{dimensione} di $V$ su $\KK$ è
+\[
+  \dim_{\KK}V:=\#\text{ vettori di una base di }V .
+\]
+\end{defn}
+
+La definizione è ben posta. Se $V=0$ l'unica base è la famiglia vuota ($\dim V=0$). Se $V\ne0$ e $V=\langle v_1,\dots,v_n\rangle$, ogni base è finita: una famiglia indipendente con più di $n$ elementi contraddirebbe il Lemma di scambio~\ref{lemma:scambio}. Date due basi con $n$ ed $m$ elementi, ciascuna è sia indipendente sia generatrice, quindi il Lemma di scambio dà $n\le m$ e $m\le n$, cioè $n=m$.
+
+\begin{esempio}\label{es:dimensioni}
+\begin{enumerate}[label=(\arabic*)]
+  \item $\dim_{\CC}\CC=1$. Infatti $\CC=\langle1\rangle=\langle i\rangle=\langle a+ib\rangle$ per ogni $a+ib\neq0$.
+  \item $\dim_{\RR}\CC=2$. Ogni $z\in\CC$ si scrive $z=a+ib$ con $a,b\in\RR$, combinazione lineare di $1$ e $i$, quindi $\CC=\langle1,i\rangle$. Inoltre $a+ib=0\Rightarrow a=b=0$, quindi $1,i$ sono linearmente indipendenti su $\RR$ (ma \emph{non} linearmente indipendenti su $\CC$: $1\cdot1+i\cdot i=0$, con coefficienti $1$ e $i$ non nulli).
+  \item $\dim_{\mathbb{Q}}\mathbb{Q}[x]_{\le3}=4$, con base $(1,x,x^2,x^3)$: infatti $\mathbb{Q}[x]_{\le3}=\langle1,x,x^2,x^3\rangle$ e
+  $a\cdot1+bx+cx^2+dx^3=0\iff a=b=c=d=0$.
+  \item $\dim_{\RR}M_2(\RR)=4$, con base $(E_{11},E_{12},E_{21},E_{22})$, cioè
+  \[
+    M_2(\RR)=\left\langle
+    \begin{pmatrix}1&0\\0&0\end{pmatrix},
+    \begin{pmatrix}0&1\\0&0\end{pmatrix},
+    \begin{pmatrix}0&0\\1&0\end{pmatrix},
+    \begin{pmatrix}0&0\\0&1\end{pmatrix}
+    \right\rangle ,
+  \]
+  e questi quattro vettori sono linearmente indipendenti.
+\end{enumerate}
+Si noti che la dimensione dipende dal campo: $\dim_{\CC}\CC=1$ ma $\dim_{\RR}\CC=2$.
+\end{esempio}
+
+\begin{esempio}[Esercizio: $\dim_{\RR}M_2(\CC)$]
+Si ha $\dim_{\RR}M_2(\CC)=8$. Una base di $M_2(\CC)$ come spazio vettoriale su $\RR$ è
+\[
+  \mathcal B=\bigl(E_{11},E_{12},E_{21},E_{22},\ iE_{11},iE_{12},iE_{21},iE_{22}\bigr),
+\]
+dove $E_{jk}$ è la matrice con $1$ al posto $(j,k)$ e $0$ altrove (e $iE_{jk}$ ha $i$ al posto $(j,k)$ e $0$ altrove).
+
+\emph{Generatori.} Una matrice di $M_2(\CC)$ ha la forma $A=(a_{jk}+ib_{jk})_{j,k}$ con $a_{jk},b_{jk}\in\RR$, e
+\[
+  A=\sum_{j,k}a_{jk}E_{jk}+\sum_{j,k}b_{jk}\,(iE_{jk}),
+\]
+che è una combinazione lineare a coefficienti \emph{reali} degli elementi di $\mathcal B$.
+
+\emph{Indipendenza su $\RR$.} Siano $a_{jk},b_{jk}\in\RR$ con $\sum_{j,k}a_{jk}E_{jk}+\sum_{j,k}b_{jk}(iE_{jk})=0$. L'entrata al posto $(j,k)$ del primo membro è $a_{jk}+ib_{jk}$, che deve essere $0$; essendo $a_{jk},b_{jk}$ reali (parte reale e parte immaginaria), ciò dà $a_{jk}=b_{jk}=0$ per ogni $j,k$.
+
+Dunque $\mathcal B$ è una base formata da $8$ vettori e $\dim_{\RR}M_2(\CC)=8$ (ben definita per il Lemma di scambio). Si osservi che invece $\dim_{\CC}M_2(\CC)=4$, con base $(E_{11},E_{12},E_{21},E_{22})$.
+\end{esempio}
+
+\subsection{Conseguenze del lemma di scambio}
+
+\begin{teo}\label{teo:dimensione}
+Sia $V$ uno spazio vettoriale su $\KK$ di dimensione $n>0$ finita.
+\begin{enumerate}[label=(\roman*)]
+  \item Ogni insieme di generatori di $V$ formato da $n$ vettori è una base di $V$.
+  \item Ogni sottoinsieme di $V$ formato da $n$ vettori linearmente indipendenti è una base di $V$.
+  \item Ogni insieme di vettori linearmente indipendenti di $V$ può essere completato ad una base di $V$; in particolare ha al più $n$ elementi.
+  \item Ogni insieme di generatori di $V$ contiene una base; in particolare ha almeno $n$ elementi.
+  \item Se $W\leq V$, allora $\dim W\leq\dim V$, e vale l'uguaglianza se e solo se $W=V$.
+\end{enumerate}
+\end{teo}
+
+\begin{proof}
+\emph{(i)} Sia $V=\langle v_1,\dots,v_n\rangle$ con $n=\dim_{\KK}V$.
+Se $\{v_1,\dots,v_n\}$ è linearmente indipendente, allora è una base e ho concluso.
+Se invece fosse linearmente dipendente, esisterebbe una relazione $\sum_ia_iv_i=0$ con qualche $a_j\ne0$, e quindi $v_j\in\langle v_i: i\ne j\rangle$; a meno di riordinare sia $j=n$. Allora
+\[
+  V=\langle v_1,\dots,v_{n-1},\cancel{v_n}\rangle=\langle v_1,\dots,v_{n-1}\rangle ,
+\]
+cioè $V$ è generato da $n-1$ vettori. Se $n=1$ questo dà $V=\{0\}$, contro $n=\dim V>0$. Se $n\ge2$, sia $\mathcal B=\{w_1,\dots,w_n\}$ una base di $V$, in particolare i $w_i$ sono linearmente indipendenti: per il Lemma di scambio~\ref{lemma:scambio} (con $V\ne0$) si ha $n\le n-1$, assurdo.
+(In altre parole: dei generatori nel numero giusto sono linearmente indipendenti.)
+
+\emph{(ii)} Sia $\{v_1,\dots,v_n\}$ un insieme libero in $V$, con $\dim V=n\ge1$.
+Se $V=\langle v_1,\dots,v_n\rangle$, allora $\{v_1,\dots,v_n\}$ è una base e ho finito.
+Se invece $V\supsetneq\langle v_1,\dots,v_n\rangle$, esisterebbe $v_{n+1}\in V\setminus\langle v_1,\dots,v_n\rangle$, e $\{v_1,\dots,v_n,v_{n+1}\}$ sarebbe un insieme libero in $V$. Infatti, se $a_1v_1+\dots+a_{n+1}v_{n+1}=0$, allora $a_{n+1}=0$: altrimenti $v_{n+1}=-a_{n+1}^{-1}\sum_{i=1}^na_iv_i\in\langle v_1,\dots,v_n\rangle$, contro la scelta di $v_{n+1}$. Resta $\sum_{i=1}^na_iv_i=0$, e l'indipendenza di $v_1,\dots,v_n$ dà $a_i=0$ per ogni $i$.
+Sia $\mathcal B=\{w_1,\dots,w_n\}$ una base di $V$: uso che i $w_i$ sono generatori.
+Per il Lemma di scambio avrei $n+1\le n$, assurdo.
+Quindi $v_1,\dots,v_n$ sono generatori.
+
+\emph{(iii)} Sia $\{v_1,\dots,v_m\}$ un insieme libero in $V$ e sia $\{w_1,\dots,w_n\}$ una base di $V$. I $w_i$ sono generatori e $V\ne0$, quindi il Lemma di scambio~\ref{lemma:scambio} dà $m\le n$: questo è l'ultimo enunciato.
+
+Per completare, consideriamo l'insieme $\mathcal F$ delle famiglie
+linearmente indipendenti che iniziano con
+$(v_1,\dots,v_m)$ e proseguono con $s\ge0$ vettori
+$u_1,\dots,u_s$ di $V$.
+Per quanto appena visto, ogni famiglia di $\mathcal F$ ha
+$m+s\le n$ elementi, quindi $s\le n-m$.
+Inoltre $\mathcal F\neq\emptyset$, perché contiene la famiglia iniziale
+($s=0$). Scegliamo una famiglia in $\mathcal F$ con $s$ massimo
+e poniamo
+\[
+ U=\langle v_1,\dots,v_m,u_1,\dots,u_s\rangle.
+\]
+
+Affermo che $U=V$. Altrimenti esisterebbe $u\in V\setminus U$. Allora $(v_1,\dots,v_m,u_1,\dots,u_s,u)$ è linearmente indipendente: se
+$\sum_{i=1}^{m}a_iv_i+\sum_{j=1}^{s}b_ju_j+cu=0$, allora $c=0$, altrimenti $u=-c^{-1}\bigl(\sum_ia_iv_i+\sum_jb_ju_j\bigr)\in U$, contro la scelta di $u$; resta $\sum_ia_iv_i+\sum_jb_ju_j=0$ e l'indipendenza della famiglia di partenza dà tutti i coefficienti nulli. Quindi questa famiglia sta in $\mathcal F$ e ha $s+1$ vettori aggiunti, contro la massimalità di $s$.
+
+Dunque $U=V$: la famiglia $(v_1,\dots,v_m,u_1,\dots,u_s)$ è indipendente e genera $V$, cioè è una base di $V$ che completa $\{v_1,\dots,v_m\}$.
+\end{proof}
+
+
+
+% =====================================================================
+\section{Lezione 11 (20 ottobre) --- Prodotto di spazi vettoriali}
+% =====================================================================
+
+\subsection{Dimensione del prodotto}
+
+Siano $V$ e $W$ spazi vettoriali di dimensione finita sul campo $\KK$, con
+$\dim_{\KK}V=r$ e $\dim_{\KK}W=s$. Il prodotto cartesiano $V\times W$, dotato
+ delle operazioni componente per componente, è uno spazio vettoriale e vale
+\[
+  \dim_{\KK}(V\times W)=r+s.
+\]
+
+\begin{proof}
+Siano $\mathcal B_V=(v_1,\ldots,v_r)$ una base di $V$ e
+$\mathcal B_W=(w_1,\ldots,w_s)$ una base di $W$. Ogni $(v,w)\in V\times W$
+si scrive, in modo unico,
+\[
+ v=\sum_{i=1}^r a_i v_i,\qquad w=\sum_{j=1}^s b_jw_j,
+\]
+con $a_i,b_j\in\KK$. Pertanto
+\[
+ (v,w)=\sum_{i=1}^r a_i(v_i,0_W)+\sum_{j=1}^s b_j(0_V,w_j),
+\]
+per cui la famiglia
+\[
+ \mathcal B=\bigl((v_1,0_W),\ldots,(v_r,0_W),
+ (0_V,w_1),\ldots,(0_V,w_s)\bigr)
+\]
+genera $V\times W$. Se
+\[
+ \sum_{i=1}^r a_i(v_i,0_W)+\sum_{j=1}^s b_j(0_V,w_j)=(0_V,0_W),
+\]
+allora
+\[
+ \left(\sum_{i=1}^r a_iv_i,\sum_{j=1}^s b_jw_j\right)=(0_V,0_W).
+\]
+Segue che $\sum_i a_iv_i=0_V$ e $\sum_j b_jw_j=0_W$. Dall'indipendenza
+lineare delle due basi si ottiene $a_i=0$ per ogni $i$ e $b_j=0$ per ogni
+$j$. Dunque $\mathcal B$ è una base di $V\times W$ con $r+s$ elementi.
+\end{proof}
+
+In particolare, identificando $\KK^{r+s}$ con $\KK^r\times\KK^s$ mediante
+la separazione delle coordinate, si recupera la formula
+$\dim_{\KK}\KK^{r+s}=r+s$.
+
+\subsection{Sottospazi complementari}
+
+Sia $U\leq V$. Un sottospazio $W\leq V$ si dice \emph{complementare} di $U$
+se
+\[
+ V=U\oplus W,
+\]
+ossia se $V=U+W$ e $U\cap W=\{0\}$. In tal caso ogni $v\in V$ si scrive in
+modo unico come $v=u+w$, con $u\in U$ e $w\in W$.
+Il complementare, quando esiste, in generale non è unico.
+
+\begin{esempio}
+In $V=\RR^2$, sia $U=\langle(1,0)\rangle$. Sono complementari di $U$ sia
+$W=\langle(0,1)\rangle$ sia $W'=\langle(1,1)\rangle$. In entrambi i casi i
+due generatori sono linearmente indipendenti e quindi generano $\RR^2$;
+pertanto $\RR^2=U\oplus W=U\oplus W'$, pur essendo $W\ne W'$.
+\end{esempio}
+
+% =====================================================================
+\section{Formula di Grassmann ed equazioni dei sottospazi}
+% =====================================================================
+
+\subsection{Formula di Grassmann}
+
+\begin{prop}[Formula di Grassmann]\label{prop:grassmann}
+Siano $U$ e $W$ sottospazi di uno spazio vettoriale $V$ di dimensione finita
+su $\KK$. Allora
+\[
+ \dim(U+W)+\dim(U\cap W)=\dim U+\dim W.
+\]
+\end{prop}
+
+\begin{proof}
+Sia $(v_1,\ldots,v_k)$ una base di $U\cap W$. Completiamola a basi
+\[
+ (v_1,\ldots,v_k,u_{k+1},\ldots,u_r)\quad\text{di }U,
+\]
+\[
+ (v_1,\ldots,v_k,w_{k+1},\ldots,w_s)\quad\text{di }W.
+\]
+Consideriamo la famiglia
+\[
+ \mathcal F=(v_1,\ldots,v_k,u_{k+1},\ldots,u_r,
+ w_{k+1},\ldots,w_s).
+\]
+Essa genera $U+W$, perché contiene una base di $U$ e una base di $W$.
+Mostriamo che è linearmente indipendente. Supponiamo che
+\[
+ \sum_{i=1}^k a_iv_i+\sum_{i=k+1}^r a_iu_i+
+ \sum_{j=k+1}^s b_jw_j=0.
+\]
+Allora
+\[
+ \sum_{i=1}^k a_iv_i+\sum_{i=k+1}^r a_iu_i
+ =-\sum_{j=k+1}^s b_jw_j.
+\]
+Il membro sinistro appartiene a $U$, quello destro a $W$; il vettore comune
+appartiene dunque a $U\cap W=\langle v_1,\ldots,v_k\rangle$. Ne segue che
+\[
+ \sum_{i=k+1}^r a_iu_i\in\langle v_1,\ldots,v_k\rangle.
+\]
+Poiché $(v_1,\ldots,v_k,u_{k+1},\ldots,u_r)$ è una base di $U$, tutti i
+coefficienti $a_{k+1},\ldots,a_r$ sono nulli. L'uguaglianza iniziale diventa
+quindi
+\[
+ \sum_{i=1}^k a_iv_i+\sum_{j=k+1}^s b_jw_j=0.
+\]
+Poiché $(v_1,\ldots,v_k,w_{k+1},\ldots,w_s)$ è una base di $W$, anche tutti
+i coefficienti $a_1,\ldots,a_k,b_{k+1},\ldots,b_s$ sono nulli. Dunque
+$\mathcal F$ è una base di $U+W$. Contando i suoi elementi,
+\[
+ \dim(U+W)=k+(r-k)+(s-k)=r+s-k.
+\]
+Essendo $k=\dim(U\cap W)$, si ottiene la formula.
+\end{proof}
+
+\begin{cor}
+Se $U\cap W=\{0\}$, allora $\dim(U+W)=\dim U+\dim W$. In particolare,
+se $V=U\oplus W$, allora $\dim V=\dim U+\dim W$.
+\end{cor}
+
+\subsection{Equazioni parametriche ed equazioni cartesiane}
+
+Sia $U=\langle u_1,\ldots,u_m\rangle\leq\KK^n$, dove
+$u_j=(u_{1j},\ldots,u_{nj})^T$. Le \emph{equazioni parametriche} di $U$ si
+ottengono scrivendo un vettore generico come combinazione lineare dei
+generatori:
+\[
+ x=\lambda_1u_1+\cdots+\lambda_mu_m,\qquad \lambda_1,\ldots,\lambda_m\in\KK.
+\]
+Le \emph{equazioni cartesiane} sono invece un sistema lineare omogeneo nelle
+coordinate $x_1,\ldots,x_n$ il cui insieme delle soluzioni è esattamente $U$.
+Per passare dalla forma parametrica a quella cartesiana si eliminano i
+parametri; viceversa, le soluzioni di un sistema omogeneo possono essere
+parametrizzate scegliendo le variabili libere.
+
+\begin{esempio}
+Sia
+\[
+ U=\left\langle
+ \begin{pmatrix}1\\3\\0\\-2\end{pmatrix},
+ \begin{pmatrix}0\\-1\\1\\-5\end{pmatrix}
+ \right\rangle\leq\RR^4.
+\]
+Un vettore di $U$ ha la forma
+\[
+ \begin{pmatrix}x_1\\x_2\\x_3\\x_4\end{pmatrix}
+ =a\begin{pmatrix}1\\3\\0\\-2\end{pmatrix}
+ +b\begin{pmatrix}0\\-1\\1\\-5\end{pmatrix},
+ \qquad a,b\in\RR,
+\]
+ossia le equazioni parametriche sono
+\[
+ \begin{cases}
+ x_1=a,\\
+ x_2=3a-b,\\
+ x_3=b,\\
+ x_4=-2a-5b.
+ \end{cases}
+\]
+Dalle prime e dalla terza equazione si ricava $a=x_1$ e $b=x_3$; sostituendo
+si ottiene
+\[
+ \begin{cases}
+ 3x_1-x_2-x_3=0,\\
+ 2x_1+5x_3+x_4=0.
+ \end{cases}
+\]
+Queste equazioni cartesiane sono equivalenti alla parametrizzazione iniziale:
+le prime tre coordinate determinano $a=x_1$ e $b=x_3$, e le due relazioni
+cartesiane impongono precisamente $x_2=3a-b$ e $x_4=-2a-5b$.
+\end{esempio}
+
+% =====================================================================
+\subsection{Un esempio di passaggio alle equazioni parametriche e cartesiane}
+
+Consideriamo il sottospazio $U\subseteq\mathbb{Q}^4$ definito dal sistema
+\[
+ \begin{cases}
+  2x_1-3x_2-x_4=0,\\
+  3x_1+5x_2-x_3=0.
+ \end{cases}
+\]
+Ponendo $x_1=s$ e $x_2=t$ come parametri liberi, si ricava
+\[
+ x_3=3s+5t,\qquad x_4=2s-3t.
+\]
+Quindi
+\[
+ \begin{pmatrix}x_1\\x_2\\x_3\\x_4\end{pmatrix}
+ =s\begin{pmatrix}1\\0\\3\\2\end{pmatrix}
+ +t\begin{pmatrix}0\\1\\5\\-3\end{pmatrix},
+ \qquad s,t\in\mathbb{Q},
+\]
+e pertanto
+\[
+ U=\left\langle
+ \begin{pmatrix}1\\0\\3\\2\end{pmatrix},
+ \begin{pmatrix}0\\1\\5\\-3\end{pmatrix}
+ \right\rangle.
+\]
+Questo mostra come un sistema omogeneo fornisca una descrizione cartesiana del sottospazio e, scegliendo le variabili libere, una descrizione parametrica.
+
+\subsection{Coordinate rispetto a una base ordinata}
+
+Sia $\mathcal B=(v_1,\ldots,v_n)$ una base ordinata di $V$. La rappresentazione unica
+\[
+ v=x_1v_1+\cdots+x_nv_n
+\]
+definisce l'applicazione delle coordinate
+\[
+ \alpha_{\mathcal B}:V\longrightarrow\KK^n,
+ \qquad v\longmapsto\begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}.
+\]
+Essa è una biiezione: la suriettività segue dal fatto che ogni n-upla determina la combinazione lineare corrispondente, mentre l'iniettività segue dall'unicità delle coordinate. Di conseguenza, rispetto alla base $\mathcal B$, un sottospazio di $V$ può essere descritto tramite le equazioni parametriche o cartesiane del sottospazio corrispondente $\alpha_{\mathcal B}(U)\subseteq\KK^n$.
+
+
+\subsection{Osservazioni sulle somme e sulle basi}
+
+Se $U=\langle u_1,\ldots,u_r\rangle$ e $W=\langle w_1,\ldots,w_s\rangle$, allora
+\[
+ U+W=\langle u_1,\ldots,u_r,w_1,\ldots,w_s\rangle.
+\]
+Quindi, per trovare generatori della somma, basta riunire sistemi di generatori dei due sottospazi. Anche quando ciascuno dei due sistemi è linearmente indipendente, la famiglia riunita non è necessariamente indipendente: per esempio, i due sistemi possono contenere uno stesso vettore non nullo.
+
+Se $\mathcal B=(v_1,\ldots,v_n)$ è una base di $V$, allora
+\[
+ V=\langle v_1\rangle\oplus\cdots\oplus\langle v_n\rangle.
+\]
+Più in generale, per ogni $1\leq m<n$,
+\[
+ V=\langle v_1,\ldots,v_m\rangle\oplus
+   \langle v_{m+1},\ldots,v_n\rangle.
+\]
+Infatti la famiglia della base è indipendente e genera $V$, e i due gruppi di vettori sono disgiunti come blocchi della stessa base; ciò garantisce sia che la somma sia tutto $V$, sia che l'intersezione dei due span sia nullo.
+
+\subsection{Esercizi della lezione 11: complementi e coordinate}
+
+\paragraph{1. Un sottospazio di $\RR^4$.}
+Sia
+\[
+ U=\left\langle
+ \begin{pmatrix}1\\1\\1\\0\end{pmatrix},
+ \begin{pmatrix}0\\0\\1\\0\end{pmatrix}
+ \right\rangle\leq\RR^4.
+\]
+I due generatori sono indipendenti, dunque $\dim U=2$. La forma parametrica è
+\[
+ (x_1,x_2,x_3,x_4)^T=(a,a,a+b,0)^T,\qquad a,b\in\RR,
+\]
+perciò le equazioni cartesiane sono
+\[
+ x_1-x_2=0,\qquad x_4=0.
+\]
+Un complementare è $W=\langle e_1,e_4\rangle$, dove $e_i$ sono i vettori della base canonica di $\RR^4$. Infatti la famiglia
+\[
+ \left(\begin{pmatrix}1\\1\\1\\0\end{pmatrix},
+ \begin{pmatrix}0\\0\\1\\0\end{pmatrix},e_1,e_4\right)
+\]
+è una base di $\RR^4$: se una combinazione lineare di questi quattro vettori è nulla, la seconda coordinata impone che il coefficiente del primo sia nullo, la terza impone che sia nullo quello del secondo, e la prima e la quarta annullano gli altri due. Pertanto $\RR^4=U\oplus W$.
+
+\paragraph{2. Coordinate rispetto a una base ordinata.}
+Se $\mathcal V=(v_1,\ldots,v_n)$ è una base ordinata di $V$, allora ogni $v\in V$ ha coordinate uniche $(a_1,\ldots,a_n)^T$ tali che $v=\sum_i a_iv_i$. In particolare, per ogni $j$,
+\[
+ \alpha_{\mathcal V}(v_j)=e_j,
+\]
+cioè le coordinate del $j$-esimo vettore della base sono la colonna canonica con $1$ in posizione $j$ e $0$ altrove.
+
+\paragraph{3. Un sottospazio di polinomi.}
+Sia $V=\KK[x]_{\leq2}$ e
+\[
+ U=\langle 1+x,\,1-x^2\rangle.
+\]
+Rispetto alla base canonica $(1,x,x^2)$, i due generatori hanno coordinate $(1,1,0)^T$ e $(1,0,-1)^T$. Quindi i vettori di $U$ sono precisamente quelli della forma
+\[
+ (x_1,x_2,x_3)^T=a(1,1,0)^T+b(1,0,-1)^T,
+\]
+ossia $x_1=a+b$, $x_2=a$, $x_3=-b$. Eliminando i parametri si ottiene l'equazione cartesiana
+\[
+ x_1-x_2+x_3=0.
+\]
+La famiglia $(1+x,1-x^2,x^2)$ è una base di $V$: è indipendente, perché una combinazione nulla ha coefficienti determinati in successione dai coefficienti di $x$, di $x^2$ e del termine costante. Ne segue che $W=\langle x^2\rangle$ è un complementare di $U$ in $V$.
+
+\paragraph{4. Sottospazio delle matrici triangolari superiori.}
+In $M_2(\RR)$ consideriamo
+\[
+ U=\left\{\begin{pmatrix}a_{11}&a_{12}\\0&a_{22}\end{pmatrix}:a_{11},a_{12},a_{22}\in\RR\right\}.
+\]
+Una base è $(E_{11},E_{12},E_{22})$, dove $E_{ij}$ ha $1$ nella posizione $(i,j)$ e $0$ nelle altre. Pertanto $\dim U=3$. Se si identificano le matrici con le coordinate rispetto alla base canonica $(E_{11},E_{12},E_{21},E_{22})$, l'equazione cartesiana di $U$ è $x_{21}=0$. Un complementare è $W=\langle E_{21}\rangle$, perché ogni matrice si scrive in modo unico come somma di una triangolare superiore e di una matrice della forma $cE_{21}$; dunque $M_2(\RR)=U\oplus W$.
+
+% =====================================================================
+\section{Lezione 12 (21 ottobre) --- Spazi vettoriali quoziente}
+% =====================================================================
+\subsection{Relazione di equivalenza modulo un sottospazio}
+Siano $V$ uno spazio vettoriale su $\KK$ e $U\leq V$.
+\begin{defn}
+Per $v,w\in V$ poniamo $v\sim_U w$ se e solo se $v-w\in U$. La classe di $v$ è
+\[
+[v]=v+U=\{v+u:u\in U\},\qquad V/U=\{[v]:v\in V\}.
+\]
+\end{defn}
+\begin{prop}
+La relazione $\sim_U$ è una relazione di equivalenza.
+\end{prop}
+\begin{proof}
+Poiché $0\in U$, $v-v=0\in U$ e vale la riflessività. Se $v-w\in U$, anche $w-v=-(v-w)\in U$, quindi vale la simmetria. Se $v-w,w-z\in U$, allora $v-z=(v-w)+(w-z)\in U$, e vale la transitività.
+\end{proof}
+\begin{oss}
+Si ha $[0]=U$, $[v]=[w]$ se e solo se $v-w\in U$ e $v\in[w]$ se e solo se $[v]=[w]$.
+\end{oss}
+\begin{esempio}
+Per $V=\RR^2$ e $U=\langle(1,0)\rangle$, le classi sono le rette orizzontali $[(a,b)]=\{(t,b):t\in\RR\}$. Se $U=\langle(1,1)\rangle$, allora $[(0,1)]=\{(t,t+1):t\in\RR\}$.
+\end{esempio}
+\subsection{Struttura vettoriale del quoziente}
+\begin{teo}
+Le operazioni
+\[
+[v]+[w]:=[v+w],\qquad \lambda[v]:=[\lambda v]
+\]
+sono ben definite e rendono $V/U$ uno spazio vettoriale su $\KK$, con zero $[0]=U$ e opposto di $[v]$ uguale a $[-v]$.
+\end{teo}
+\begin{proof}
+Se $[v]=[v']$ e $[w]=[w']$, allora $v-v',w-w'\in U$; per chiusura di $U$,
+\[(v+w)-(v'+w')=(v-v')+(w-w')\in U,\]
+e dunque $[v+w]=[v'+w']$. Inoltre $\lambda v-\lambda v'=\lambda(v-v')\in U$, perciò $[\lambda v]=[\lambda v']$. Le proprietà degli spazi vettoriali discendono dalle corrispondenti identità in $V$: ad esempio $([v]+[w])+[z]=[(v+w)+z]=[v+(w+z)]$ e $[v]+[-v]=[0]$.
+\end{proof}
+\begin{oss}
+Se $U=\{0\}$, l'applicazione $v\mapsto[v]$ identifica $V/U$ con $V$. Se $U=V$, il quoziente contiene la sola classe $[0]$ ed è lo spazio nullo.
+\end{oss}
+\begin{teo}[Dimensione del quoziente]
+Se $V$ è di dimensione finita e $U\leq V$, allora
+\[\dim_{\KK}(V/U)=\dim_{\KK}V-\dim_{\KK}U.\]
+\end{teo}
+\begin{proof}
+Sia $(u_1,\ldots,u_r)$ una base di $U$, completata a una base $(u_1,\ldots,u_r,v_{r+1},\ldots,v_n)$ di $V$. Le classi $[v_{r+1}],\ldots,[v_n]$ generano $V/U$: infatti per ogni $v=\sum_{i=1}^r a_i u_i+\sum_{j=r+1}^n b_jv_j$ si ha $[v]=\sum_{j=r+1}^n b_j[v_j]$. Se $\sum_{j=r+1}^n b_j[v_j]=[0]$, allora $\sum_{j=r+1}^n b_jv_j\in U$, cioè $\sum_{j=r+1}^n b_jv_j=\sum_{i=1}^r a_i u_i$. L'indipendenza della base di $V$ impone $b_j=0$ per ogni $j$. Pertanto le $n-r$ classi costituiscono una base del quoziente.
+\end{proof}
+\begin{esempio}
+Sia $U\leq M_2(\RR)$ il sottospazio delle matrici triangolari superiori. Una base di $U$ è $(E_{11},E_{12},E_{22})$, dunque $\dim U=3$. La classe $[E_{21}]$ è una base di $M_2(\RR)/U$, di dimensione $1$. Un complementare di $U$ è $\langle E_{21}\rangle$ e $M_2(\RR)=U\oplus\langle E_{21}\rangle$.
+\end{esempio}
+\paragraph{Esercizio proposto.} Dati $U=\langle(1,2,-1,0,1)\rangle\leq\RR^5$ e $W=\{x\in\RR^5:x_1+x_3=0,\ x_2+x_5=0\}$, determinare dimensioni, basi, equazioni cartesiane e parametriche di $U$, $W$ e $U+W$; trovare complementari e studiare le possibili dimensioni della loro intersezione.
+
+
+% =====================================================================
+\section{Lezione 13 (26 ottobre) --- Matrici e algoritmo di Gauss}
+% =====================================================================
+
+\subsection{Operazioni elementari sulle righe}
+Le operazioni elementari sulle righe di una matrice sono: (i) moltiplicare una riga per uno scalare non nullo; (ii) scambiare due righe; (iii) sommare a una riga un multiplo di un'altra riga. Tali operazioni sono invertibili e preservano il sottospazio generato dalle righe, quindi il rango per righe. Applicandole alla matrice dei coefficienti e, quando presente, anche alla colonna dei termini noti, si ottiene un sistema lineare equivalente.
+
+Una matrice è \emph{a scala per righe} quando le righe nulle sono in fondo e il primo elemento non nullo di ogni riga non nulla, detto \emph{pivot}, si trova in una colonna successiva a quella del pivot della riga precedente. Si parla di forma a scala \emph{speciale} quando tutti i pivot sono uguali a $1$, e di forma a scala \emph{ridotta} quando ciascuna colonna contenente un pivot ha tutti gli altri elementi nulli.
+
+\subsection{Esempio di riduzione di Gauss}
+Si consideri
+\[
+ A=\begin{pmatrix}
+ 0&1&-1&2\\
+ 1&0&1&1\\
+ 2&-1&0&2
+ \end{pmatrix}.
+\]
+Scambiando la prima con la seconda riga e poi sostituendo la terza con la terza meno due volte la prima, si trova
+\[
+ A\sim
+ \begin{pmatrix}1&0&1&1\\0&1&-1&2\\2&-1&0&2\end{pmatrix}
+ \sim
+ \begin{pmatrix}1&0&1&1\\0&1&-1&2\\0&-1&-2&0\end{pmatrix}.
+\]
+Sommando la seconda riga alla terza si ottiene la matrice a scala
+\[
+ A' =\begin{pmatrix}1&0&1&1\\0&1&-1&2\\0&0&-3&2\end{pmatrix}.
+\]
+I pivot sono $1,1,-3$; pertanto $\operatorname{rg}(A)=3$. Le tre righe di $A$ sono linearmente indipendenti e generano un sottospazio di dimensione $3$ di $\KK^4$. Moltiplicando la terza riga per $-1/3$ e annullando gli elementi che si trovano sopra il terzo pivot, si ottiene la forma a scala ridotta
+\[
+ \begin{pmatrix}1&0&0&\frac53\\0&1&0&\frac43\\0&0&1&-\frac23\end{pmatrix}.
+\]
+
+% =====================================================================
+\section{Lezione 14 (27 ottobre) --- Riduzione a scala e sistemi lineari}
+% =====================================================================
+
+\begin{teo}[Riduzione a scala]
+Ogni matrice può essere trasformata mediante operazioni elementari sulle righe di tipo (ii) e (iii) in una matrice a scala per righe. Mediante operazioni anche di tipo (i) si può ottenere una matrice a scala speciale e, usando ulteriormente operazioni di tipo (iii), una matrice a scala ridotta.
+\end{teo}
+\begin{proof}
+Si procede per induzione sul numero di righe.
+
+\begin{enumerate}
+    \item \textbf{Caso base.} Se la matrice ha una sola riga, la tesi è immediata.
+
+    \item \textbf{Passo induttivo.} Supponiamo la matrice non nulla. Si individua la prima colonna non nulla e, mediante uno scambio di righe, si porta un elemento non nullo nella prima riga. Si annullano gli elementi sottostanti il pivot e si applica l'ipotesi induttiva alla sottomatrice rimanente.
+
+    \item \textbf{Forma a scala.} Ripetendo il procedimento si ottiene, in un numero finito di passi, una matrice a scala.
+
+    \item \textbf{Forma a scala speciale.} Si moltiplica ogni riga non nulla per l'inverso del relativo pivot, rendendolo uguale a \(1\).
+
+    \item \textbf{Forma a scala ridotta.} Procedendo dall'ultimo pivot al primo, si annullano tutti gli elementi posti sopra ciascun pivot.
+\end{enumerate}
+
+Il caso della matrice nulla è immediato. Pertanto, ogni matrice può essere trasformata in una matrice a scala ridotta mediante operazioni elementari sulle righe.
+\end{proof}
+
+\subsection{Esempio: soluzione di un sistema non omogeneo}
+Si consideri il sistema
+\[
+\begin{cases}
+ x_1-x_3+x_5=1,\\
+ 2x_1+x_4=3,\\
+ x_2-x_4+x_5=-1.
+\end{cases}
+\]
+La matrice completa del sistema è
+\[
+\left(\begin{array}{ccccc|c}
+1&0&-1&0&1&1\\2&0&0&1&0&3\\0&1&0&-1&1&-1
+\end{array}\right).
+\]
+Sottraendo due volte la prima riga alla seconda e scambiando la seconda e la terza riga si ottiene
+\[
+\left(\begin{array}{ccccc|c}
+1&0&-1&0&1&1\\0&1&0&-1&1&-1\\0&0&2&1&-2&1
+\end{array}\right).
+\]
+Ponendo $x_4=a$ e $x_5=b$, con $a,b\in\RR$, la sostituzione all'indietro dà
+\[
+ x_3=\frac12-\frac12a+b,\qquad
+ x_2=-1+a-b,\qquad
+ x_1=\frac32-\frac12a.
+\]
+Pertanto
+\[
+\operatorname{Sol}(Ax=b)=
+\left\{\begin{pmatrix}
+\frac32-\frac12a\\-1+a-b\\\frac12-\frac12a+b\\a\\b
+\end{pmatrix}:a,b\in\RR\right\}.
+\]
+Equivalentemente, l'insieme delle soluzioni è la traslazione di uno spazio vettoriale:
+\[
+\operatorname{Sol}(Ax=b)=
+\begin{pmatrix}\frac32\\-1\\\frac12\\0\\0\end{pmatrix}
++\left\langle
+\begin{pmatrix}-\frac12\\1\\-\frac12\\1\\0\end{pmatrix},
+\begin{pmatrix}0\\-1\\1\\0\\1\end{pmatrix}
+\right\rangle.
+\]
+Il primo vettore è una soluzione particolare; i due generatori sono soluzioni del sistema omogeneo associato $Ax=0$.
+
+% =====================================================================
+\section{Lezione 15 (28 ottobre) --- Rango con parametro e teorema di Rouché--Capelli}
+% =====================================================================
+
+\subsection{Esercizio: rango e nucleo di una matrice dipendente da un parametro}
+Per $k\in\RR$ si consideri
+\[
+ A=\begin{pmatrix}
+ -1&1&-2&2\\
+ k-1&1&-k&3-k\\
+ k+1&-1&4&-2-k
+ \end{pmatrix}.
+\]
+Si vogliono determinare il rango di $A$ e l'insieme $\operatorname{Sol}(Ax=0)$ al variare di $k$. Effettuando le operazioni $R_2\leftarrow R_2+(k-1)R_1$ e $R_3\leftarrow R_3+(k+1)R_1$, si ottiene
+\[
+ A\sim\begin{pmatrix}
+ -1&1&-2&2\\
+ 0&k&2-3k&k+1\\
+ 0&k&2-2k&k
+ \end{pmatrix}.
+\]
+Se $k=0$, sottraendo la seconda riga alla terza e scambiando le ultime due righe si trova
+\[
+ \begin{pmatrix}-1&1&-2&2\\0&0&2&1\\0&0&2&0\end{pmatrix}
+ \sim\begin{pmatrix}-1&1&-2&2\\0&0&2&0\\0&0&0&-1\end{pmatrix}.
+\]
+Quindi il rango è $3$ e il sistema omogeneo è equivalente a
+\[
+ \begin{cases}-x_1+x_2=0,\\x_3=0,\\x_4=0.\end{cases}
+\]
+Di conseguenza
+\[
+ \operatorname{Sol}(Ax=0)=\left\langle\begin{pmatrix}1\\1\\0\\0\end{pmatrix}\right\rangle\qquad(k=0).
+\]
+Se $k\ne0$, sottraendo la seconda riga alla terza si ottiene
+\[
+ A\sim\begin{pmatrix}-1&1&-2&2\\0&k&2-3k&k+1\\0&0&k&-1\end{pmatrix}.
+\]
+I tre pivot sono non nulli, dunque anche in questo caso $\operatorname{rg}(A)=3$. Assumendo $x_4$ come parametro libero, il sistema è
+\[
+ \begin{cases}
+ x_1=x_2-2x_3+2x_4,\\
+ x_2=-\dfrac{2-3k}{k}x_3-\dfrac{k+1}{k}x_4,\\
+ x_3=\dfrac1k x_4.
+ \end{cases}
+\]
+Sostituendo e scegliendo $x_4=k^2t$ si ottiene
+\[
+ \operatorname{Sol}(Ax=0)=\left\langle
+ \begin{pmatrix}k^2-2\\-k^2+2k-2\\k\\k^2\end{pmatrix}
+ \right\rangle\qquad(k\ne0).
+\]
+Pertanto $\operatorname{rg}(A)=3$ per ogni $k\in\RR$ e il nucleo ha sempre dimensione $1$, pur avendo un generatore dipendente dal parametro.
+
+\subsection{Teorema di Rouché--Capelli}
+\begin{teo}[Rouché--Capelli]
+Sia $Ax=b$ un sistema di $m$ equazioni in $n$ incognite sul campo $\KK$, con $A\in M_{m,n}(\KK)$ e $b\in\KK^m$. Il sistema ammette almeno una soluzione se e solo se
+\[
+ \operatorname{rg}(A)=\operatorname{rg}(A\mid b).
+\]
+Se $x'$ è una sua soluzione particolare, allora
+\[
+ \operatorname{Sol}(Ax=b)=x'+\operatorname{Sol}(Ax=0).
+\]
+Inoltre
+\[
+ \dim_{\KK}\operatorname{Sol}(Ax=0)=n-\operatorname{rg}(A).
+\]
+In particolare, se $\operatorname{rg}(A)=\operatorname{rg}(A\mid b)=n$, il sistema ammette un'unica soluzione.
+\end{teo}
+
+\begin{proof}
+Le operazioni elementari sulle righe preservano le soluzioni e i ranghi di \(A\) e \((A\mid b)\).
+
+Se \(\operatorname{rg}(A)<\operatorname{rg}(A\mid b)\), la riduzione a scala della matrice completa produce un'equazione \(0=c\), con \(c\neq 0\). Dunque il sistema è impossibile.
+
+Viceversa, se
+\[
+\operatorname{rg}(A)=\operatorname{rg}(A\mid b)=r,
+\]
+non compaiono equazioni impossibili. Assegnando valori arbitrari alle \(n-r\) variabili libere, le \(r\) variabili principali si determinano per sostituzione all'indietro. Pertanto il sistema ammette soluzioni.
+
+Fissata una soluzione particolare \(x'\), si dimostra che
+\[
+\operatorname{Sol}(Ax=b)=x'+\operatorname{Sol}(Ax=0).
+\]
+Infatti:
+\[
+\begin{aligned}
+Ax_0=0
+&\implies A(x'+x_0)=b,\\
+Ax''=b
+&\implies A(x''-x')=0.
+\end{aligned}
+\]
+Le due inclusioni sono quindi verificate.
+
+Infine, riducendo \(A\) a scala, si hanno \(r\) pivot e \(n-r\) variabili libere. A ciascuna variabile libera si associa una soluzione del sistema omogeneo, ponendola uguale a \(1\) e ponendo tutte le altre variabili libere uguali a \(0\).
+
+Le \(n-r\) soluzioni così ottenute generano \(\operatorname{Sol}(Ax=0)\) e sono linearmente indipendenti, poiché le loro coordinate libere formano la base canonica di \(K^{n-r}\).
+
+Pertanto costituiscono una base e
+\[
+\boxed{\dim_K\operatorname{Sol}(Ax=0)
+=n-\operatorname{rg}(A).}
+\]
+
+In particolare, se \(\operatorname{rg}(A)=n\), il sistema compatibile ammette un'unica soluzione.
+\end{proof}
+
+
+
+
+\subsection{Dimostrazione mediante immagine e nucleo}
+
+La condizione di compatibilit\`a del teorema di Rouch\'e--Capelli ammette una dimostrazione mediante l'applicazione lineare associata alla matrice. Il nucleo interviene poi nella descrizione dell'insieme delle soluzioni.
+
+\begin{proof}[Dimostrazione alternativa del teorema di Rouch\'e--Capelli]
+Sia $A\in M_{m,n}(\KK)$ e sia $b\in\KK^m$. Consideriamo l'applicazione lineare
+\[
+ T_A:\KK^n\longrightarrow\KK^m,\qquad x\longmapsto Ax.
+\]
+Indicando con $C_1,\ldots,C_n\in\KK^m$ le colonne di $A$, per ogni $x=(x_1,\ldots,x_n)^t$ risulta
+\[
+ Ax=\sum_{j=1}^n x_jC_j,
+ \qquad \operatorname{Im}T_A=\langle C_1,\ldots,C_n\rangle.
+\]
+Pertanto
+\[
+\begin{aligned}
+ Ax=b\text{ ammette soluzione}
+ &\iff b\in\operatorname{Im}T_A\\
+ &\iff b\in\langle C_1,\ldots,C_n\rangle\\
+ &\iff \langle C_1,\ldots,C_n,b\rangle
+          =\langle C_1,\ldots,C_n\rangle\\
+ &\iff \operatorname{rg}(A\mid b)=\operatorname{rg}(A).
+\end{aligned}
+\]
+L'ultima equivalenza segue dalla definizione del rango per colonne: aggiungere $b$ non aumenta la dimensione dello spazio generato precisamente quando $b$ appartiene gi\`a a tale spazio.
+
+Supponiamo ora che il sistema sia compatibile e fissiamo $x_0\in\KK^n$ tale che $Ax_0=b$. Per ogni $x\in\KK^n$, per linearit\`a,
+\[
+ Ax=b
+ \iff A(x-x_0)=0
+ \iff x-x_0\in\ker T_A
+ \iff x\in x_0+\ker T_A.
+\]
+Quindi
+\[
+ \operatorname{Sol}(Ax=b)=x_0+\ker T_A.
+\]
+In particolare il sistema compatibile ha un'unica soluzione se e solo se $\ker T_A=\{0\}$.
+
+Infine, per il teorema della dimensione applicato a $T_A$, si ha
+\[
+ \dim_{\KK}\ker T_A+\dim_{\KK}\operatorname{Im}T_A=n.
+\]
+Essendo $\dim_{\KK}\operatorname{Im}T_A=\operatorname{rg}(A)$, deduciamo
+\[
+ \dim_{\KK}\ker T_A=n-\operatorname{rg}(A).
+\]
+Ne segue che, per un sistema compatibile, il numero di parametri liberi \`e $n-\operatorname{rg}(A)$; in particolare la soluzione \`e unica esattamente quando $\operatorname{rg}(A)=n$.
+\end{proof}
+
+% =====================================================================
+\section{Lezione 16 (2 novembre) --- Rango delle matrici e trasposizione}
+% =====================================================================
+
+\subsection{Uguaglianza del rango per righe e per colonne}
+
+\begin{lemma}[Uguaglianza dei ranghi]
+Per ogni $A\in M_{m,n}(\KK)$ si ha
+\[
+ \operatorname{rg}_{\mathrm{righe}}(A)
+ =\operatorname{rg}_{\mathrm{colonne}}(A)
+ =\operatorname{rg}(A),
+ \qquad \operatorname{rg}(A)\leq\min\{m,n\}.
+\]
+\end{lemma}
+
+\begin{proof}
+La disuguaglianza $\operatorname{rg}_{\mathrm{righe}}(A)\leq m$ e $\operatorname{rg}_{\mathrm{colonne}}(A)\leq n$ segue dal numero di righe e di colonne; inoltre il rango delle righe non supera $n$ e quello delle colonne non supera $m$, poich\'e i rispettivi spazi sono sottospazi di $\KK^n$ e $\KK^m$.
+
+Dimostriamo l'uguaglianza in tre passaggi. Sia $A'$ una matrice a scala ridotta ottenuta da $A$ mediante operazioni elementari sulle righe.
+
+\noindent\emph{a) Il rango per righe si conserva.}
+Le operazioni elementari sulle righe non modificano lo spazio vettoriale generato dalle righe, poich\'e ciascuna operazione \`e invertibile. Dunque
+\[
+ \operatorname{rg}_{\mathrm{righe}}(A)
+ =\operatorname{rg}_{\mathrm{righe}}(A').
+\]
+
+\item[b)] $\operatorname{rg}_{\mathrm{col}} A
+=\operatorname{rg}_{\mathrm{col}} A'$.
+
+Scriviamo
+\[
+A=(C_1,\ldots,C_n),
+\qquad
+A'=(C'_1,\ldots,C'_n),
+\]
+dove $C_i,C'_i\in K^m$ sono rispettivamente
+le colonne di $A$ e di $A'$.
+
+Per definizione,
+\[
+\operatorname{rg}_{\mathrm{col}} A
+=\dim_K\langle C_1,\ldots,C_n\rangle,
+\]
+\[
+\operatorname{rg}_{\mathrm{col}} A'
+=\dim_K\langle C'_1,\ldots,C'_n\rangle.
+\]
+
+Ricordiamo che
+\[
+\operatorname{Sol}(Ax=0)
+=\operatorname{Sol}(A'x=0),
+\]
+poiché le operazioni elementari sulle righe
+preservano l'insieme delle soluzioni.
+
+Sia
+\[
+\alpha=
+\begin{pmatrix}
+\alpha_1\\
+\vdots\\
+\alpha_n
+\end{pmatrix}.
+\]
+
+Allora
+\[
+\begin{aligned}
+\alpha\in\operatorname{Sol}(Ax=0)
+&\iff
+\alpha_1C_1+\cdots+\alpha_nC_n=0
+\quad\text{in }K^m,\\
+\alpha\in\operatorname{Sol}(A'x=0)
+&\iff
+\alpha_1C'_1+\cdots+\alpha_nC'_n=0
+\quad\text{in }K^m.
+\end{aligned}
+\]
+
+Ne deduciamo che $C_1,\ldots,C_n$ sono
+linearmente dipendenti se e solo se lo sono
+$C'_1,\ldots,C'_n$.
+
+Ma possiamo dedurre di più: se $s$ colonne
+\[
+C_{i_1},C_{i_2},\ldots,C_{i_s}
+\]
+di $A$ sono linearmente indipendenti,
+allora lo sono anche le corrispondenti
+$s$ colonne
+\[
+C'_{i_1},C'_{i_2},\ldots,C'_{i_s}
+\]
+di $A'$, e viceversa.
+
+Pertanto
+\[
+\boxed{
+\dim_K\langle C_1,\ldots,C_n\rangle
+=
+\dim_K\langle C'_1,\ldots,C'_n\rangle.
+}
+\]
+
+Quindi
+\[
+\boxed{
+\operatorname{rg}_{\mathrm{col}} A
+=
+\operatorname{rg}_{\mathrm{col}} A'.
+}
+\]
+\item[c)] $\operatorname{rg}_{\mathrm{righe}} A'
+=\operatorname{rg}_{\mathrm{col}} A'$.
+
+Poiché $A'$ è una matrice a scala ridotta,
+sia
+\[
+r=\operatorname{rg}_{\mathrm{righe}} A'
+=\text{numero di pivot}.
+\]
+
+Allora
+\[
+\begin{aligned}
+\operatorname{rg}_{\mathrm{col}} A'
+&=\dim_K\langle C'_1,C'_2,\ldots,C'_n\rangle\\
+&=\dim_K\langle e_1,\ldots,e_r\rangle\\
+&=r.
+\end{aligned}
+\]
+
+Infatti, le colonne corrispondenti ai pivot
+sono i vettori della base canonica
+$e_1,\ldots,e_r$, linearmente indipendenti,
+e tutte le altre colonne sono loro
+combinazioni lineari.
+
+Pertanto
+\[
+\boxed{
+\operatorname{rg}_{\mathrm{righe}} A'
+=
+\operatorname{rg}_{\mathrm{col}} A'.
+}
+\]
+Combinando i tre passaggi si ottiene
+\[
+ \operatorname{rg}_{\mathrm{righe}}(A)
+ =\operatorname{rg}_{\mathrm{righe}}(A')
+ =r
+ =\operatorname{rg}_{\mathrm{colonne}}(A')
+ =\operatorname{rg}_{\mathrm{colonne}}(A).
+\]
+\end{proof}
+
+
+\subsection{Matrice trasposta}
+
+\begin{defn}[Matrice trasposta]
+Sia $A=(a_{ij})\in M_{m,n}(\KK)$. La \emph{trasposta} di $A$ \`e la matrice
+\[
+ A^t=(a^t_{ij})\in M_{n,m}(\KK),\qquad a^t_{ij}=a_{ji}.
+\]
+Si ottiene scambiando le righe e le colonne di $A$.
+\end{defn}
+
+\begin{esempio}
+Se
+\[
+ A=\begin{pmatrix}1&2\\3&4\\5&6\end{pmatrix},
+ \qquad
+ A^t=\begin{pmatrix}1&3&5\\2&4&6\end{pmatrix}.
+\]
+\end{esempio}
+
+\begin{oss}
+Le righe di $A$ sono le colonne di $A^t$ e viceversa. Per il lemma precedente,
+\[
+ \operatorname{rg}(A^t)=\operatorname{rg}(A).
+\]
+Inoltre $(A^t)^t=A$.
+\end{oss}
+
+\subsection{Propriet\`a della trasposizione}
+
+\begin{prop}[Trasposta di una somma]
+Se $A,B\in M_{m,n}(\KK)$, allora
+\[
+ (A+B)^t=A^t+B^t.
+\]
+\end{prop}
+\begin{proof}
+Poniamo $C=A+B$. Per ogni $1\leq i\leq n$ e $1\leq j\leq m$,
+\[
+ (C^t)_{ij}=C_{ji}=a_{ji}+b_{ji}=(A^t)_{ij}+(B^t)_{ij}.
+\]
+Le matrici $(A+B)^t$ e $A^t+B^t$ hanno quindi gli stessi coefficienti.
+\end{proof}
+
+\begin{prop}[Trasposta di un prodotto]
+Siano $A\in M_{m,n}(\KK)$ e $B\in M_{n,s}(\KK)$. Allora
+\[
+ (AB)^t=B^tA^t.
+\]
+\end{prop}
+\begin{proof}
+Poniamo $C=AB\in M_{m,s}(\KK)$. Per ogni $1\leq i\leq s$ e $1\leq j\leq m$ si ha
+\[
+ \begin{aligned}
+ (C^t)_{ij}
+ &=C_{ji}=\sum_{\ell=1}^{n}a_{j\ell}b_{\ell i}\\
+ &=\sum_{\ell=1}^{n}b_{\ell i}a_{j\ell}
+ =\sum_{\ell=1}^{n}(B^t)_{i\ell}(A^t)_{\ell j}
+ =(B^tA^t)_{ij}.
+ \end{aligned}
+\]
+Poich\'e l'uguaglianza vale per ogni coppia di indici, $(AB)^t=B^tA^t$.
+\end{proof}
+
+
+% =====================================================================
+\section{Lezione 17 (3 novembre) --- Applicazioni lineari, nucleo e controimmagini}
+% =====================================================================
+
+\subsection{Applicazioni lineari e composizione}
+
+Siano $V,W$ spazi vettoriali su $\KK$. Un'applicazione $\phi:V\to W$ si dice
+\emph{$\KK$-lineare} se, per ogni $v_1,v_2\in V$ e $\lambda\in\KK$,
+\[
+ \phi(v_1+v_2)=\phi(v_1)+\phi(v_2),\qquad
+ \phi(\lambda v_1)=\lambda\phi(v_1).
+\]
+Equivalentemente, per ogni $\alpha,\beta\in\KK$,
+\[
+ \phi(\alpha v_1+\beta v_2)=\alpha\phi(v_1)+\beta\phi(v_2).
+\]
+In particolare $\phi(0_V)=0_W$.
+
+
+\begin{defn}[Omomorfismi, isomorfismi ed endomorfismi]
+Un'applicazione lineare tra spazi vettoriali sul medesimo campo $\KK$
+si dice anche \emph{omomorfismo}. Se $\phi:V\to W$ è lineare e
+biiettiva, si dice \emph{isomorfismo} e $V,W$ si dicono isomorfi.
+Un'applicazione lineare $\phi:V\to V$ si dice \emph{endomorfismo};
+se è biiettiva, si dice \emph{automorfismo}.
+\end{defn}
+
+\begin{prop}[Caratterizzazioni della linearità]
+Per un'applicazione $\phi:V\to W$ sono equivalenti:
+\begin{enumerate}[label=(\arabic*)]
+\item $\phi(v_1+v_2)=\phi(v_1)+\phi(v_2)$ e
+$\phi(\lambda v)=\lambda\phi(v)$ per tutti i vettori e gli scalari;
+\item $\phi(\alpha v_1+v_2)=\alpha\phi(v_1)+\phi(v_2)$;
+\item $\phi(\alpha v_1+\beta v_2)=\alpha\phi(v_1)+\beta\phi(v_2)$;
+\item per ogni combinazione lineare finita,
+\[
+ \phi\!\left(\sum_{i=1}^r\alpha_i v_i\right)
+ =\sum_{i=1}^r\alpha_i\phi(v_i).
+\]
+\end{enumerate}
+Le affermazioni sono intese per ogni scelta ammissibile di vettori e
+coefficienti in $\KK$.
+\end{prop}
+\begin{proof}
+La prima implica la seconda per omogeneità e additività.
+Supponiamo la seconda. Ponendo $v_1=v_2=0_V$ e $\alpha=1$,
+si ottiene $\phi(0_V)=2\phi(0_V)$, dunque $\phi(0_V)=0_W$.
+Ponendo poi $v_2=0_V$ si ricava
+$\phi(\alpha v_1)=\alpha\phi(v_1)$; scegliendo $\alpha=1$
+si ottiene anche l'additività. La seconda implica quindi la prima,
+e, in particolare, la terza. La terza implica la quarta per induzione
+sul numero $r$ dei termini. Infine la quarta implica la prima
+scegliendo $r=2$ con coefficienti $1,1$ e $r=1$ con coefficiente $\lambda$.
+\end{proof}
+
+\begin{oss}[Vettore nullo, opposto e sottospazi generati]
+Per ogni $\phi:V\to W$ lineare,
+\[
+ \phi(0_V)=\phi(0\cdot v)=0\cdot\phi(v)=0_W,
+ \qquad \phi(-v)=-\phi(v).
+\]
+Se $U=\langle v_1,\ldots,v_r\rangle\leq V$, allora
+\[
+ \phi(U)=\langle\phi(v_1),\ldots,\phi(v_r)\rangle.
+\]
+Infatti l'immagine di una combinazione lineare dei $v_i$ è la
+corrispondente combinazione lineare delle immagini; viceversa, ogni
+combinazione lineare delle immagini è l'immagine di un elemento di $U$.
+\end{oss}
+
+\subsection{Esempi di applicazioni lineari}
+
+\begin{esempio}
+La funzione $f:\RR\to\RR$, $f(x)=\lambda x$, con $\lambda\in\RR$
+fissato, è lineare. Lo è anche
+$f:\RR^2\to\RR$, $f(x,y)=3x-y$.
+\end{esempio}
+
+\begin{esempio}[Applicazione associata a una matrice]
+Se $A\in M_{m,n}(\KK)$, l'applicazione
+\[
+ f_A:\KK^n\longrightarrow\KK^m,\qquad x\longmapsto Ax,
+\]
+è lineare, perché la moltiplicazione matriciale soddisfa
+$A(\alpha x+\beta y)=\alpha Ax+\beta Ay$.
+\end{esempio}
+
+\begin{esempio}[Derivazione di polinomi]
+L'operatore $D:\KK[X]\to\KK[X]$, $D(P)=P'$, è lineare.
+Per $P,Q\in\KK[X]$ e $\alpha,\beta\in\KK$,
+\[
+ D(\alpha P+\beta Q)=(\alpha P+\beta Q)'
+ =\alpha P'+\beta Q'=\alpha D(P)+\beta D(Q).
+\]
+Questa identità vale anche in caratteristica positiva, intendendo
+la derivata formale dei polinomi.
+\end{esempio}
+
+\begin{esempio}[Applicazione nulla e identità]
+Per ogni coppia di spazi $V,W$ sono lineari l'applicazione nulla
+$0:V\to W$, $v\mapsto0_W$, e l'identità
+$\operatorname{id}_V:V\to V$, $v\mapsto v$.
+\end{esempio}
+
+\subsection{Lo spazio vettoriale degli omomorfismi}
+
+\begin{prop}
+L'insieme
+\[
+ \operatorname{Hom}_{\KK}(V,W)
+ :=\{\phi:V\to W:\phi\text{ è }\KK\text{-lineare}\}
+\]
+è uno spazio vettoriale su $\KK$ rispetto alle operazioni puntuali
+\[
+ (\phi+\psi)(v)=\phi(v)+\psi(v),\qquad
+ (\lambda\phi)(v)=\lambda\phi(v).
+\]
+\end{prop}
+\begin{proof}
+Se $\phi,\psi$ sono lineari, allora, per $v_1,v_2\in V$ e
+$\alpha,\beta\in\KK$,
+\begin{align*}
+ (\phi+\psi)(\alpha v_1+\beta v_2)
+ &=\alpha\phi(v_1)+\beta\phi(v_2)
+   +\alpha\psi(v_1)+\beta\psi(v_2)\\
+ &=\alpha(\phi+\psi)(v_1)+\beta(\phi+\psi)(v_2).
+\end{align*}
+Analogamente $\lambda\phi$ è lineare. Le altre proprietà di spazio
+vettoriale seguono punto per punto da quelle di $W$; lo zero è la
+funzione costantemente nulla e l'opposto di $\phi$ è $-\phi$.
+\end{proof}
+
+\begin{prop}[Composizione di applicazioni lineari]
+Siano $\phi:V\to W$ e $\psi:W\to U$ applicazioni $\KK$-lineari. Allora
+$\psi\circ\phi:V\to U$ è $\KK$-lineare.
+\end{prop}
+\begin{proof}
+Per ogni $v_1,v_2\in V$ e $\alpha,\beta\in\KK$ si ha
+\begin{align*}
+ (\psi\circ\phi)(\alpha v_1+\beta v_2)
+ &=\psi\bigl(\phi(\alpha v_1+\beta v_2)\bigr)\\
+ &=\psi\bigl(\alpha\phi(v_1)+\beta\phi(v_2)\bigr)\\
+ &=\alpha\psi(\phi(v_1))+\beta\psi(\phi(v_2))\\
+ &=\alpha(\psi\circ\phi)(v_1)+\beta(\psi\circ\phi)(v_2).
+\end{align*}
+Dunque $\psi\circ\phi$ è lineare.
+\end{proof}
+
+\begin{lemma}[Linearità dell'inversa]
+Sia $\phi:V\to W$ un'applicazione $\KK$-lineare e biiettiva. Allora
+$\phi^{-1}:W\to V$ è $\KK$-lineare (e biiettiva).
+\end{lemma}
+\begin{proof}
+Poniamo $\psi=\phi^{-1}$. Per la biiettività di $\phi$, per ogni
+$w_1,w_2\in W$ esistono unici $v_1,v_2\in V$ tali che
+$w_1=\phi(v_1)$, $w_2=\phi(v_2)$; quindi $v_i=\psi(w_i)$.
+Per $\alpha,\beta\in\KK$, usando la linearità di $\phi$,
+\begin{align*}
+ \psi(\alpha w_1+\beta w_2)
+ &=\psi\bigl(\alpha\phi(v_1)+\beta\phi(v_2)\bigr)\\
+ &=\psi\bigl(\phi(\alpha v_1+\beta v_2)\bigr)\\
+ &=\alpha v_1+\beta v_2
+ =\alpha\psi(w_1)+\beta\psi(w_2).
+\end{align*}
+La biiettività dell'inversa segue da quella di $\phi$.
+\end{proof}
+
+\noindent\textbf{Esercizio della lezione.} Ripetere la dimostrazione utilizzando
+$\psi\circ\phi=\operatorname{id}_V$ e
+$\phi\circ\psi=\operatorname{id}_W$.
+
+\subsection{Nucleo, immagine, rango e nullità}
+
+\begin{defn}[Nucleo e immagine]
+Sia $\phi:V\to W$ $\KK$-lineare. Si definiscono
+\[
+ \ker\phi:=\{v\in V:\phi(v)=0_W\},\qquad
+ \operatorname{Im}\phi:=\{\phi(v):v\in V\}\subseteq W.
+\]
+Se $V$ è finito-dimensionale, la \emph{nullità} è
+$\dim_{\KK}\ker\phi$; se l'immagine è finito-dimensionale, il
+\emph{rango} è $\dim_{\KK}\operatorname{Im}\phi$.
+\end{defn}
+
+\begin{prop}
+Il nucleo è un sottospazio di $V$ e l'immagine è un sottospazio di $W$.
+Inoltre $\phi$ è iniettiva se e solo se $\ker\phi=\{0_V\}$,
+mentre è suriettiva se e solo se $\operatorname{Im}\phi=W$.
+\end{prop}
+\begin{proof}
+Poichè $\phi(0_V)=0_W$, il nucleo contiene $0_V$; se $v_1,v_2\in\ker\phi$,
+allora
+\[
+ \phi(\alpha v_1+\beta v_2)
+ =\alpha\phi(v_1)+\beta\phi(v_2)=0_W.
+\]
+Dunque $\ker\phi\leq V$. Analogamente, se $w_i=\phi(v_i)\in\operatorname{Im}\phi$,
+allora $\alpha w_1+\beta w_2=\phi(\alpha v_1+\beta v_2)$ appartiene
+all'immagine. Per l'iniettività,
+\[
+ \phi(v_1)=\phi(v_2)\iff \phi(v_1-v_2)=0_W
+ \iff v_1-v_2\in\ker\phi.
+\]
+Quindi due vettori con la stessa immagine coincidono esattamente quando
+$\ker\phi=\{0_V\}$. La caratterizzazione della suriettività discende
+dalla definizione di immagine.
+\end{proof}
+
+\begin{teo}[Formula delle dimensioni, o rango--nullità]
+Se $V$ è uno spazio vettoriale di dimensione finita e
+$\phi:V\to W$ è lineare, allora
+\[
+ \boxed{\dim_{\KK}V=\dim_{\KK}\ker\phi+
+ \dim_{\KK}\operatorname{Im}\phi.}
+\]
+\end{teo}
+\begin{proof}
+Sia $(v_1,\ldots,v_k)$ una base di $\ker\phi$.
+Completiamola a una base di $V$ aggiungendo i vettori
+$v_{k+1},\ldots,v_n$. Mostriamo che
+\[
+ \bigl(\phi(v_{k+1}),\ldots,\phi(v_n)\bigr)
+\]
+è una base dell'immagine. Ogni $v\in V$ si esprime come
+$v=\sum_{i=1}^{n}\alpha_i v_i$; per linearità e perchè
+$\phi(v_1)=\cdots=\phi(v_k)=0_W$,
+\[
+ \phi(v)=\sum_{i=k+1}^{n}\alpha_i\phi(v_i).
+\]
+Quindi i vettori indicati generano l'immagine. Per dimostrare che sono
+linearmente indipendenti, supponiamo
+\[
+ \sum_{i=k+1}^{n}\alpha_i\phi(v_i)=0_W.
+\]
+Allora $\sum_{i=k+1}^{n}\alpha_i v_i\in\ker\phi$, percio' esistono
+$\beta_1,\ldots,\beta_k\in\KK$ tali che
+\[
+ \sum_{i=k+1}^{n}\alpha_i v_i=\sum_{i=1}^{k}\beta_i v_i.
+\]
+L'indipendenza lineare della base di $V$ implica
+$\alpha_{k+1}=\cdots=\alpha_n=0$. I vettori immagine costituiscono
+quindi una base di $\operatorname{Im}\phi$, formata da $n-k$ elementi.
+Poichè $k=\dim\ker\phi$, si conclude che
+$\dim\operatorname{Im}\phi=n-k$.
+\end{proof}
+
+\noindent\textbf{Conseguenza per le matrici.} Se $A\in M_{m,n}(\KK)$ e
+$f_A:\KK^n\to\KK^m$ è l'applicazione $x\mapsto Ax$, allora
+\[
+ \ker f_A=\operatorname{Sol}(Ax=0),\qquad
+ \operatorname{Im}f_A=\langle C_1,\ldots,C_n\rangle,
+\]
+dove $C_1,\ldots,C_n$ sono le colonne di $A$. Pertanto
+\[
+ \boxed{n=\dim_{\KK}\ker f_A+\operatorname{rg}(A).}
+\]
+Questa formula si collega alla dimostrazione del teorema di
+Rouchè--Capelli e al rango per colonne delle lezioni precedenti.
+
+
+\subsection{Rango della composizione e conseguenze dimensionali}
+
+\begin{prop}[Rango della composizione]
+Siano $\psi:U\to V$ e $\phi:V\to W$ applicazioni lineari tra
+spazi di dimensione finita. Allora
+\[
+ \operatorname{rk}(\phi\circ\psi)
+ \leq\min\{\operatorname{rk}\psi,\operatorname{rk}\phi\}.
+\]
+Se almeno una tra $\phi$ e $\psi$ è un isomorfismo, si ha uguaglianza.
+\end{prop}
+\begin{proof}
+Poiché
+\[
+ \operatorname{Im}(\phi\circ\psi)
+ =\phi(\operatorname{Im}\psi)\subseteq\operatorname{Im}\phi,
+\]
+segue $\operatorname{rk}(\phi\circ\psi)\leq\operatorname{rk}\phi$.
+La restrizione $\phi|_{\operatorname{Im}\psi}$ è una mappa lineare
+che ha come immagine $\operatorname{Im}(\phi\circ\psi)$, quindi,
+per la formula delle dimensioni applicata a tale restrizione,
+\[
+ \operatorname{rk}(\phi\circ\psi)
+ \leq\dim_{\KK}\operatorname{Im}\psi
+ =\operatorname{rk}\psi.
+\]
+Se $\psi$ è invertibile, $\operatorname{Im}\psi=V$, perciò
+$\operatorname{Im}(\phi\circ\psi)=\operatorname{Im}\phi$;
+poiché $\operatorname{rk}\phi\leq\dim V=\operatorname{rk}\psi$,
+l'uguaglianza richiesta segue.
+Se invece $\phi$ è invertibile, essa conserva l'indipendenza lineare
+e quindi la dimensione di ogni sottospazio di $V$, in particolare
+$\operatorname{Im}\psi$; pertanto
+$\operatorname{rk}(\phi\circ\psi)=\operatorname{rk}\psi$.
+\end{proof}
+
+\begin{cor}[Impossibilità di iniettività quando $n>m$]
+Se $n>m$, nessuna applicazione lineare
+$\phi:\KK^n\to\KK^m$ può essere iniettiva. Più precisamente,
+\[
+ \dim_{\KK}\ker\phi
+ =n-\operatorname{rk}\phi\geq n-m>0.
+\]
+\end{cor}
+\begin{proof}
+L'immagine è un sottospazio di $\KK^m$, quindi
+$\operatorname{rk}\phi\leq m$.
+La formula rango--nullità dà
+$\dim\ker\phi=n-\operatorname{rk}\phi\geq n-m>0$;
+dunque il nucleo contiene vettori non nulli, e $\phi$ non è iniettiva.
+\end{proof}
+
+\begin{oss}
+Dualmente, se $n<m$ nessuna applicazione lineare
+$\KK^n\to\KK^m$ può essere suriettiva, perché la dimensione
+della sua immagine è al più $n<m$.
+\end{oss}
+
+\subsection{Controimmagine di un vettore}
+
+\begin{defn}[Controimmagine]
+Per un'applicazione $\phi:V\to W$ e $w_0\in W$, si pone
+\[
+ \phi^{-1}(w_0):=\{v\in V:\phi(v)=w_0\}.
+\]
+Questa notazione indica la \emph{controimmagine} di $w_0$ anche quando
+$\phi$ non è invertibile.
+\end{defn}
+
+\begin{teo}[Struttura delle controimmagini]
+Sia $\phi:V\to W$ $\KK$-lineare e sia $w_0\in W$. Allora
+\[
+ \boxed{\phi^{-1}(w_0)=
+ \begin{cases}
+ \emptyset,&w_0\notin\operatorname{Im}\phi,\\
+ v_0+\ker\phi,&w_0\in\operatorname{Im}\phi,
+ \end{cases}}
+\]
+dove, nel secondo caso, $v_0\in V$ è un qualunque vettore tale che
+$\phi(v_0)=w_0$.
+\end{teo}
+\begin{proof}
+Se $w_0\notin\operatorname{Im}\phi$, non esiste alcun $v\in V$ tale
+che $\phi(v)=w_0$, dunque la controimmagine è vuota.
+Supponiamo invece $w_0\in\operatorname{Im}\phi$ e scegliamo
+$v_0\in V$ con $\phi(v_0)=w_0$.
+Per ogni $u\in\ker\phi$,
+\[
+ \phi(v_0+u)=\phi(v_0)+\phi(u)=w_0+0_W=w_0,
+\]
+percio' $v_0+\ker\phi\subseteq\phi^{-1}(w_0)$.
+Viceversa, se $v\in\phi^{-1}(w_0)$, si ha
+\[
+ \phi(v-v_0)=\phi(v)-\phi(v_0)=w_0-w_0=0_W,
+\]
+quindi $v-v_0\in\ker\phi$ e $v\in v_0+\ker\phi$.
+Le due inclusioni dimostrano l'uguaglianza.
+\end{proof}
+
+\begin{oss}
+Se $w_0\in\operatorname{Im}\phi$, la controimmagine è una traslazione
+del nucleo e, in generale, non è un sottospazio. Se $\ker\phi=\{0_V\}$,
+la controimmagine non vuota contiene esattamente un elemento.
+\end{oss}
+
+\subsection{Il caso dei sistemi lineari $Ax=b$}
+
+Sia $A\in M_{m,n}(\KK)$ e sia $b\in\KK^m$. Per
+$f_A:\KK^n\to\KK^m$, $f_A(x)=Ax$, vale
+\[
+ \operatorname{Sol}(Ax=b)=f_A^{-1}(b).
+\]
+Il sistema ha soluzione se e solo se $b$ appartiene allo spazio generato
+dalle colonne di $A$:
+\[
+ b\in\operatorname{Im}f_A=\langle C_1,\ldots,C_n\rangle.
+\]
+Se $x_0$ è una soluzione particolare di $Ax=b$, allora
+\[
+ \boxed{\operatorname{Sol}(Ax=b)
+ =x_0+\operatorname{Sol}(Ax=0)
+ =x_0+\ker f_A.}
+\]
+Infatti $A(x_0+u)=b$ per ogni $u\in\ker f_A$; viceversa, se $Ax=b$,
+allora $A(x-x_0)=0$. In particolare il sistema compatibile ha
+una sola soluzione se e solo se $\ker f_A=\{0\}$; in caso contrario,
+le soluzioni formano un insieme affine di dimensione
+$n-\operatorname{rg}(A)$.
+
+\subsection{Inclusione e applicazione quoziente}
+
+\begin{oss}[Applicazione di inclusione]
+Se $U\leq V$, l'inclusione
+\[
+ i:U\longrightarrow V,\qquad i(u)=u,
+\]
+è $\KK$-lineare. Infatti, per $u_1,u_2\in U$ e
+$\alpha,\beta\in\KK$,
+\[
+ i(\alpha u_1+\beta u_2)
+ =\alpha u_1+\beta u_2
+ =\alpha i(u_1)+\beta i(u_2).
+\]
+\end{oss}
+
+\begin{oss}[Applicazione quoziente]
+Sia $U\leq V$. L'applicazione canonica
+\[
+ \pi:V\longrightarrow V/U,\qquad \pi(v)=[v],
+\]
+è $\KK$-lineare. Per le operazioni definite sul quoziente nella
+Lezione~12,
+\[
+ \pi(\alpha v_1+\beta v_2)
+ =[\alpha v_1+\beta v_2]
+ =\alpha[v_1]+\beta[v_2]
+ =\alpha\pi(v_1)+\beta\pi(v_2).
+\]
+Inoltre $\ker\pi=U$ e $\operatorname{Im}\pi=V/U$.
+\end{oss}
+
+\subsection{Esercizio: applicazione associata a una matrice biiettiva}
+
+Sia $A\in M_n(\KK)$ e si consideri
+\[
+ f_A:\KK^n\longrightarrow\KK^n,\qquad x\longmapsto Ax.
+\]
+Supponiamo $f_A$ biiettiva e chiediamoci come descriverne l'inversa.
+Per ogni $b\in\KK^n$ esiste un unico $x\in\KK^n$ con $Ax=b$;
+quindi
+\[
+ \boxed{f_A^{-1}(b)=\text{l'unica soluzione di }Ax=b.}
+\]
+Essendo $f_A^{-1}$ lineare, è rappresentata nella base canonica da
+una matrice $B\in M_n(\KK)$. Le identita'
+$f_A\circ f_B=\operatorname{id}$ e
+$f_B\circ f_A=\operatorname{id}$ implicano
+$AB=BA=I_n$, dunque $B=A^{-1}$ e
+\[
+ \boxed{f_A^{-1}=f_{A^{-1}},\qquad f_A^{-1}(b)=A^{-1}b.}
+\]
+Si puo' ricavare $A^{-1}$ risolvendo simultaneamente i sistemi
+$Ax=e_j$, $j=1,\ldots,n$: le soluzioni costituiscono le colonne
+ di $A^{-1}$, equivalentemente riducendo $[A\mid I_n]$ in
+$[I_n\mid A^{-1}]$ mediante Gauss--Jordan.
+
+
+\subsection{Le applicazioni lineari sono determinate da una base}
+
+\begin{teo}[Struttura degli omomorfismi]
+Sia $\mathcal B=(v_1,\ldots,v_n)$ una base di $V$ e siano
+$w_1,\ldots,w_n\in W$ arbitrari. Esiste un'unica applicazione
+$\KK$-lineare $\phi:V\to W$ tale che
+\[
+ \phi(v_i)=w_i\qquad(i=1,\ldots,n).
+\]
+\end{teo}
+\begin{proof}
+\emph{Esistenza.} Ogni $v\in V$ si scrive in maniera unica come
+$v=\sum_{i=1}^n\alpha_i v_i$. Definiamo
+\[
+ \phi(v):=\sum_{i=1}^n\alpha_i w_i.
+\]
+L'unicità delle coordinate rende ben definita $\phi$. Se
+$v=\sum_i\alpha_i v_i$, $v'=\sum_i\beta_i v_i$ e
+$\lambda,\mu\in\KK$, allora
+\begin{align*}
+ \phi(\lambda v+\mu v')
+ &=\phi\!\left(\sum_{i=1}^n(\lambda\alpha_i+\mu\beta_i)v_i\right)\\
+ &=\sum_{i=1}^n(\lambda\alpha_i+\mu\beta_i)w_i
+ =\lambda\phi(v)+\mu\phi(v').
+\end{align*}
+Dunque $\phi$ è lineare; inoltre $\phi(v_i)=w_i$.
+
+\emph{Unicità.} Se $\psi:V\to W$ è lineare e
+$\psi(v_i)=w_i$ per ogni $i$, allora, per ogni
+$v=\sum_{i=1}^n\alpha_i v_i$,
+\[
+ \psi(v)=\sum_{i=1}^n\alpha_i\psi(v_i)
+ =\sum_{i=1}^n\alpha_i w_i=\phi(v).
+\]
+Pertanto $\psi=\phi$.
+\end{proof}
+
+\begin{prop}[Iniettività, suriettività e immagini di una base]
+Sia $\phi:V\to W$ lineare e sia
+$\mathcal B=(v_1,\ldots,v_n)$ una base di $V$. Allora:
+\begin{enumerate}[label=(\alph*)]
+\item $\phi$ è iniettiva se e solo se
+$\phi(v_1),\ldots,\phi(v_n)$ sono linearmente indipendenti;
+\item $\phi$ è suriettiva se e solo se
+$\phi(v_1),\ldots,\phi(v_n)$ generano $W$;
+\item $\phi$ è biiettiva se e solo se
+$(\phi(v_1),\ldots,\phi(v_n))$ è una base di $W$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\emph{(a)} Per ogni $\alpha_1,\ldots,\alpha_n\in\KK$,
+\[
+ \sum_{i=1}^n\alpha_i\phi(v_i)=0_W
+ \iff\phi\!\left(\sum_{i=1}^n\alpha_i v_i\right)=0_W
+ \iff\sum_{i=1}^n\alpha_i v_i\in\ker\phi.
+\]
+Se $\phi$ è iniettiva, il nucleo è $\{0_V\}$; l'indipendenza
+dei $v_i$ implica quindi che tutti i coefficienti siano nulli,
+ossia che le immagini sono indipendenti.
+Viceversa, se le immagini sono indipendenti e
+$v=\sum_i\alpha_i v_i\in\ker\phi$, l'uguaglianza
+$0_W=\sum_i\alpha_i\phi(v_i)$ forza
+$\alpha_1=\cdots=\alpha_n=0$, dunque $v=0_V$.
+Ne segue $\ker\phi=\{0_V\}$ e quindi l'iniettività.
+
+\emph{(b)} Dalla linearità e dal fatto che $V=\langle v_1,\ldots,v_n\rangle$,
+\[
+ \operatorname{Im}\phi
+ =\phi(V)=\langle\phi(v_1),\ldots,\phi(v_n)\rangle.
+\]
+Pertanto l'immagine coincide con $W$ esattamente quando i vettori
+indicati generano $W$.
+
+\emph{(c)} La biiettività equivale alla congiunzione di iniettività
+e suriettività; per i punti (a) e (b) equivale quindi a richiedere
+che le immagini formino una base di $W$.
+\end{proof}
+
+\begin{cor}[Dimensione e isomorfismi]
+Se $V$ e $W$ sono spazi vettoriali di dimensione finita, allora
+sono isomorfi se e solo se $\dim_{\KK}V=\dim_{\KK}W$.
+\end{cor}
+\begin{proof}
+Un isomorfismo porta ogni base di $V$ in una base di $W$;
+quindi le basi hanno lo stesso numero di elementi.
+Viceversa, se $\dim V=\dim W=n$, scegliamo basi
+$(v_1,\ldots,v_n)$ di $V$ e $(w_1,\ldots,w_n)$ di $W$.
+Il teorema precedente costruisce un'applicazione lineare
+$\phi$ tale che $\phi(v_i)=w_i$; per la proposizione essa è biiettiva.
+\end{proof}
+
+\subsection{Coordinate rispetto a una base e isomorfismo con $\KK^n$}
+
+Sia $\mathcal B=(v_1,\ldots,v_n)$ una base ordinata di $V$.
+L'applicazione delle coordinate è
+\[
+ \alpha_{\mathcal B}:V\longrightarrow\KK^n,\qquad
+ v=\sum_{i=1}^n a_i v_i\longmapsto
+ [v]_{\mathcal B}:=\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}.
+\]
+È ben definita per l'unicità dello sviluppo in una base e rispetta
+le combinazioni lineari:
+\[
+ \alpha_{\mathcal B}(\lambda v+\mu v')
+ =\lambda\alpha_{\mathcal B}(v)+\mu\alpha_{\mathcal B}(v').
+\]
+È inoltre biiettiva: ogni $n$-upla è l'immagine di una combinazione
+lineare dei $v_i$, e due vettori con le medesime coordinate coincidono.
+Dunque $\alpha_{\mathcal B}$ è un \emph{isomorfismo}; è un
+\emph{automorfismo} soltanto nel caso in cui dominio e codominio
+siano lo stesso spazio vettoriale, per esempio $V=\KK^n$.
+
+\subsection{Proiezioni e simmetrie rispetto a una somma diretta}
+
+Sia $V=U\oplus W$. Ogni $v\in V$ ammette una decomposizione
+\emph{unica} $v=u+w$, con $u\in U$ e $w\in W$.
+
+\begin{defn}[Proiezione e simmetria]
+La \emph{proiezione su $U$ nella direzione di $W$} è
+\[
+ \pi_U^W:V\longrightarrow V,\qquad u+w\longmapsto u.
+\]
+La \emph{simmetria di asse $U$ e direzione $W$} è
+\[
+ \sigma_U^W:V\longrightarrow V,\qquad u+w\longmapsto u-w.
+\]
+\end{defn}
+
+\begin{prop}[Proprietà della proiezione e della simmetria]
+Le applicazioni $\pi_U^W$ e $\sigma_U^W$ sono lineari. Inoltre
+\[
+ \ker\pi_U^W=W,\qquad \operatorname{Im}\pi_U^W=U,
+ \qquad (\pi_U^W)^2=\pi_U^W,
+\]
+e
+\[
+ (\sigma_U^W)^2=\operatorname{id}_V,\qquad
+ (\sigma_U^W)^{-1}=\sigma_U^W,\qquad
+ \sigma_U^W=2\pi_U^W-\operatorname{id}_V.
+\]
+In particolare $\sigma_U^W$ è un automorfismo.
+\end{prop}
+\begin{proof}
+Se $v_i=u_i+w_i$, con $u_i\in U$, $w_i\in W$,
+per $\alpha,\beta\in\KK$ la decomposizione in somma diretta è
+\[
+ \alpha v_1+\beta v_2
+ =(\alpha u_1+\beta u_2)+(\alpha w_1+\beta w_2).
+\]
+Applicando le due definizioni si ottengono
+\[
+ \pi_U^W(\alpha v_1+\beta v_2)
+ =\alpha u_1+\beta u_2,
+\]
+\[
+ \sigma_U^W(\alpha v_1+\beta v_2)
+ =\alpha(u_1-w_1)+\beta(u_2-w_2),
+\]
+che provano la linearità. Inoltre
+$\pi_U^W(u+w)=0_V\iff u=0_V\iff u+w\in W$,
+mentre $\pi_U^W(u)=u$ per ogni $u\in U$.
+L'idempotenza segue da $\pi_U^W(\pi_U^W(u+w))=\pi_U^W(u)=u$.
+Infine
+\[
+ \sigma_U^W(\sigma_U^W(u+w))
+ =\sigma_U^W(u-w)=u+w,
+\]
+e $2\pi_U^W(u+w)-(u+w)=2u-u-w=u-w$.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05,>=Stealth]
+ \draw[gray] (-0.6,0)--(4.5,0) node[right] {$U$};
+ \draw[gray] (-1.0,-1.375)--(1.3,1.7875) node[above] {$W$};
+ \coordinate (O) at (0,0);
+ \coordinate (P) at (2.6,0);
+ \coordinate (V) at (3.4,1.1);
+ \coordinate (S) at (1.8,-1.1);
+ \draw[->,thick] (O)--(P) node[below] {$u=\pi_U^W(v)$};
+ \draw[->,thick] (O)--(V) node[above right] {$v=u+w$};
+ \draw[->,thick] (O)--(S) node[below right] {$\sigma_U^W(v)=u-w$};
+ \draw[dashed] (P)--(V) node[midway,right] {$w$};
+ \draw[dashed] (P)--(S) node[midway,right] {$-w$};
+ \fill (O) circle (1.1pt) node[below left] {$0$};
+\end{tikzpicture}
+\caption{Proiezione e simmetria nella decomposizione $V=U\oplus W$.}
+\end{figure}
+
+\begin{esempio}[Proiezione su un piano di $\RR^3$]
+Siano
+\[
+ U=\left\{\begin{pmatrix}x\\y\\z\end{pmatrix}\in\RR^3:
+ 3x-2y+z=0\right\},\qquad
+ W=\langle w_0\rangle,\quad
+ w_0=\begin{pmatrix}1\\2\\2\end{pmatrix}.
+\]
+Poiché $\dim U=2$, $\dim W=1$ e
+$3\cdot1-2\cdot2+2=1\ne0$, si ha $U\cap W=\{0\}$,
+quindi $\RR^3=U\oplus W$.
+Per $v=(x_1,x_2,x_3)^t$ cerchiamo $\lambda\in\RR$ tale che
+$v-\lambda w_0\in U$. La condizione equivale a
+\begin{align*}
+ 0&=3(x_1-\lambda)-2(x_2-2\lambda)+(x_3-2\lambda)\\
+  &=3x_1-2x_2+x_3-\lambda,
+\end{align*}
+perciò $\lambda=3x_1-2x_2+x_3$. Ne segue
+\[
+ \pi_U^W(v)=v-\lambda w_0
+ =\begin{pmatrix}
+ -2x_1+2x_2-x_3\\
+ -6x_1+5x_2-2x_3\\
+ -6x_1+4x_2-x_3
+ \end{pmatrix}.
+\]
+Rispetto alla base canonica la matrice della proiezione è
+\[
+ P=\begin{pmatrix}
+ -2&2&-1\\-6&5&-2\\-6&4&-1
+ \end{pmatrix}.
+\]
+Si verifica che $P^2=P$, $Pw_0=0$ e che ogni vettore $Pv$
+soddisfa l'equazione $3x-2y+z=0$: dunque l'immagine è $U$
+e il nucleo è $W$. La simmetria associata ha matrice
+\[
+ S=2P-I_3=
+ \begin{pmatrix}-5&4&-2\\-12&9&-4\\-12&8&-3\end{pmatrix},
+ \qquad S^2=I_3.
+\]
+\end{esempio}
+
+\subsection{Matrice associata a un'applicazione lineare in basi fissate}
+
+Siano $\phi:V\to W$ lineare, $\mathcal B=(v_1,\ldots,v_n)$
+una base ordinata di $V$ e $\mathcal C=(w_1,\ldots,w_m)$
+una base ordinata di $W$. Scriviamo in modo unico
+\[
+ \phi(v_j)=\sum_{i=1}^m a_{ij}w_i,
+ \qquad j=1,\ldots,n.
+\]
+
+\begin{defn}[Matrice associata]
+La \emph{matrice di $\phi$ rispetto alle basi $\mathcal B$ e
+$\mathcal C$} è la matrice $A\in M_{m,n}(\KK)$ definita da
+\[
+ A=M_{\mathcal C\leftarrow\mathcal B}(\phi)
+ :=\begin{pmatrix}
+ a_{11}&\cdots&a_{1n}\\
+ \vdots&&\vdots\\
+ a_{m1}&\cdots&a_{mn}
+ \end{pmatrix}.
+\]
+La colonna $j$-esima di $A$ è il vettore delle coordinate
+$[\phi(v_j)]_{\mathcal C}$.
+\end{defn}
+
+\begin{prop}[Calcolo delle coordinate dell'immagine]
+Se $v\in V$, $x=[v]_{\mathcal B}\in\KK^n$ e
+$y=[\phi(v)]_{\mathcal C}\in\KK^m$, allora
+\[
+ y=Ax,
+ \qquad\text{ossia}\qquad
+ [\phi(v)]_{\mathcal C}
+ =M_{\mathcal C\leftarrow\mathcal B}(\phi)[v]_{\mathcal B}.
+\]
+\end{prop}
+\begin{proof}
+Scrivendo $v=\sum_{j=1}^n x_jv_j$ e applicando $\phi$,
+\begin{align*}
+ \phi(v)
+ &=\sum_{j=1}^n x_j\phi(v_j)
+ =\sum_{j=1}^n x_j\sum_{i=1}^m a_{ij}w_i\\
+ &=\sum_{i=1}^m\left(\sum_{j=1}^n a_{ij}x_j\right)w_i.
+\end{align*}
+Per unicità delle coordinate rispetto a $\mathcal C$,
+$y_i=\sum_{j=1}^n a_{ij}x_j$, cioè $y=Ax$.
+\end{proof}
+
+\begin{oss}
+Se $V=\KK^n$ e $W=\KK^m$ con le rispettive basi canoniche,
+la matrice associata a $f_A:x\mapsto Ax$ è proprio $A$.
+Per basi arbitrarie, lo stesso procedimento si riassume nella
+composizione di applicazioni lineari
+\[
+ \KK^n\xrightarrow{\alpha_{\mathcal B}^{-1}}V
+ \xrightarrow{\phi}W\xrightarrow{\alpha_{\mathcal C}}\KK^m,
+\]
+che coincide con $f_A$. In particolare
+$\operatorname{rk}\phi=\operatorname{rg}(A)$, perché le
+applicazioni delle coordinate sono isomorfismi.
+\end{oss}
+
+\end{document}
